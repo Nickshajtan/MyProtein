@@ -1,0 +1,20 @@
+/** Styles for instructions admin page **/
+.form-table th{padding: 0 10px;}
+.form-table tr{display: flex; flex-wrap: wrap;align-items: flex-start;justify-content: flex-start;}
+.form-table{width: 100%;max-width: 100%;}
+.form-table .file-links{display: flex;justify-content: flex-start;align-items: flex-start;}
+.form-table .file-links li a{display: flex;justify-content: space-between;align-items: center;}
+.form-table .file-links li{margin: 0 10px;}
+.form-table .file-links li:first-child{margin-left: 0;}
+.form-table .file-links li:last-child{margin-right: 0;}
+.form-table h2{margin: 0;}
+.form-table .file-column{width: 25%;}
+.form-table .file-column *{word-break: break-all;}
+.form-table .file-column .description{min-height: 45px;}
+.form-table td:not(.files-none){vertical-align: top;display: block;}
+@media screen and (max-width:1200px){
+  .form-table .file-column{width: 50%;}
+}
+@media screen and (max-width:900px){
+  .form-table .file-column{width: 100%;}
+}

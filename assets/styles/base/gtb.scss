@@ -1,0 +1,24 @@
+/* Main column width */
+.wp-block {
+	max-width: 100%;
+}
+
+.block-editor-block-list__layout .block-editor-block-list__block:not(.is-selected)>.block-editor-block-list__block-edit:before{
+	outline: 1px solid rgba(gray,.2);
+}
+
+div[data-block] div[class*='preview']{
+	@import 'base-theme-styles.min.css';
+	@import 'less-header-theme-styles.min.css';
+	@import 'less-other-theme-styles.min.css';
+	@import 'less-vendor-styles.min.css';
+    @import 'sass-header-theme-styles.min.css';
+	@import 'sass-other-theme-styles.min.css';
+	@import 'sass-vendor-styles.min.css';
+    @import 'scss-header-theme-styles.min.css';
+	@import 'scss-other-theme-styles.min.css';
+	@import 'scss-vendor-styles.min.css';
+    @import 'stylus-header-theme-styles.min.css';
+	@import 'stylus-other-theme-styles.min.css';
+	@import 'stylus-vendor-styles.min.css';
+}

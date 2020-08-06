@@ -1,0 +1,1 @@
+{"version":3,"sources":["assets/styles/scss/theme/theme-parts/single.scss"],"names":[],"mappings":"AAAA,KACI,gBAAiB","file":"single.min.css","sourcesContent":["body{\r\n    background: green;\r\n}"]}

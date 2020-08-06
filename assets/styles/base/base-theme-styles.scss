@@ -1,0 +1,10 @@
+/*-- Base Theme Styles Kit --*/
+
+@import '_components/vars';
+@import '_mixins/mixins';
+
+@import '_components/normalize';//normalizing styles
+@import '_components/global';
+@import '_kit/kit'; //custom CSS KIT
+@import '_components/custom'; //custom styles for kit
+@import '_components/wp-classes';//wp styles
