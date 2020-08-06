@@ -79,6 +79,10 @@ if(!function_exists('wp_get_current_user')) {
   include(ABSPATH . "wp-includes/pluggable.php"); 
 }
 
+/* -- include classes --*/
+require_once('includes/classes/Aq_Resize.class.php');
+require_once('includes/classes/HCC_Nav_Walker.class.php');
+
 /* -- defines -- */
 get_template_part('includes/vars');
 
@@ -86,8 +90,8 @@ get_template_part('includes/vars');
 
 get_template_part('includes/register/register_scripts');
 get_template_part('includes/register/register_menus');
-get_template_part('includes/register/menu_walker');
 get_template_part('includes/register/register_widgets');
+get_template_part('includes/register/register_shortcodes');
 get_template_part('includes/register/register_post_types');
 get_template_part('includes/register/register_taxonomies');
 get_template_part('includes/register/register_image_sizes');
@@ -106,27 +110,32 @@ get_template_part('includes/config/instructions_page');
 get_template_part('includes/config/admin/general-edits');
 get_template_part('includes/config/admin/theme-options');
 
+/* -- theme core -- */
+
+get_template_part('includes/core/menu_metaboxes'); 
+get_template_part('includes/core/theme_metaboxes'); 
+get_template_part('includes/core/theme_helpers');
+get_template_part('includes/core/theme_ajax');
+
+if ( !is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
+    get_template_part('includes/core/contact_form');
+}
+
 /* -- helpers -- */
 
-get_template_part('includes/helpers/acf_helpers');
+get_template_part('includes/helpers/acf/acf_helpers', 'core');
+get_template_part('includes/helpers/acf/acf_helpers', 'visual');
+get_template_part('includes/helpers/acf/acf_helpers', 'templates');
+get_template_part('includes/helpers/acf/acf_helpers', 'gutenberg');
+get_template_part('includes/helpers/acf/acf_helpers', 'gutenberg_blocks');
 get_template_part('includes/helpers/aq_resizer');
 get_template_part('includes/helpers/gutenberg/gutenberg'); 
 get_template_part('includes/helpers/users_helpers');
-get_template_part('includes/helpers/theme_helpers');
-get_template_part('includes/helpers/theme_ajax');
+get_template_part('includes/helpers/rest_helpers');
 
 if ( is_plugin_active( 'custom-post-type-ui/custom-post-type-ui.php' ) ) {
    get_template_part('includes/helpers/cpt_data/cptui-sync.php');
 }
-
-if ( !is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
-    get_template_part('includes/helpers/contact_form');
-}
-
-get_template_part('includes/helpers/theme_metaboxes'); 
-get_template_part('includes/helpers/menu_metaboxes'); 
-//get_template_part('includes/helpers/instagram'); 
-get_template_part('includes/helpers/theme_customizer'); 
 
 if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
     get_template_part('includes/helpers/yoast_helpers'); 
@@ -140,11 +149,11 @@ if( is_plugin_active( 'polylang/polylang.php' ) || is_plugin_active( 'loco-trans
     get_template_part('includes/helpers/langs_helpers');
 }
 
+get_template_part('includes/helpers/visual/theme_customizer'); 
+
 /* -- Include GTM -- */
 require 'includes/gtm/class-tgm-plugin-activation.php';
 require 'includes/gtm/plugins.php'; !
     
 //Find BOM
 require_once('includes/find_bom.php');
-
-

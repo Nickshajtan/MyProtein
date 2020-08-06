@@ -1,7 +1,7 @@
 # HCC Wordpress package
-version 1.0.0 alpha
+version 1.0.5 alpha
 
 ### description
 
 My special custom dynamic template for Wordpress development.
-Fotozone custom user website
+MyProtein custom user website
