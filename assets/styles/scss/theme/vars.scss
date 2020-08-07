@@ -1,27 +1,17 @@
 /** Colors **/
 $transparent:       transparent;
-$dark:              #0b0909;
+$dark:              #1B1B1B;
 $light:             #ddd;
 $black:             #000;
 $white:             #fff;
 $orange:            #ff8108;
-$yellow:            #ffcc15;
-
-$first-light-color:  #000;
-$second-light-color: #fff;
-$third-light-color:  #ffcc15;
-$light-helper-color: #ff8108;
-
-$first-dark-color:   #eee;
-$second-dark-color:  #fff;
-$third-dark-color:   #ff8108;
-$dark-helper-color:  #ffcc15;
+$helper-color:      #00AFAF;
 
 /** Sizes **/
 $oversize: 3rem;
 $big: 2.2rem;
-$middle: 1.5rem;
-$middler: 1.3rem;
+$middle: 35px;
+$middler: 24px;
 $regular: 1rem;
 
 /** Font weight **/
@@ -35,11 +25,11 @@ $weight-bold: bold;
 /** Line-heights **/
 $line-normal: 1;
 $line-middler: 1.2;
-$line-middle:  1.3;
+$line-middle:  43px;
 $line-larger:  1.5;
 
 /** Font-family **/
-$main-font:      'MuseoSansCyrl', sans-serif;
-$secondary-font: 'ft40', sans-serif;
+$main-font:      'Montserrat', sans-serif;
+$secondary-font: '', sans-serif;
 $cursive: 'Qwigley';
 $helper-font: 'Calama Regular';

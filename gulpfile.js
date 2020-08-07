@@ -28,7 +28,7 @@ var gulp           = require('gulp'),
     imageminSvgo    = require('imagemin-svgo'),
     svgmin          = require('gulp-svgmin'),
     svgsprite       = require('gulp-svg-sprite'),
-    spritesmith     = require('gulp.spritesmith'),;
+    spritesmith     = require('gulp.spritesmith');
 
 var gulpLoadPlugins = require('gulp-load-plugins');
 
@@ -83,10 +83,10 @@ var notifyOptions = {
 };
 
 function browserSync(done) {
-	browsersync.create().init({
+	browsersync.init({
         //Domain name or main directory ( choose server or proxy )
         //server: "passagency",  //server + /sync-options = settings 
-        proxy: "avto.com", //proxy + /sync-options = settings; OSpanel domain name
+        proxy: "protein.local", //proxy + /sync-options = settings; OSpanel domain name
         notify: false,
         port: 3000,
         open: true,

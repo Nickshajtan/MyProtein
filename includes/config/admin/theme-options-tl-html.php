@@ -6,7 +6,7 @@
 					<?php $browsersync = get_option('hcc-theme-tl-reload'); ?>
 					<p><label>
                         <input name="hcc-theme-tl-reload" type="checkbox" value="1" <?php checked( '1', $browsersync ); ?>/>
-					    <?php echo __('Disable', 'hcc'); ?>
+					    <?php echo __('Enable', 'hcc'); ?>
 				    </label></p> 
 				</td>
 			</tr>
@@ -34,4 +34,26 @@
 			  </td>
 			</tr>
 			<?php endif; ?>
+			<tr>
+			  <th><?php echo __('Use GZIP/ZLIB', 'hcc'); ?></th>
+			  <td>
+			    <p class="description"><?php echo __('Enable PHP ZLIB compression', 'hcc'); ?></p>
+			    <?php $zlib = get_option('hcc-theme-tl-zlib'); ?>
+			    <p><label>
+                        <input name="hcc-theme-tl-zlib" type="checkbox" value="1" <?php checked( '1', $zlib ); ?>/>
+					    <?php echo __('Enable', 'hcc'); ?>
+				 </label></p> 
+			  </td>
+			</tr>
+			<tr>
+              <th></th>
+			  <td>
+			    <p class="description"><?php echo __('Enable PHP GZIP compression', 'hcc'); ?></p>
+			    <?php $gzip = get_option('hcc-theme-tl-gzip'); ?>
+			    <p><label>
+                        <input name="hcc-theme-tl-gzip" type="checkbox" value="1" <?php checked( '1', $gzip ); ?>/>
+					    <?php echo __('Enable', 'hcc'); ?>
+				 </label></p> 
+			  </td>
+			</tr>
     </table>

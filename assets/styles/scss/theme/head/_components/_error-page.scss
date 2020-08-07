@@ -1,0 +1,21 @@
+.error-page {
+  min-height: calc(100vh - 375px);
+
+  &__section {
+    padding: 60px 0;
+    width: 100%;
+    
+    @media screen and ( min-width: 1000px ) {
+      padding: 102px 0 175px 0;
+    }
+    
+    &__content {
+      &,
+      * {
+        padding: 0 45px;
+        
+        @include font-source-sans( $middle, $white, normal, $line-middle, $main-font);
+      }
+    }
+  }
+}

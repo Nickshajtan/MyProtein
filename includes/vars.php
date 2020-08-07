@@ -47,7 +47,7 @@ if( !defined( 'COPYRIGHT' ) ){
     define( 'COPYRIGHT', str_ireplace( "%year%", date('Y', time()), get_field('copyright', 'options') ) );
 }
 
-$acf_logo = get_field('site_logo', 'options');
+$acf_logo = get_field('site_logo', 'options')['ID'];
 if( !empty( $acf_logo ) && !defined( 'SITE_LOGO' ) ){
     define( 'SITE_LOGO', wp_get_attachment_image( $acf_logo, array(220, 100), false, array( 'class'    => 'custom-logo', 'itemprop' => 'logo', ) ) );
 }

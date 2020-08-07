@@ -73,6 +73,9 @@ function hcc_theme_options() {
     register_setting( 'hcc-tl-theme-options', 'hcc-theme-tl-reload' );
     register_setting( 'hcc-tl-theme-options', 'hcc-theme-tl-libs-off' );
     register_setting( 'hcc-tl-theme-options', 'hcc-theme-tl-libs-syntax' );
+  
+    register_setting( 'hcc-tl-theme-options', 'hcc-theme-tl-zlib' );
+    register_setting( 'hcc-tl-theme-options', 'hcc-theme-tl-gzip' );
     
     // admin pages settings
     add_settings_section('hcc-admin-settings-theme',  __('Admin panel', 'hcc'), 'hcc_admin_options_fields', '');

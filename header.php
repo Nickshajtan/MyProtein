@@ -8,25 +8,15 @@
  *
  * @package hcc
  */
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly 
+
 /*
- * Check ZLIB & set ZLIB
+ * PHP compression
  *
  */
-$zlib = ini_get('zlib.output_compression');
-if( isset( $zlib ) && $zlib !== 'On' && ini_get('zlib.output_compression_level') !== '1' ) :
-    ini_set('zlib.output_compression', 'On');
-    ini_set('zlib.output_compression_level', '1');
-endif; 
-/*
- * Check ZLIB and set GZIP
- *
- */
-if( isset( $zlib ) && $zlib !== 'On' && ini_get('zlib.output_compression_level') !== '1' ) :
-	if ( substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') ) :
-		ob_start('ob_gzhandler'); 
-	endif;
+if( get_option('hcc-theme-tl-gzip') || get_option('hcc-theme-tl-zlib') ) :
+  get_template_part('compression');
 endif;
+
 /*
  * Check ACF including 
  *
@@ -84,6 +74,7 @@ endif; ?>
     <?php endif; ?>
     <!--    End Windows   -->
 	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 	<?php wp_head(); ?>
 </head>
 

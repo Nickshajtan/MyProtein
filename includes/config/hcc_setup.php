@@ -233,7 +233,7 @@ function hcc_default_thumbnail( $post_id ){
         if ( empty( $post_thumbnail ) ) {
              
              $path     = ( defined( THEME_URI ) ) ? THEME_URI . '/assets/' : get_template_directory_uri() . '/assets/';
-             $filename = $path . 'wp-header-logo.png';
+             $filename = wp_normalize_path( $path . 'wp-header-logo.png' );
              
              if( file_exists($filename) && filesize($filename) > 0 ){
                $url = $filename;
@@ -241,7 +241,7 @@ function hcc_default_thumbnail( $post_id ){
              else {
                $default =  wp_get_attachment_image(2533);
                if( empty( $default ) ){
-                   $url = 'http://s.w.org/style/images/wp-header-logo.png';
+                   $url = wp_normalize_path( 'http://s.w.org/style/images/wp-header-logo.png' );
                }
                else {
                    set_post_thumbnail( $post_id, 2533 );

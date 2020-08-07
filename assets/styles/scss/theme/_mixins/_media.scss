@@ -1,7 +1,11 @@
 //Media
 $breakpoints: (
   //Your points, for example
-  "phone": 400px,
+  "mobile":       767px,
+  "phone":        768px,
+  "tablet":       900px,
+  "extra-tablet": 1024px,
+  "laptop":       1366px,
 );
 
 @mixin mq($width, $type: min) {

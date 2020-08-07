@@ -8,116 +8,144 @@
  *
  * @package hcc
  */
+$logo_xl_class = ( function_exists( 'hcc_the_custom_logo' ) ) ? 'col-xl-2' : 'd-xl-none';
+$nav_xl_class  = ( has_nav_menu('footer') )                   ? 'col-xl-8' : 'd-xl-none';
+$soc_xl_class  = ( function_exists( 'get_field' ) && get_field('socials', 'options') ) ? 'col-xl-2' : 'd-xl-none';
+
+
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  ?>
                 </main>
             </div><!-- #content -->
             
             <footer id="colophon" class="site-footer">
-                <div class="container">
-                    <div class="row footer-top">
-                        <div class="col-12 col-md-6 col-lg-4 order-lg-1 order-1">
-                            <?php if( function_exists( 'hcc_the_custom_logo' ) ) : 
-                                hcc_the_custom_logo(); 
-                            endif; ?>
-                            <?php if( function_exists( 'get_field' ) ) :
+              
+                <div class="site-footer__top">
+                  <div class="container-fluid site-container">
+                    <div class="row d-flex align-items-center">
+                        <?php if( function_exists( 'hcc_the_custom_logo' ) ) : ?>
+                        <div class="col-12 col-md-6 col-lg-3 col-xl-2 order-lg-1 order-1 order-md-1 order-lg-1 site-footer__footer-block">
+                            <?php hcc_the_custom_logo(); ?>
+                        </div>
+                        <?php endif;
+                        if( has_nav_menu('footer') ) : ?>
+                        <nav id="footer-navigation" class="footer-navigation col-12 col-md-12 col-lg-9 col-xl-8 order-2 order-md-3 order-lg-2 site-footer__footer-block">
+                            <?php wp_nav_menu( array(
+                                'theme_location'	=> 'footer',
+                                'menu_id'			=> 'primary-menu',
+                                'container'		    => '',
+                                'walker'            => new HCC_Nav_Walker(),
+                            ) ); ?>
+                        </nav>
+                        <?php endif;
+                        if( function_exists( 'get_field' ) ) :
                                 $socials = get_field('socials', 'options'); 
                                 if( $socials ) : ?>
-                                   <div class="socials text-left w-100">
-                                    <?php foreach( $socials as $social ) : 
-                                        $image = $social['icon'];
-                                        $href  = esc_url( wp_kses_post( trim( $social['link'] ) ) );
-                                        if( !empty( $image ) ) : ?>
-                                            <a href="<?php echo ( !empty( $href )  ) ? $href : '#'; ?>" target="_blank">
-                                                <img src="<?php echo esc_url( aq_resize( $image['url'], 34, 34, true, true, true) ); ?>" title="<?php echo esc_attr( $image['title'] ) ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>" >
-                                            </a>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                    </div>
-                                <?php endif;
-                            endif; ?>
-                        </div>
-                        <div class="col-12 col-lg-4 d-flex align-items-center justify-content-center order-lg-2 order-3">
-                            <a href="#masthead" class="arrow to-top"></a>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4 order-lg-3 order-2">
-                            <?php if( function_exists( 'get_field' ) ) :
-                            
-                                $phones = get_field('phone_nums', 'options'); 
-                                if( $phones ) : ?>
-                                   <div class="w-100 text-right phones">
-                                    <?php foreach( $phones as $phone ) : ?>
-                                        <?php $tel = sanitize_text_field( trim( $phone['phone_num'] ) );
-                                        $href = preg_replace( '~[^0-9]+~', '', $tel ); 
-                                        if( !empty( $tel ) ) : ?>
-                                            <a href="tel:+38<?php echo $href; ?>" class="d-flex align-items-end justify-content-end ml-auto">
-                                                <span class="icon"></span><span class="body">+38 <?php echo $tel; ?></span>
-                                            </a>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                    </div>
-                                <?php endif;
-                            
-                                $emails = get_field('emails', 'options'); 
-                                if( $emails ) : ?>
-                                    <div class="w-100 text-right emails">
-                                    <?php foreach( $emails as $email ) : ?>
-                                        <?php $email = wp_kses_post( trim( $email['email'] ) ); 
-                                        if( !empty( $email ) ) : ?>
-                                            <a href="mailto:<?php echo $email; ?>" class="d-flex align-items-end justify-content-end ml-auto">
-                                                <span class="icon"></span><span class="body"><?php echo $email; ?></span>
-                                            </a>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                    </div>
-                                <?php endif;
-            
-                                $addresses = get_field('addresses', 'options'); 
-                                if( $addresses ) : ?>
-                                    <div class="w-100 text-right addresses">
-                                    <?php foreach( $addresses as $adres ) : ?>
-                                        <?php $adress = wp_kses_post( trim( $adres['adress'] ) );
-                                        $href = esc_url( wp_kses_post( trim( $adres['g_href'] ) ) ); 
-                                        if( !empty( $adress ) ) : ?>
-                                            <a href="<?php echo ( !empty( $href )  ) ? $href : '#'; ?>" target="_blank" rel="nofollow" class="d-flex align-items-end justify-content-end ml-auto">
-                                                <span class="icon"></span><span class="body"><?php echo $adress; ?></span>
-                                            </a>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                    </div>
-                                <?php endif; ?>
-                           <?php endif; ?>
-                        </div>
+                                <div class="col-12 col-md-6 col-lg-12 col-xl-2 order-3 order-md-2 order-lg-3 site-footer__footer-block">
+                                           <div class="socials w-100">
+                                            <?php foreach( $socials as $social ) : 
+                                                $image = $social['icon'];
+                                                $href  = esc_url( wp_kses_post( trim( $social['link'] ) ) );
+                                                if( !empty( $image ) ) : ?>
+                                                    <a href="<?php echo ( !empty( $href )  ) ? $href : '#'; ?>" target="_blank">
+                                                        <img src="<?php echo esc_url( $image['url'] ); ?>" title="<?php echo esc_attr( $image['title'] ) ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>" >
+                                                    </a>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                            </div>
+                                </div>
+                        <?php endif;
+                        endif; ?>
                     </div>
-                    <div class="row footer-bottom">
-                        <div class="col-12 col-md-6 d-flex justify-content-start align-items-center text-white">
-                            <a href="<?php echo get_privacy_policy_url(); ?>" class="" rel="nofollow">
-                                <?php if( !empty( COPYRIGHT ) ) : echo COPYRIGHT; endif; ?>
-                            </a>
-                        </div>
-                        <div class="col-12 col-md-6 d-flex justify-content-end align-items-center text-white">Created by HCC</div>
-                    </div>
+                  </div>
                 </div>
+                
+                <?php if( function_exists( 'get_field' ) ) : 
+                      $phones    = get_field('phone_nums', 'options');
+                      $emails    = get_field('emails', 'options'); 
+                      $addresses = get_field('addresses', 'options'); 
+                      
+                      if( $phones || $emails || $addresses ) : 
+                ?>
+                      <div class="site-footer__middle">
+                        <div class="container-fluid site-container">
+                          <div class="row d-flex align-items-center">
+                           <?php if( $phones ) : ?>
+                              <div class="col-12 col-md-6  col-lg-4 order-1 site-footer__footer-block">
+                                  <div class="w-100 phones">
+                                          <?php foreach( $phones as $phone ) : ?>
+                                              <?php $tel = sanitize_text_field( trim( $phone['phone_num'] ) );
+                                              $href = preg_replace( '~[^0-9]+~', '', $tel ); 
+                                              if( !empty( $tel ) ) : ?>
+                                                  <a href="tel:<?php echo $href; ?>" class="d-flex align-items-end justify-content-end ml-auto link_el">
+                                                      <span class="icon"></span><span class="body"><?php echo $tel; ?></span>
+                                                  </a>
+                                              <?php endif; ?>
+                                          <?php endforeach; ?>
+                                  </div>
+                              </div>
+                            <?php endif;
+                            if( $emails ) : ?>
+                            <div class="col-12 col-md-6  col-lg-4 order-2 site-footer__footer-block">
+                                <div class="w-100 emails">
+                                          <?php foreach( $emails as $email ) : ?>
+                                              <?php $email = wp_kses_post( trim( $email['email'] ) ); 
+                                              if( !empty( $email ) ) : ?>
+                                                  <a href="mailto:<?php echo $email; ?>" class="d-flex align-items-end justify-content-end ml-auto link_el">
+                                                      <span class="icon"></span><span class="body"><?php echo $email; ?></span>
+                                                  </a>
+                                              <?php endif; ?>
+                                          <?php endforeach; ?>
+                                </div> 
+                            </div>
+                            <?php endif;
+                            if( $addresses ) : ?>
+                              <div class="col-12 col-md-12 col-lg-4 order-3 site-footer__footer-block">
+                                        <div class="w-100 addresses">
+                                            <?php foreach( $addresses as $adres ) : ?>
+                                                <?php $adress = wp_kses_post( trim( $adres['adress'] ) );
+                                                $href = esc_url( wp_kses_post( trim( $adres['g_href'] ) ) ); 
+                                                if( !empty( $adress ) ) : ?>
+                                                    <a href="<?php echo ( !empty( $href )  ) ? $href : '#'; ?>" target="_blank" rel="nofollow" class="d-flex align-items-end justify-content-end ml-auto">
+                                                        <span class="icon"></span><span class="body"><?php echo $adress; ?></span>
+                                                    </a>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                              </div>
+                            <?php endif; ?>
+                          </div>
+                        </div>
+                      </div>
+                      <?php endif; ?>
+                <?php endif; ?>
+                
+                <div class="site-footer__bottom">
+                  <div class="container-fluid site-container">
+                    <div class="row d-flex justify-content-center">
+                        <a href="<?php echo get_privacy_policy_url(); ?>" class="link_el" rel="nofollow">
+                                <?php if( !empty( COPYRIGHT ) ) : echo COPYRIGHT; endif; ?>
+                        </a>
+                        <?php if( false ) : ?>
+                            <div class="col-12 col-md-6 d-flex justify-content-end align-items-center text-white">Created by HCC</div>
+                        <?php endif; ?>
+                    </div>
+                  </div>  
+                </div>
+                
             </footer><!-- #colophon -->
         </div><!-- #page -->
 
         <!-- include modal form -->
-        <?php get_template_part('template-parts/modal', 'custom'); ?>
+        <?php //get_template_part('template-parts/modal', 'custom'); ?>
         <!-- include custom widgets -->
-        <?php get_template_part('template-parts/widgets', 'fixed'); ?>
+        <?php //get_template_part('template-parts/widgets', 'fixed'); ?>
+        <!-- include site loader -->
+        <?php //get_template_part('template-parts/site', 'loader'); ?>
         
         <div class="overlay"></div>
-        <div id="cube-loader" class="loaderArea">
-            <div class="caption">
-              <div class="cube-loader loader">
-                <div class="cube loader-1"></div>
-                <div class="cube loader-2"></div>
-                <div class="cube loader-4"></div>
-                <div class="cube loader-3"></div>
-              </div>
-            </div>
-        </div>
         <?php wp_footer(); ?>
+        
         <?php $browsersync = get_option('hcc-theme-tl-reload'); 
         if( $browsersync === true ) : ?>
             <script id="__bs_script__">//<![CDATA[
