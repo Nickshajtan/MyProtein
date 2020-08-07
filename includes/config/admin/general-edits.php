@@ -268,11 +268,13 @@ function hcc_add_page_notice_err() {
  * Add menu message
  *
  */
-add_filter('admin_print_scripts-nav-menus.php', 'hcc_add_nav_message', 10, 2);
+if( class_exists('HCC_Nav_Walker') ) {
+    add_filter('admin_print_scripts-nav-menus.php', 'hcc_add_nav_message', 10, 2);
+}
 function hcc_add_nav_message(){
         wp_register_script( 'admin-nav-js', THEME_URI . '/includes/config/admin/assets/js/nav-message.min.js', array('jquery'), '', true );
         wp_localize_script( 'admin-nav-js', 'hcc_nav_params', array(
-		    'message' =>  __('Если Вы хотите добавить ссылку на существующий элемент страницы используйте #ID, ID - уникальный идентификатор Вашего элемента. Используйте конструкции вида %home% или %page_name% в начале строки, чтобы указать страницу элемента.', 'hcc'),
+		    'message' =>  __('If you want to add a link to an existing page element use #ID, ID - a unique identifier for your item. Use constructs like %home% or %page_name% at the beginning of the line to indicate the page of the element. This option using HCC_Nav_Walker class', 'hcc'),
         ) );
         wp_enqueue_script( 'admin-nav-js' );
 }

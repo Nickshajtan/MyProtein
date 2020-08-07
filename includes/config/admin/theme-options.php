@@ -35,14 +35,17 @@ function hcc_theme_options() {
 	register_setting( 'hcc-wp-theme-options', 'hcc-theme-wp-cleanup');
 	// wordpress disable blogging
 	register_setting( 'hcc-wp-theme-options', 'hcc-theme-wp-blog-dn');
+    // wordpress customizing
+	register_setting( 'hcc-wp-theme-options', 'hcc-theme-wp-customizing');
     
     add_settings_section('hcc-wp-settings-theme', 'WordPress' . __(' settings', 'hcc'), 'hcc_wp_options_fields', '');
-    
     
 	// gutenberg by post type
 	register_setting( 'hcc-gtb-theme-options', 'hcc-theme-gtb-pt');
 	// gutenberg by template file
 	register_setting( 'hcc-gtb-theme-options', 'hcc-theme-gtb-tmpl');
+    // remove standart widgets 
+    register_setting( 'hcc-gtb-theme-options', 'hcc-theme-gtb-wdgts');
 	
     add_settings_section('hcc-gtb-settings-theme', 'Gutenberg' . __(' settings', 'hcc'), 'hcc_gtb_options_fields', '');
     
@@ -54,19 +57,25 @@ function hcc_theme_options() {
 	register_setting( 'hcc-cf-theme-options', 'hcc-theme-cf-email');
     // contact form saving in panel
 	register_setting( 'hcc-cf-theme-options', 'hcc-theme-cf-panel-save');
-    
-    add_settings_section('hcc-cf-settings-theme',  __('Contact form settings', 'hcc'), 'hcc_cf_options_fields', '');
+    // CF7 compability
+    register_setting( 'hcc-cf-theme-options', 'hcc-theme-cf-cf7-true');
     
     // modal form
+    add_settings_section('hcc-cf-settings-theme',  __('Contact form settings', 'hcc'), 'hcc_cf_options_fields', '');
     register_setting( 'hcc-cf-theme-options', 'hcc-theme-cf-modal');
+  
     // modal form title
+    add_settings_section('hcc-mf-settings-theme',  __('Modal form settings', 'hcc'), 'hcc_mf_options_fields', '');
     register_setting( 'hcc-cf-theme-options', 'hcc-theme-cf-modal-title');
   
     // tools
     add_settings_section('hcc-tl-settings-theme',  __('Tools settings', 'hcc'), 'hcc_tl_options_fields', '');
     register_setting( 'hcc-tl-theme-options', 'hcc-theme-tl-reload' );
     
-    add_settings_section('hcc-mf-settings-theme',  __('Modal form settings', 'hcc'), 'hcc_mf_options_fields', '');
+    // admin pages settings
+    add_settings_section('hcc-admin-settings-theme',  __('Admin panel', 'hcc'), 'hcc_admin_options_fields', '');
+    register_setting( 'hcc-admin-theme-options', 'hcc-theme-admin-instructions' );
+    
 }
 
 function hcc_wp_options_fields(){}
@@ -74,6 +83,7 @@ function hcc_gtb_options_fields(){}
 function hcc_cf_options_fields(){}
 function hcc_mf_options_fields(){}
 function hcc_tl_options_fields(){}
+function hcc_admin_options_fields(){}
 
 
 /*
@@ -81,7 +91,13 @@ function hcc_tl_options_fields(){}
  * 
  */
 function hcc_admin_tabs( $active_tab = 'wordpress' ) {
-    $tabs = array( 'wordpress' => 'WordPress', 'gutenberg' => 'Gutenberg', 'contact-form' =>  __('Contact form', 'hcc'), 'tools' =>  __('Tools', 'hcc') );
+    $tabs = array( 
+      'wordpress'    => 'WordPress', 
+      'gutenberg'    => 'Gutenberg', 
+      'contact-form' =>  __('Contact form', 'hcc'), 
+      'tools'        =>  __('Tools', 'hcc'), 
+      'admin-panel'  =>  __('Admin panel', 'hcc'), 
+    );
     echo '<h1>'.__('Theme Options', 'hcc').'</h1>
         <h2 class="nav-tab-wrapper">';
         foreach( $tabs as $tab => $name ){
@@ -119,6 +135,11 @@ function hcc_theme_options_page() {
                             settings_fields( 'hcc-tl-theme-options' );
                             do_settings_sections( 'hcc-tl-settings-theme' );
                             get_template_part('includes/config/admin/theme-options-tl-html');
+                            break;
+                    case 'admin-panel' :
+                            settings_fields( 'hcc-admin-theme-options' );
+                            do_settings_sections( 'hcc-admin-settings-themee' );
+                            get_template_part('includes/config/admin/theme-options-admin-html');
                             break;
                 }
 

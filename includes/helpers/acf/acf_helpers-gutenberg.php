@@ -4,7 +4,7 @@
  *
  */
 
-$hcc_remove_gtn_widgets = true;
+$hcc_remove_gtn_widgets = get_option('hcc-theme-gtb-wdgts');
 if( $hcc_remove_gtn_widgets === true ) {
   add_filter( 'block_categories', 'hcc_acf_block_categories', 10, 2 );
   add_filter( 'allowed_block_types', 'hcc_allowed_block_types', 10, 3  );

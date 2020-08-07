@@ -78,4 +78,16 @@
 						?> 
 					</td>
 				</tr>
+				<!-- remove guttenberg widgets -->
+				<tr valign="top">
+					<th><?php echo __('Widget groups', 'hcc'); ?></th>
+					<td>
+						<p class="description"><?php echo __('Remove standart Gutenberg widgets group.', 'hcc'); ?></p>
+                        <?php $gtb_widgets = get_option('hcc-theme-gtb-wdgts'); ?>
+                        <p><label>
+                            <input name="hcc-theme-gtb-wdgts" type="checkbox" value="1" <?php checked( '1', $gtb_widgets ); ?>/>
+                            <?php echo __('Remove', 'hcc'); ?>
+                        </label></p> 
+                    </td>
+                </tr>
 			</table>

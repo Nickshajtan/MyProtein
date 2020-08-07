@@ -3,7 +3,11 @@
  * Add page with instructions files for admins & moderators
  *
  */
-add_action('admin_menu', 'hcc_theme_instructions');
+$instructions_page = get_option('hcc-theme-admin-instructions');
+if( $instructions_page ) {
+    add_action('admin_menu', 'hcc_theme_instructions');
+}
+
 function hcc_theme_instructions(){
     add_menu_page( __('Theme Instructions', 'hcc'), __('Instructions', 'hcc'), 'edit_pages', 'hcc-instructions', 'hcc_instructions_page', 'dashicons-welcome-learn-more', 100);
     function hcc_instructions_page(){

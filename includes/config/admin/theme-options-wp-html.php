@@ -35,4 +35,18 @@
 					</ul>
 				</td>
 			</tr>
+			<tr>
+			  <th><?php echo __('WordPress customizing', 'hcc'); ?></th>
+			  <td>
+			    <p class="description"><?php echo __('Use wordpress core customizing options.', 'hcc'); ?></p>
+			    <?php $customizing = get_option('hcc-theme-wp-customizing'); ?>
+			    <p> <label> <input name="hcc-theme-wp-customizing" type="checkbox" value="1" <?php checked( '1', $customizing); ?>/>  <?php echo __('Use', 'hcc'); ?></label></p> 
+					<ul>
+						<li><b><?php echo __('This function removes / hides', 'hcc'); ?>:</b></li>
+						<li>- <?php echo __('Wordpress Customizer functions', 'hcc'); ?></li>
+						<li>- <?php echo __('Custom-backgrounds support', 'hcc'); ?></li>
+						<li>- <?php echo __('Custom-header support', 'hcc'); ?></li>
+					</ul>
+			  </td>
+			</tr>
 		</table>

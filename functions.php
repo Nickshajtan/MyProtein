@@ -117,7 +117,8 @@ get_template_part('includes/core/theme_metaboxes');
 get_template_part('includes/core/theme_helpers');
 get_template_part('includes/core/theme_ajax');
 
-if ( !is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
+$hcc_cf7_comp = get_option('hcc-theme-cf-cf7-true');
+if ( !is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) || $hcc_cf7_comp ) {
     get_template_part('includes/core/contact_form');
 }
 
@@ -149,7 +150,10 @@ if( is_plugin_active( 'polylang/polylang.php' ) || is_plugin_active( 'loco-trans
     get_template_part('includes/helpers/langs_helpers');
 }
 
-get_template_part('includes/helpers/visual/theme_customizer'); 
+$customizing = get_option('hcc-theme-wp-customizing'); 
+if( $customizing ) {
+    get_template_part('includes/helpers/visual/theme_customizer'); 
+}
 
 /* -- Include GTM -- */
 require 'includes/gtm/class-tgm-plugin-activation.php';

@@ -8,6 +8,16 @@
 					<p><label><input name="hcc-theme-cf-demo" type="checkbox" value="1" <?php checked( '1', $demo); ?>/><?php echo __('Enable', 'hcc'); ?></label></p> 
 				</td>
 			</tr>
+			<?php if( is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) : ?>
+			<tr valign="top">
+				<th><?php echo __('CF7 compability', 'hcc'); ?></th>
+				<td>
+					<p class="description"><?php echo __('Enabling work custom contact form and CF7 plugin parallel. By default is disable.', 'hcc'); ?>
+					<?php $hcc_cf7_comp = get_option('hcc-theme-cf-cf7-true'); ?>
+					<p><label><input name="hcc-theme-cf-cf7-true" type="checkbox" value="1" <?php checked( '1', $hcc_cf7_comp); ?>/><?php echo __('Enable', 'hcc'); ?></label></p> 
+				</td>
+			</tr>
+			<?php endif; ?>
 			<tr>
 				<th><?php echo __('Redirect', 'hcc'); ?></th>
 				<td>
