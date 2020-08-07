@@ -10,7 +10,7 @@ function hcc_add_footer_libs() {
                 //Bootstrap CSS
                 /*** If CDN available ***/
                 $url = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
-                $response = wp_remote_get($url);
+                $response = wp_remote_get( wp_normalize_path( $url ) );
                 $code = wp_remote_retrieve_response_code( $response );
                 if ( !is_wp_error( $response ) && isset( $url ) && !empty( $url) && ( $code == '200') ){
                             wp_register_style( 'bootstrap', $url, array(), ' ' );
@@ -40,7 +40,7 @@ function hcc_add_footer_libs() {
                 //Bootstrap Popper JS
                 /*** If CDN available ***/
                 $popper_url = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js';
-                $response = wp_remote_get($popper_url);
+                $response = wp_remote_get(wp_normalize_path($popper_url));
                 $code = wp_remote_retrieve_response_code( $response );
                 if ( !is_wp_error( $response ) && isset( $popper_url ) && !empty( $popper_url ) && ( $code == '200') ){
                             wp_register_script( 'popper', $popper_url, array(), ' ' );
@@ -57,7 +57,7 @@ function hcc_add_footer_libs() {
                 //Bootstrap JS
                 /*** If CDN available ***/
                 $url = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js';
-                $response = wp_remote_get($url);
+                $response = wp_remote_get(wp_normalize_path($url));
                 $code = wp_remote_retrieve_response_code( $response );
                 if ( !is_wp_error( $response ) && isset( $url ) && !empty( $url ) && ( $code == '200') ){
                             wp_register_script( 'bootstrap', $url, array(), ' ' );
