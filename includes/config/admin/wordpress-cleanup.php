@@ -94,6 +94,7 @@ function disable_emojis() {
 	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 	add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
 	add_filter( 'wp_resource_hints', 'disable_emojis_remove_dns_prefetch', 10, 2 );
+    add_filter('option_use_smilies', '__return_false');
 }
 add_action( 'init', 'disable_emojis' );
 

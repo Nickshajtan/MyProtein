@@ -8,11 +8,39 @@
  *
  * @package hcc
  */
-$logo_xl_class = ( function_exists( 'hcc_the_custom_logo' ) ) ? 'col-xl-2' : 'd-xl-none';
-$nav_xl_class  = ( has_nav_menu('footer') )                   ? 'col-xl-8' : 'd-xl-none';
-$soc_xl_class  = ( function_exists( 'get_field' ) && get_field('socials', 'options') ) ? 'col-xl-2' : 'd-xl-none';
 
+$has_nav       = ( has_nav_menu('footer') ) ? true : false;
+$has_logo      = ( function_exists( 'hcc_the_custom_logo' ) ) ? true : false;
 
+if( function_exists( 'get_field' ) ) : 
+  $socials     = get_field('socials', 'options'); 
+  $has_socials = $socials;
+  $phones      = get_field('phone_nums', 'options');
+  $emails      = get_field('emails', 'options'); 
+  $addresses   = get_field('addresses', 'options'); 
+else :
+  $has_socials = false;
+endif;
+
+$nav_class    = '';
+$social_class = '';
+$logo_class   = '';
+  
+if( !$has_logo && $has_nav || !$has_socials && $has_nav ) {
+    $nav_class = 'col-xl-10';
+}
+else {
+    $nav_class = 'col-xl-8';
+}
+
+if( !$has_nav && $has_logo && $has_socials) {
+  $social_class = 'col-xl-6 ';
+  $logo_class   = 'col-xl-6 ';
+}
+else{
+  $social_class = 'col-xl-2 ';
+  $logo_class   = 'col-xl-2 ';
+}
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  ?>
                 </main>
@@ -23,13 +51,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  ?>
                 <div class="site-footer__top">
                   <div class="container-fluid site-container">
                     <div class="row d-flex align-items-center">
-                        <?php if( function_exists( 'hcc_the_custom_logo' ) ) : ?>
-                        <div class="col-12 col-md-6 col-lg-3 col-xl-2 order-lg-1 order-1 order-md-1 order-lg-1 site-footer__footer-block">
+                        <?php if( $has_logo ) : ?>
+                        <div class="col-12 col-md-6 col-lg-3 <?php echo $logo_class; ?> order-lg-1 order-1 order-md-1 order-lg-1 site-footer__footer-block">
                             <?php hcc_the_custom_logo(); ?>
                         </div>
                         <?php endif;
-                        if( has_nav_menu('footer') ) : ?>
-                        <nav id="footer-navigation" class="footer-navigation col-12 col-md-12 col-lg-9 col-xl-8 order-2 order-md-3 order-lg-2 site-footer__footer-block">
+                        if( $has_nav ) : ?>
+                        <nav id="footer-navigation" class="footer-navigation col-12 col-md-12 col-lg-9 <?php echo $nav_class; ?> order-2 order-md-3 order-lg-2 site-footer__footer-block">
                             <?php wp_nav_menu( array(
                                 'theme_location'	=> 'footer',
                                 'menu_id'			=> 'primary-menu',
@@ -38,39 +66,30 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  ?>
                             ) ); ?>
                         </nav>
                         <?php endif;
-                        if( function_exists( 'get_field' ) ) :
-                                $socials = get_field('socials', 'options'); 
-                                if( $socials ) : ?>
-                                <div class="col-12 col-md-6 col-lg-12 col-xl-2 order-3 order-md-2 order-lg-3 site-footer__footer-block">
+                        if( $has_socials && is_array( $socials ) ) : ?>
+                                <div class="col-12 col-md-6 col-lg-12 <?php echo $social_class; ?> order-3 order-md-2 order-lg-3 site-footer__footer-block">
                                            <div class="socials w-100">
                                             <?php foreach( $socials as $social ) : 
                                                 $image = $social['icon'];
                                                 $href  = esc_url( wp_kses_post( trim( $social['link'] ) ) );
                                                 if( !empty( $image ) ) : ?>
                                                     <a href="<?php echo ( !empty( $href )  ) ? $href : '#'; ?>" target="_blank">
-                                                        <img src="<?php echo esc_url( $image['url'] ); ?>" title="<?php echo esc_attr( $image['title'] ) ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>" >
+                                                        <img src="<?php echo esc_url( $image['url'] ); ?>" title="<?php echo esc_attr( $image['title'] ) ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>" class="svg-icon" >
                                                     </a>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
                                             </div>
                                 </div>
-                        <?php endif;
-                        endif; ?>
+                        <?php endif; ?>
                     </div>
                   </div>
                 </div>
                 
-                <?php if( function_exists( 'get_field' ) ) : 
-                      $phones    = get_field('phone_nums', 'options');
-                      $emails    = get_field('emails', 'options'); 
-                      $addresses = get_field('addresses', 'options'); 
-                      
-                      if( $phones || $emails || $addresses ) : 
-                ?>
+                <?php if( $phones && !empty( $phones ) || $emails && !empty( $phones ) || $addresses && !empty( $addresses ) ) : ?>
                       <div class="site-footer__middle">
                         <div class="container-fluid site-container">
                           <div class="row d-flex align-items-center">
-                           <?php if( $phones ) : ?>
+                           <?php if( $phones && is_array( $phones ) ) : ?>
                               <div class="col-12 col-md-6  col-lg-4 order-1 site-footer__footer-block">
                                   <div class="w-100 phones">
                                           <?php foreach( $phones as $phone ) : ?>
@@ -85,7 +104,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  ?>
                                   </div>
                               </div>
                             <?php endif;
-                            if( $emails ) : ?>
+                            if( $emails && is_array( $emails ) ) : ?>
                             <div class="col-12 col-md-6  col-lg-4 order-2 site-footer__footer-block">
                                 <div class="w-100 emails">
                                           <?php foreach( $emails as $email ) : ?>
@@ -99,14 +118,14 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  ?>
                                 </div> 
                             </div>
                             <?php endif;
-                            if( $addresses ) : ?>
+                            if( $addresses && is_array( $addresses ) ) : ?>
                               <div class="col-12 col-md-12 col-lg-4 order-3 site-footer__footer-block">
-                                        <div class="w-100 addresses">
+                                        <div class="w-100 addresses d-block d-md-flex flex-md-column d-lg-block">
                                             <?php foreach( $addresses as $adres ) : ?>
                                                 <?php $adress = wp_kses_post( trim( $adres['adress'] ) );
                                                 $href = esc_url( wp_kses_post( trim( $adres['g_href'] ) ) ); 
                                                 if( !empty( $adress ) ) : ?>
-                                                    <a href="<?php echo ( !empty( $href )  ) ? $href : '#'; ?>" target="_blank" rel="nofollow" class="d-flex align-items-end justify-content-end ml-auto">
+                                                    <a href="<?php echo ( !empty( $href )  ) ? $href : '#'; ?>" target="_blank" rel="nofollow" class="d-flex align-items-end justify-content-end ml-auto link_el">
                                                         <span class="icon"></span><span class="body"><?php echo $adress; ?></span>
                                                     </a>
                                                 <?php endif; ?>
@@ -117,7 +136,6 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  ?>
                           </div>
                         </div>
                       </div>
-                      <?php endif; ?>
                 <?php endif; ?>
                 
                 <div class="site-footer__bottom">
@@ -126,7 +144,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  ?>
                         <a href="<?php echo get_privacy_policy_url(); ?>" class="link_el" rel="nofollow">
                                 <?php if( !empty( COPYRIGHT ) ) : echo COPYRIGHT; endif; ?>
                         </a>
-                        <?php if( false ) : ?>
+                        <?php if( !empty( SITE_FOR_CLIENT ) ) : ?>
                             <div class="col-12 col-md-6 d-flex justify-content-end align-items-center text-white">Created by HCC</div>
                         <?php endif; ?>
                     </div>

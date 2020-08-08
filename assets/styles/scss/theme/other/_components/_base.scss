@@ -14,7 +14,9 @@ li,
     object-fit: contain;
 }
 p{
-    @include font-source-sans( $regular, $white, 500,  1.3, $main-font );
+    word-break: break-all;
+
+    @include font-source-sans( $middler, $white, 500,  1.3, $main-font );
 }
 a{
     &, 
@@ -27,7 +29,7 @@ a{
 }
 
 section{
-    padding: 100px 0;
+    padding: 80px 0;
     width: 100%;
     position: relative;
 }

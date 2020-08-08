@@ -26,3 +26,39 @@ body {
      padding: 0 90px;
   }
 }
+
+section {
+  width: 100%;
+  position: relative;
+  padding: 80px 0;
+}
+
+.button {
+  text-transform: uppercase;
+  max-width: 100%;
+  padding: 17px 37px;
+  display: block;
+  position: relative;
+  border-radius: 100px;
+  background-color: $helper-color;
+  border: 1px solid $helper-color;
+  box-sizing: border-box;
+  text-align: center;
+  transition: 0.3s;
+  
+  @include font-source-sans( $regular, $white, 600, 1, $main-font);
+  
+  &:hover,
+  &:focus {
+    background-color: $transparent;
+    border-color: $white;
+    color: $white;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}

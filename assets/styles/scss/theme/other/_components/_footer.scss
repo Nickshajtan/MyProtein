@@ -27,6 +27,7 @@ footer {
       padding: 15px 25px;
       text-align: center;
 
+      @include push--auto;
       @include mq('phone', min ) {
         padding: 0 15px;
       }
@@ -138,9 +139,14 @@ footer {
         
         a:hover,
         a:focus {
-          transition: 0.6s linear;
+          transition: all 1s ease-in-out;
           position: relative;
           top: -8px;
+          transform: scale(1.2);
+          
+          &:not(:hover) {
+            transition: 1s;
+          }
           
           img {
             border: 1px solid $helper-color;

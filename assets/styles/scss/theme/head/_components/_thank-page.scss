@@ -1,0 +1,51 @@
+.thanks-page {
+  min-height: calc(100vh - 375px);
+  
+  &__section {
+    padding: 60px 0;
+    width: 100%;
+    
+    @media screen and ( min-width: 1000px ) {
+      padding: 78px 0 153px 0;
+    }
+  }
+  
+  &__content-wrapper {
+    padding: 40px;
+    border: 2px solid $helper-color;
+    box-sizing: border-box;
+    border-radius: 40px;
+    
+    @media screen and ( min-width: 1000px ) {
+      padding: 75px 85px;    
+    }
+  }
+
+  &__title,
+  &__title * {
+    text-transform: uppercase;
+    padding-bottom: 22px;
+    
+    @include font-source-sans( $middle, $white, bold, 1, $main-font);
+    
+    @media screen and ( min-width: 1000px ) {
+      font-size: $big;
+    }
+  }
+  
+  &__content {
+      &,
+      * {
+        text-align: center;
+        
+        @include font-source-sans( $middler, $white, normal, $line-middler, $main-font);
+        
+        @media screen and ( min-width: 1000px ) {
+          font-size: $middle;
+          line-height: $line-larger;
+        }
+      }
+    
+    padding-bottom: 40px;
+  }
+}
