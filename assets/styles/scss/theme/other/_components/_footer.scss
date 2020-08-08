@@ -34,6 +34,7 @@ footer {
     }
     
    .link_el,
+   .link_el *,
     a {
      transition: .3s;
      
@@ -100,11 +101,22 @@ footer {
          }
          
          &:hover,
-         &:focus {
+         &:focus,
+         .current-menu-item & {           
+           color: $white;
+           
            &:after {
              width: 100%;
            }
          }
+       }
+     
+       .current-menu-item a {
+           color: $white;
+         
+           &:after {
+             width: 100%;
+           }
        }
    }
   

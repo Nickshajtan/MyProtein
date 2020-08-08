@@ -25,9 +25,14 @@ if( have_posts() ) :
                 
             <div class="contacts-page d-flex align-items-center justify-content-center">
               <section class="contacts-page__section">
-                  <div class="contacts-page__contact-data col-12 p-0 d-flex flex-row">
+                  <div class="contacts-page__contact-data col-12 p-0 d-flex flex-column flex-lg-row">
                     <?php if( has_post_thumbnail() && strpos( get_the_post_thumbnail_url(), 'wp-header-logo' ) === false ) : 
-                          $image = esc_url( aq_resize( get_the_post_thumbnail_url(), 707, 707, true, true, true) );
+                          if( !wp_is_mobile() ) :
+                            $image = esc_url( aq_resize( get_the_post_thumbnail_url(), 707, 707, true, true, true) );
+                          else:
+                            $image = esc_url( aq_resize( get_the_post_thumbnail_url(), 550, 550, true, true, true) );
+                          endif;
+                          
                           if( $image ) : 
                     ?>
                       <div class="col-12 col-lg-6 contacts-page__contact-data__thumbnail-wrapper p-0">
@@ -37,7 +42,7 @@ if( have_posts() ) :
                       endif;
                       if( $time || $addresses || $emails || $phone_nums ) : ?>
                           <div class="col-12 col-lg-6 contacts-page__contact-data__data-wrapper">
-                              <div class="row d-flex justify-content-start">
+                              <div class="row d-flex justify-content-start m-0">
                                 <?php if( !empty( $time ) && is_array( $time ) ) : ?>
                                     <div class="w-100 text-left contacts-page__contact-data__block time-block">
                                         <h4><?php echo __('Время работы', 'hcc'); ?></h4>
@@ -53,7 +58,7 @@ if( have_posts() ) :
                                     </div>
                                 <?php endif;
                                 if( !empty( $addresses ) && is_array( $addresses ) ) : ?>
-                                    <div class="w-100 text-left contacts-page__contact-data__block addresses-block">
+                                    <adress class="w-100 text-left contacts-page__contact-data__block addresses-block">
                                         <?php foreach( $addresses as $adres ) : ?>
                                                 <?php $adress = wp_kses_post( trim( $adres['adress'] ) );
                                                 $href = esc_url( wp_kses_post( trim( $adres['g_href'] ) ) ); 
@@ -63,7 +68,7 @@ if( have_posts() ) :
                                                     </a>
                                                 <?php endif; ?>
                                           <?php endforeach; ?>
-                                    </div>
+                                    </adress>
                                 <?php endif;
                                 if( !empty( $emails ) && is_array( $emails ) ) : ?>
                                     <div class="w-100 text-left contacts-page__contact-data__block emails-block">

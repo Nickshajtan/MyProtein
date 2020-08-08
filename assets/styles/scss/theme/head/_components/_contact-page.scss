@@ -1,0 +1,148 @@
+.contacts-page {
+  &__section {
+    * {
+      word-break: break-word;
+    }
+  } 
+  
+  &__contact-data {
+    &__data-wrapper {
+      padding: 15px;
+      
+      @include mq('extra-tablet', min) { 
+        padding: 40px;
+      }
+    }
+    
+    &__block {
+      display: block;
+      margin-bottom: 20px;
+      
+      @include mq('laptop', min) {
+        margin-bottom: 40px;
+      }
+      
+      &:last-child(){
+        padding-bottom: 14px;
+        margin-bottom: 0;
+      }
+      
+      h2,
+      h3,
+      h4,
+      h5 {
+        margin-bottom: 35px;
+        
+        @include font-source-sans( $middler, $helper-color, bold, 1, $main-font);
+        @include mq('tablet', min) {
+          font-size: $middler + 6px;
+        }
+      }
+      
+      p {
+        display: block;
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+        
+        &,
+        * {
+          @include font-source-sans( $middler - 4px, $white, 500, 1, $main-font);
+          
+          @include mq('laptop', min) {
+            font-size: $middler + 6px;
+          }
+        }
+        
+        strong {
+          font-weight: 600;
+        }
+      }
+      
+      a {
+        text-decoration: underline;
+        
+        &[rel="nofollow"] {
+          text-decoration: none; 
+        }
+      }
+      
+      .link_el,
+      .link_el {
+        transition: 0.3s;
+        margin-bottom: 10px;
+        
+        @include mq('laptop', min) {
+          margin-bottom: 32px;
+        }
+        
+        &,
+        * {
+          transition: 0.3s;
+           
+          @include font-source-sans( $middler - 4px, $white, 500, 1, $main-font);
+          @include mq('laptop', min) {
+            font-size: $middler + 6px;
+          }
+
+          &:hover,
+          &:focus {
+            &,
+            * {
+              color: $helper-color;
+            }
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  
+  .socials-block {
+    a:not( :first-child ),
+    a:not( :last-child ) {
+      margin-left: 20px;
+      margin-right: 20px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+        
+    a:first-child,
+    a:first-of-type {
+      margin-right: 20px;
+      margin-left: 0;
+    }
+        
+    a:last-child {
+      margin-right: 0;
+      margin-left: 20px;
+    }
+        
+    a {
+      width: 40px;
+      height: 40px;
+      border-radius: 100px;
+      
+      img {
+        border: 1px solid $white;
+        border-radius: 100px;
+        object-fit: contain;
+      }
+    }
+        
+    a:hover,
+    a:focus {
+        transition: all 1s ease-in-out;
+        position: relative;
+        
+          
+        &:not(:hover) {
+          transition: 1s;
+        }
+          
+        img {
+          border: 1px solid $helper-color;
+          transform: scale(1.2);
+        }
+    }
+  }
+}

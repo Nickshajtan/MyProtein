@@ -119,7 +119,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  ?>
                             </div>
                             <?php endif;
                             if( $addresses && is_array( $addresses ) ) : ?>
-                              <div class="col-12 col-md-12 col-lg-4 order-3 site-footer__footer-block">
+                              <adress class="col-12 col-md-12 col-lg-4 order-3 site-footer__footer-block">
                                         <div class="w-100 addresses d-block d-md-flex flex-md-column d-lg-block">
                                             <?php foreach( $addresses as $adres ) : ?>
                                                 <?php $adress = wp_kses_post( trim( $adres['adress'] ) );
@@ -131,7 +131,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  ?>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
                                         </div>
-                              </div>
+                              </adress>
                             <?php endif; ?>
                           </div>
                         </div>
