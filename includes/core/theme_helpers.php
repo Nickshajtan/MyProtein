@@ -306,6 +306,32 @@ function my_navigation_template( $template, $class ){
 }
 
 /*
+ * Is isset including im file
+ * @param $this_file is this file dirname: dirname( __FILE__ )
+ * @param $img_src is string
+ * @param $sep is string separator
+ */
+function hcc_isset_img( $this_file, $sep, $img_src ) {
+  if( !isset( $this_file ) || !isset( $img_src ) ) {
+    return false;
+  }
+  
+  $this_file = trim( $this_file ) . '/';
+  $img_src   = esc_url( $img_src );
+  $img_src   = ( strpos( $img_src, '/' ) === 0 ) ? $img_src : '/' . $img_src;
+  $sep       = ( isset( $sep ) ) ? trim( $sep ) : '';
+  $abs       = ( defined('THEME_URI') ) ? THEME_URI : get_template_directory_uri();
+  
+  $img_isset  =  wp_normalize_path( $this_file . $sep . $img_src );
+  
+  if( file_exists( $img_isset ) ) {
+    $img_src    =  wp_normalize_path( $abs . $img_src );
+    return $img_src;
+  }
+  return false;
+}
+
+/*
  * Admin notices
  *
  */

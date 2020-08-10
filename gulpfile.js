@@ -28,7 +28,8 @@ var gulp           = require('gulp'),
     imageminSvgo    = require('imagemin-svgo'),
     svgmin          = require('gulp-svgmin'),
     svgsprite       = require('gulp-svg-sprite'),
-    spritesmith     = require('gulp.spritesmith');
+    spritesmith     = require('gulp.spritesmith'),
+    yargs           = require('yargs');
 
 var gulpLoadPlugins = require('gulp-load-plugins');
 
@@ -81,6 +82,52 @@ var pathOptions = {
 var notifyOptions = {
   message : 'Error:: <%= error.message %> \nLine:: <%= error.line %> \nCode:: <%= error.extract %>'
 };
+
+var argv = yargs.default({
+	cache: false,
+	debug: true,
+	fix: false,
+	minifyHtml: null,
+	minifyCss: null,
+	minifyJs: null,
+	minifySvg: null,
+	notify: true,
+	open: true,
+	port: 3000,
+	spa: false,
+	throwErrors: false,
+    retina: false,
+    retinaManual: false,
+    resizeSize: false,
+    resizeArr: null,
+    bem: false,
+}).argv;
+
+argv.minify     = !!argv.minify;
+argv.minifyHtml = argv.minifyHtml !== null  ? !!argv.minifyHtml : argv.minify;
+argv.minifyCss  = argv.minifyCss  !== null  ? !!argv.minifyCss  : argv.minify;
+argv.minifyJs   = argv.minifyJs   !== null  ? !!argv.minifyJs   : argv.minify;
+argv.minifySvg  = argv.minifySvg  !== null  ? !!argv.minifySvg  : argv.minify;
+argv.retina     = Boolean( argv.retina );
+argv.resizeSize = Boolean( argv.resizeSize ) !== false ? argv.resizeSize   : ( argv.resizeArr !== null ) ? argv.resizeArr : false;
+
+if (argv.ci) {
+	argv.cache       = false;
+	argv.notify      = false;
+	argv.open        = false;
+	argv.throwErrors = true;
+}
+
+if (argv.throwErrors) {
+	errorHandler = false;
+} else if (argv.notify) {
+	errorHandler = $.notify.onError('<%= error.message %>');
+} else {
+	errorHandler = null;
+}
+
+var runTimestamp = Math.round(Date.now()/1000);
+var fontName     = 'custom-svgFont';
 
 function browserSync(done) {
 	browsersync.init({
@@ -465,7 +512,7 @@ gulp.task('compress-img', function(done) {
 			}),
             imageminSvgo({
                 js2svg: {
-                    pretty: !minify,
+                    pretty: !argv.minify,
                     indent: '\t',
                 },
                 plugins: [
@@ -550,7 +597,7 @@ gulp.task('img-sprite', function () {
 function svgminConfig() {
       return imageminSvgo({
                 js2svg: {
-                    pretty: !minify,
+                    pretty: !argv.minify,
                     indent: '\t',
                 },
                 plugins: [

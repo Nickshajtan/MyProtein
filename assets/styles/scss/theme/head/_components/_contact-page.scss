@@ -64,6 +64,13 @@
         &[rel="nofollow"] {
           text-decoration: none; 
         }
+        
+        .icon {
+          object-fit: contain;
+          margin-right: 24px;
+          width: 36px;
+          height: 36px;
+        }
       }
       
       .link_el,

@@ -64,7 +64,7 @@ if( have_posts() ) :
                                                 $href = esc_url( wp_kses_post( trim( $adres['g_href'] ) ) ); 
                                                 if( !empty( $adress ) ) : ?>
                                                     <a href="<?php echo ( !empty( $href )  ) ? $href : '#'; ?>" target="_blank" rel="nofollow" class="d-flex align-items-end justify-content-start mr-auto link_el">
-                                                        <span class="icon"></span><span class="body"><?php echo $adress; ?></span>
+                                                        <span class="body"><?php echo $adress; ?></span>
                                                     </a>
                                                 <?php endif; ?>
                                           <?php endforeach; ?>
@@ -73,10 +73,15 @@ if( have_posts() ) :
                                 if( !empty( $emails ) && is_array( $emails ) ) : ?>
                                     <div class="w-100 text-left contacts-page__contact-data__block emails-block">
                                         <?php foreach( $emails as $email ) : ?>
-                                              <?php $email = wp_kses_post( trim( $email['email'] ) ); 
+                                              <?php $email      = wp_kses_post( trim( $email['email'] ) ); 
+                                                    $icon_path  = '/assets/public/img/icons/proto-mail.svg';
+                                                    $icon_src   = hcc_isset_img( dirname(__FILE__), '..', $icon_path );
                                               if( !empty( $email ) ) : ?>
                                                   <a href="mailto:<?php echo $email; ?>" class="d-flex align-items-end justify-content-start mr-auto link_el">
-                                                      <span class="icon"></span><span class="body"><?php echo $email; ?></span>
+                                                      <?php if( $icon_src !== false ) : ?>
+                                                          <img src="<?php echo $icon_src; ?>" alt="<?php echo __('Mail icon'); ?>" title="<?php echo __('Mail icon') . '|' . SITE_NAME; ?>" class="icon">
+                                                      <?php endif; ?>
+                                                      <span class="body"><?php echo $email; ?></span>
                                                   </a>
                                               <?php endif; ?>
                                           <?php endforeach; ?>
@@ -87,9 +92,14 @@ if( have_posts() ) :
                                         <?php foreach( $phone_nums as $phone ) : ?>
                                               <?php $tel = sanitize_text_field( trim( $phone['phone_num'] ) );
                                               $href = preg_replace( '~[^0-9]+~', '', $tel ); 
+                                              $icon_path  = '/assets/public/img/icons/proto-telephone.svg';
+                                              $icon_src   = hcc_isset_img( dirname(__FILE__), '..', $icon_path );
                                               if( !empty( $tel ) ) : ?>
                                                   <a href="tel:<?php echo $href; ?>" class="d-flex align-items-end justify-content-start mr-auto link_el">
-                                                      <span class="icon"></span><span class="body"><?php echo $tel; ?></span>
+                                                      <?php if( $icon_src !== false ) : ?>
+                                                        <img src="<?php echo $icon_src; ?>" alt="<?php echo __('Phone icon'); ?>" title="<?php echo __('Phone icon') . '|' . SITE_NAME; ?>" class="icon">
+                                                      <?php endif; ?>
+                                                      <span class="body"><?php echo $tel; ?></span>
                                                   </a>
                                               <?php endif; ?>
                                           <?php endforeach; ?>
@@ -125,10 +135,10 @@ if( have_posts() ) :
                 // map here
             endif; ?>
                
-            <?php if( $flex && !is_null( $flex ) && is_array( $flex ) ) : 
-                 while (has_sub_field('flexible_content')) :
+            <?php if( $flex && !is_null( $flex ) && is_array( $flex ) || have_rows( 'flexible_content', $post_id ) ) : 
+                 while (has_sub_field('flexible_content', $post_id)) :
                                    $row_layout_slug = get_row_layout();
-                                   get_template_part('template-parts/flexible', $row_layout_slug);
+                                   get_template_part('template-parts/flexible/block', $row_layout_slug);
                  endwhile;
             endif; ?>
                 

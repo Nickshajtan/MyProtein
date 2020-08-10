@@ -65,7 +65,7 @@ function hcc_wp_body_close_extra_code() {
  * @param $class is html class of tag element
  * Function return first child element with block_title ACF id
  */
-function get_conf_header( $class = '' ){
+function hcc_get_acf_header( $class = '' ){
             $tag   = get_sub_field('tag');
             $title = wp_kses_post( get_sub_field('block_title') );
             if (empty($tag)) { $tag = 'div';	};
@@ -78,7 +78,7 @@ function get_conf_header( $class = '' ){
  *  @param $element is a parent element 
  *  Function return first child element with block_title ACF id in $element
  */    
-function get_conf_title( $class = '', $element ){
+function hcc_get_acf_title( $class = '', $element ){
             $tag   = $element['tag'];
             $title = wp_kses_post( $element['block_title'] );
             if (empty($tag)) { $tag = 'div';	};

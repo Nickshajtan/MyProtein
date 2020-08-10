@@ -123,7 +123,6 @@ if ( !is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) || $hcc_cf7_com
 }
 
 /* -- helpers -- */
-
 get_template_part('includes/helpers/acf/acf_helpers', 'core');
 get_template_part('includes/helpers/acf/acf_helpers', 'visual');
 get_template_part('includes/helpers/acf/acf_helpers', 'templates');

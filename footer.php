@@ -58,12 +58,18 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  ?>
                         <?php endif;
                         if( $has_nav ) : ?>
                         <nav id="footer-navigation" class="footer-navigation col-12 col-md-12 col-lg-9 <?php echo $nav_class; ?> order-2 order-md-3 order-lg-2 site-footer__footer-block">
-                            <?php wp_nav_menu( array(
+                            <?php 
+                            $nav_args = array(
                                 'theme_location'	=> 'footer',
-                                'menu_id'			=> 'primary-menu',
+                                'menu_id'			=> 'footer-menu',
                                 'container'		    => '',
-                                'walker'            => new HCC_Nav_Walker(),
-                            ) ); ?>
+                            );
+                          
+                            if( class_exists('HCC_Nav_Walker') && isset( $nav_args ) ) :
+                              $nav_args['walker'] = new HCC_Nav_Walker();
+                            endif; 
+                            
+                            wp_nav_menu( $nav_args ); ?>
                         </nav>
                         <?php endif;
                         if( $has_socials && is_array( $socials ) ) : ?>
