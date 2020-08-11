@@ -57,16 +57,23 @@
       position: relative;
       display: inline-block;
       
-      @include font-source-sans( $middler, $white, normal, 1.5, $main-font);
+      @include font-source-sans( $middler, $helper-color, normal, 1.5, $main-font);
       
-      &:after {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 1px;
-        top: 0;
-        background-color: $white;
-        transition: 0.3s;
+      @include mq('phone', min) {
+        &, 
+        &:visited {
+          color: $white;
+        }
+        
+        &:after {
+          content: '';
+          display: block;
+          width: 100%;
+          height: 1px;
+          top: 0;
+          background-color: $white;
+          transition: 0.3s;
+        }
       }
     }
     
@@ -74,8 +81,10 @@
     &:focus {
       color: $helper-color;
       
-      &:after {
-        background-color: $helper-color;
+      @include mq('phone', min) {
+        &:after {
+          background-color: $helper-color;
+        }
       }
     }
   }

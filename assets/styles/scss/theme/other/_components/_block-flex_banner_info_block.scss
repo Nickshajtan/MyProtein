@@ -7,6 +7,13 @@
     &__block {
       display: block;
       
+      @include mq('phone', max) {
+        &,
+        * {
+          word-break: break-word;
+        }
+      }
+      
       &:last-child(){
         padding-bottom: 14px;
         margin-bottom: 0;
@@ -29,8 +36,11 @@
         
         &,
         * {
-          @include font-source-sans( $middler - 4px, $white, 500, 1, $main-font);
           
+          @include font-source-sans( $middler - 6px, $white, 500, 1, $main-font);
+          @include mq('phone', min) {
+            font-size: $middler - 4px;
+          }
           @include mq('laptop', min) {
             font-size: $middler + 6px;
           }
@@ -96,7 +106,10 @@
         * {
           transition: 0.3s;
            
-          @include font-source-sans( $middler - 4px, $white, 500, 1, $main-font);
+          @include font-source-sans( $middler - 6px, $white, 500, 1, $main-font);
+          @include mq('phone', min) {
+            font-size: $middler - 4px;
+          }
           @include mq('laptop', min) {
             font-size: $middler + 6px;
           }
@@ -125,4 +138,10 @@
       }
     }
   }
-}
+  
+  @media screen and ( min-width: 768px ) and ( max-width: 992px ) {
+    &__right-column {
+      padding-top: 15px;
+    }
+  }
+} 

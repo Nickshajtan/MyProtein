@@ -5,8 +5,11 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 60px 15px;
+  padding: 0 15px;
   
+  @include mq('phone', min) {
+    padding: 20px 0;
+  }
   @include mq('tablet', min) {
     padding: 60px 0;
   }
