@@ -2,3 +2,8 @@
 @import '../_mixins/mixins';//mixins
 @import '_components/base';//base styles
 @import '_components/footer';//footer styles
+
+@import '_components/block-flex_text_block';
+@import '_components/block-flex_banner_text_block';
+@import '_components/block-flex_banner_info_block';
+@import '_components/block-flex-card-list';

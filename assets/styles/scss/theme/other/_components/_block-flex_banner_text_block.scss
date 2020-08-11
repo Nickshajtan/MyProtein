@@ -1,0 +1,88 @@
+.flex-banner-text-block,
+.block-banner {
+  min-height: 200px;
+  background-attachment: local;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 60px 15px;
+  
+  @include mq('tablet', min) {
+    padding: 60px 0;
+  }
+  
+  @include mq('extra-tablet', min) {
+    min-height: 400px;
+  }
+  
+  &__title,
+  &__subtitle {
+    .title {
+      margin-bottom: 46px;
+      text-transform: uppercase;
+      
+      &,
+      *{
+        @include font-source-sans( $middler, $white, 800, 1.2, $main-font);
+        @include mq('tablet', min) {
+          font-size: $big + 2px;
+        }
+      }
+      
+      .color_el,
+      span {
+        color: $helper-color;
+      }
+    }
+  }
+  
+  &.full-height-block {
+    background-attachment: fixed;
+    background-color: rgba(0, 0, 0, .5);
+    background-blend-mode: overlay;
+    min-height: 100vh;
+    height: auto;
+    padding: 100px 15px 60px 15px;
+    
+    @media screen and ( min-height: 800px ) {
+      min-height: 60vh;
+    }
+    
+    @include mq('laptop', min) {
+      padding: 200px 0 100px 0;
+      background-color: rgba(0, 0, 0, .2);
+    }
+    
+    &__title,
+    .full-height-block__title {
+      text-shadow: -4px 1px 0 $helper-color;
+      
+      &,
+      *{
+        margin-bottom: 0;
+        
+        @include font-source-sans( $middle, $white, 800, 1.2, $main-font);
+        @include mq('tablet', min) {
+          font-size: $big;
+        }
+        @include mq('laptop', min) {
+          font-size: $oversize + 6px;
+        }
+      }
+    }
+    
+    &__subtitle,
+    .full-height-block__subtitle {
+      margin-bottom: 50px;
+      text-shadow: none;
+      
+      &,
+      *{
+        @include font-source-sans( $middler, $white, 800, 1.2, $main-font);
+        @include mq('tablet', min) {
+          font-size: $middle - 3px;
+        }
+      }
+    }
+  }
+}

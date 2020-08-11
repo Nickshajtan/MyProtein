@@ -12,7 +12,7 @@ if( have_posts() ) :
         $content = wp_kses_post( apply_filters( 'the_content', $content ) );
         $link    = get_field('link', get_the_ID() );
 
-        if( $link ) : 
+        if( $link && is_array( $link ) ) : 
           $link_target = $link['target'] ? esc_attr( $link['target'] ) : '_self';
           $link_url    = esc_url( $link['url'] );
           $link_text   = wp_kses_post( $link['title'] );
@@ -26,7 +26,7 @@ if( have_posts() ) :
                     <div class="col-12 d-flex align-items-center justify-content-center flex-column thanks-page__content-wrapper">
                       <h1 class="text-white page-title thanks-page__title"><?php echo $title; ?></h1>
                       <div class="thanks-page__content"><?php echo $content; ?></div>
-                      <?php if( $link ) : ?>
+                      <?php if( $link && is_array( $link ) ) : ?>
                         <a class="button thanks-page__button" href="<?php echo $link_url; ?>" target="<?php echo $link_target; ?>"><?php echo $link_text; ?></a>
                       <?php endif; ?>
                     </div>

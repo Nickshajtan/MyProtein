@@ -1,0 +1,106 @@
+@mixin editor--elements {
+  
+  * {
+   @include font-source-sans( $middler, $white, normal, $line-middler - 2px, $main-font); 
+  }
+  
+  @for $i from 6 through 1 {
+    h#{$i},
+    .h#{$i} {
+      font-size: $big - $i*5px;
+    }
+  }
+  
+  p,
+  .text {
+    margin-bottom: 24px;
+  }
+  
+  strong,
+  b {
+    font-weight: $weight-bolder;
+  }
+  
+  i,
+  blockquote {
+    font-style: italic;
+  }
+  
+  ol {
+    &,
+    li, li>span {
+      list-style: decimal;
+      list-style-position: inside;
+      color: $white;
+    }
+    
+    & {
+      color: $helper-color;
+    }
+  }
+  
+  ul {
+    &,
+    li,
+    li>span{
+      list-style: circle;
+      list-style-position: outside;
+      list-style-image: url(../img/icons/proto-marker.svg);
+    }
+  }
+  
+  a {
+    
+    &,
+    &:visited {
+      transition: 0.3s;
+      position: relative;
+      display: inline-block;
+      
+      @include font-source-sans( $middler, $white, normal, 1.5, $main-font);
+      
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        top: 0;
+        background-color: $white;
+        transition: 0.3s;
+      }
+    }
+    
+    &:hover,
+    &:focus {
+      color: $helper-color;
+      
+      &:after {
+        background-color: $helper-color;
+      }
+    }
+  }
+}
+
+@mixin editor--headers {
+  .title {
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 25px;
+    
+    * {
+      @include font-source-sans( $middle, $white, bold, $line-middler - 2px, $main-font);
+    }
+    
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      min-height: 46px;
+      width: 4px;
+      background-color: $helper-color;
+    }
+  }
+}

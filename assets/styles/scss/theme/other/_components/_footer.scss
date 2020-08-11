@@ -90,14 +90,25 @@ footer {
          
          &:after {
            content: '';
-           display: block;
-           width: 0;
-           height: 5px;
+           display:none;
+           width: 8px;
+           height: 8px;
            background-color: $helper-color;
            position: relative;
-           bottom: -25px;
+           bottom: -4px;
            margin: 0 auto;
            transition: width .3s ease-in-out;
+         }
+         
+         @include mq('tablet', min) {
+           &:after {
+             content: '';
+             display: block;
+             width: 0;
+             height: 5px;
+             background-color: $helper-color;
+             bottom: -25px;
+           }
          }
          
          &:hover,
@@ -106,17 +117,29 @@ footer {
            color: $white;
            
            &:after {
-             width: 100%;
+             display: block;
+           }
+           
+           @include mq('tablet', min) {
+             &:after {
+               width: 100%;
+             }
            }
          }
        }
      
        .current-menu-item a {
-           color: $white;
+          color: $white;
+
+          &:after {
+            display: block;
+          }
          
-           &:after {
-             width: 100%;
-           }
+          @include mq('tablet', min) {
+            &:after {
+              width: 100%;
+            }
+          }
        }
    }
   

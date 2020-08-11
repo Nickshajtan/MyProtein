@@ -1,0 +1,21 @@
+.flex-text-block {
+  padding: 60px 15px;
+  
+  @include mq('tablet', min) {
+    padding: 75px 0;
+  }
+  
+  * {
+    word-break: break-word;
+  }
+  
+  &__title {
+    text-transform: uppercase;
+    
+    @include editor--headers;
+  }
+  
+  &__content {
+    @include editor--elements;
+  }
+}

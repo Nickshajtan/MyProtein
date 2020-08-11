@@ -78,7 +78,7 @@ function hcc_get_acf_header( $class = '' ){
  *  @param $element is a parent element 
  *  Function return first child element with block_title ACF id in $element
  */    
-function hcc_get_acf_title( $class = '', $element ){
+function hcc_get_acf_title( $element, $class = '' ){
             $tag   = $element['tag'];
             $title = wp_kses_post( $element['block_title'] );
             if (empty($tag)) { $tag = 'div';	};
