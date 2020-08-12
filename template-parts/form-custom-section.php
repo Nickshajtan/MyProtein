@@ -1,12 +1,24 @@
-<section class="cf">
+<?php
+  
+  $title    = hcc_get_acf_header('text-white text-left title') ? hcc_get_acf_header('text-white text-center title') 
+                                                                 : '<b>' . __('Нет Вашего вопроса? Попробуйте написать нам', 'hcc') . '</b>'; 
+  $subtitle = __('Оставьте свой вопрос и мы ответим вам как можно скорее', 'hcc');
+?>
+<section class="cf cf-section">
     <div class="container">
         <div class="row">
-            <div class="col-12 justify-content-center align-items-center d-flex flex-column">
-                <strong class="section-header text-center text-white"><span class="text-white"><?php echo __('Нет Вашего вопроса? Попробуйте написать нам', 'hcc'); ?></span></strong>
-                <div class="text-center section-subheader header-before">
-                    <p class="text-center text-white "><?php echo __('Оставьте свой вопрос и мы ответим вам как можно скорее', 'hcc'); ?></p>
+            <div class="col-12 justify-content-center align-items-center d-flex flex-column cf-section__header">
+               
+                <?php if( false ) : ?>
+                <strong class="text-center text-white"><span class="text-white"><?php echo $subtitle; ?></span></strong>
+                <?php endif; ?>
+                
+                <div class="text-center text-white d-flex justify-content-center cf-section__header__title">
+                    <?php echo $title; ?>
                 </div>
+                
             </div>
+            
             <form action="" method="post" class="custom-form col-12 col-lg-8 ml-auto mr-auto needs-validation" novalidate>
                     <textarea name="comment" class="hd"></textarea>
                     <textarea name="message" class="hd"></textarea>
@@ -42,6 +54,8 @@
                                     <div class="invalid-feedback valid-helper"><?php echo __('Пожалуйста, проверьте еще раз', 'hcc'); ?></div>
                                 </div>
                             </div>
+                            
+                            <?php if( false ) : ?>
                             <div class="form-group">
                                 <label for="email" class="sr-only"><?php echo __('Ваш E-mail', 'hcc'); ?></label>
                                 <div class="input-group validation-group">
@@ -57,6 +71,8 @@
                                     <div class="invalid-feedback valid-helper"><?php echo __('Пожалуйста, проверьте еще раз', 'hcc'); ?></div>
                                 </div>
                             </div>
+                            <?php endif; ?>
+                            
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group">

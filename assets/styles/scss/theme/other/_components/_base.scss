@@ -23,8 +23,20 @@ a{
     &:hover, 
     &:focus, 
     &:visited {
+        transition: 0.3s;
         text-decoration: none;
         outline: none;
+        font-size: $regular;
+    }
+  
+    &,
+    &:visited {
+      color: $white; 
+    }
+  
+    &:hover,
+    &:focus {
+      color: $helper-color;
     }
 }
 

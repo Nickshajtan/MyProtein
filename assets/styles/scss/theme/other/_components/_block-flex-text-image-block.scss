@@ -1,4 +1,5 @@
 .flex-text-image-block {
+  overflow-y: hidden;
   
   @include mq('extra-tablet', min) {
     padding: 55px 0 70px 0;
@@ -64,6 +65,7 @@
     min-height: 510px;
     max-height: calc( 100% - 70px );
     z-index: 1;
+    overflow: hidden;
     
     &.p-absolute {
       top: 0;

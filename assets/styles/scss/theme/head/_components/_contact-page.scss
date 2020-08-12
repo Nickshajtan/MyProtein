@@ -7,7 +7,7 @@
   
   &__contact-data {
     &__data-wrapper {
-      padding: 15px;
+      padding: 50px 15px;
       
       @include mq('extra-tablet', min) { 
         padding: 40px;
@@ -126,6 +126,37 @@
               background-color: $helper-color;
             }
           }
+        }
+      }
+    }
+    
+    &__thumbnail-wrapper {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      
+      @include mq('extra-tablet', min) {
+        position: relative;
+      }
+      
+      img {
+        max-height: 100%;
+        min-height: 600px;
+        
+        @include mq('tablet', min) {
+          min-height: auto;
+        }
+      }
+      
+      @media screen and (max-width:1023px) {
+        img {
+          max-height: 600px;
+          width: 100%;
+          height: auto;
+          max-width: 100%;
+          object-fit: cover;
+          filter: opacity(0.5);
         }
       }
     }

@@ -73,7 +73,7 @@ if( have_posts() ) :
                                 if( !empty( $emails ) && is_array( $emails ) ) : ?>
                                     <div class="w-100 text-left contacts-page__contact-data__block emails-block">
                                         <?php foreach( $emails as $email ) : ?>
-                                              <?php $email      = wp_kses_post( trim( $email['email'] ) ); 
+                                              <?php $email      = wp_kses_post( filter_var( trim( $email['email'] ), FILTER_VALIDATE_EMAIL ) ); 
                                                     $icon_path  = '/assets/public/img/icons/proto-mail.svg';
                                                     $icon_src   = hcc_isset_img( dirname(__FILE__), '..', $icon_path );
                                               if( !empty( $email ) ) : ?>

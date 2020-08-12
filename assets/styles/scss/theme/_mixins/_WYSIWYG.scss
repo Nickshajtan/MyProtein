@@ -96,10 +96,6 @@
     position: relative;
     margin-bottom: 25px;
     
-    * {
-      @include font-source-sans( $middle, $white, bold, $line-middler - 2px, $main-font);
-    }
-    
     &:before {
       content: '';
       display: block;
@@ -110,6 +106,30 @@
       min-height: 46px;
       width: 4px;
       background-color: $helper-color;
+    }
+    
+    * {
+      @include font-source-sans( $middle, $white, bold, $line-middler - 2px, $main-font);
+    }
+    
+    .color_el,
+    .el_color,
+    span:not(.el_size),
+    span:not(.size_el) {
+      color: $helper-color;
+    }
+    
+    .el_size,
+    span.el_size,
+    .size_el,
+    span.size_el {
+      color: $white;
+      font-size: $middle;
+      text-shadow: -4px -2px 0 $helper-color;
+      
+      @include mq('extra-tablet', min) {
+        font-size: $oversize;
+      }
     }
   }
 }

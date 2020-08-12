@@ -1,0 +1,121 @@
+.flex-list-image-block {
+  overflow-y: hidden;
+  
+  @include mq('extra-tablet', min) {
+    padding: 50px 0 45px 0; 
+    margin-top: 90px;
+  }
+  
+  &__section {
+    &__title {
+      text-shadow: -2px -3px 0 $helper-color;
+      position: relative;
+      z-index: 2;
+      
+      @include mq('extra-tablet', min) {
+        & {
+          margin-right: 30px;
+          margin-bottom: 50px;
+        }
+        
+        &:not(.full_width) {
+          max-width: 826px;
+        }
+      }
+      &,
+      * {
+        font-size: $big;
+        line-height: 1.2;
+        text-transform: none;
+        
+        @include mq('extra-tablet', min) {
+          line-height: $oversize + 6px;
+          font-size: $oversize;
+        }
+      }
+    }
+    
+    &__content {
+      @include mq('extra-tablet', min) {
+        padding-left: 0;
+      }
+      @include mq('extra-tablet', min) {
+        &:not(.full_width) {
+          max-width: 100%;
+        }
+      }
+      
+      li {
+        padding-left: 35px;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        position: relative;
+        
+        @include mq('tablet', min) {
+          padding-left: 85px;
+        }
+        
+        &:before {
+          content: '';
+          width: 25px;
+          height: 25px;
+          display: block;
+          background: url(../img/icons/proto-marker.svg) no-repeat left center;
+          background-size: contain;
+          position: absolute;
+          left: 0;
+          top: 0;
+          
+          @include mq('extra-tablet', min) {
+            width: 60px;
+            height: 60px;
+          }
+        }
+        
+        
+        @include mq('extra-tablet', min) {
+          padding-left: 98px;  
+        }
+        
+        &:not( :last-child ) {
+          margin-bottom: 18px;
+          
+          @include mq('extra-tablet', min) {
+            margin-bottom: 48px;
+          }
+        }
+        
+        &:last-child {
+          margin-bottom: 0;
+          
+          @include mq('extra-tablet', min) {
+            margin-bottom: 30px;
+          }
+        }
+        
+        @include font-source-sans( $middler, $white, $weight-normal, 1.2, $main-font);
+        @include mq('extra-tablet', min) {
+          font-size: $regular*2;
+        }
+      }
+    }
+  }
+  
+  &__img-wrapper {
+    min-height: 900px;
+    max-height: calc( 100% - 30px );
+    z-index: 1;
+    
+    &:not( .full_width ) {
+      img {
+        height: 100%;
+        width: auto;
+        min-width: 777px;
+        object-fit: cover;
+        object-position: top;
+        min-height: 900px;
+      }
+    }
+  }
+}

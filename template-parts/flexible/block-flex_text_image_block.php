@@ -80,7 +80,8 @@ if( !empty( $block_image ) || !empty( $block_title ) || !empty( $block_content )
           <?php endif; ?>
         </div>
         <?php endif;
-        if( $block_image && !wp_is_mobile() ) : ?>
+
+        if( $block_image ) : ?>
         <div class="col-12 col-lg-<?php echo $img_lg_class; ?> p-0 h-100 flex-text-image-block__img-wrapper block_position_<?php echo $img_float . ' ' . $img_lg_mode; ?> d-none d-lg-block p-absolute">
           <img src="<?php echo $block_image; ?>" alt="<?php echo $image_alt; ?>" title="<?php echo $image_title; ?>" class="img-inner img-responsive">
         </div>

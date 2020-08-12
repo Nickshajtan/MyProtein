@@ -80,7 +80,7 @@ if( ( !empty( $block_title ) && is_array( $block_title ) ) || !empty( $block_ima
             <div class="w-100 text-left flex-banner-info-block__contact-data__block emails-block">
                           
                                         <?php foreach( $emails as $email ) : ?>
-                                              <?php $email      = wp_kses_post( trim( $email['email'] ) ); 
+                                              <?php $email      = wp_kses_post( filter_var( trim( $email['email'] ), FILTER_VALIDATE_EMAIL ) ); 
                                                     $icon_path  = '/assets/public/img/icons/proto-mail.svg';
                                                     $icon_src   = hcc_isset_img( dirname(__FILE__), '../..', $icon_path );
                                               if( !empty( $email ) ) : ?>

@@ -332,6 +332,29 @@ function hcc_isset_img( $this_file, $sep, $img_src ) {
 }
 
 /*
+ * Replace substrings in string value. Return string
+ * @param $string is string for search
+ * @param $search is needle string
+ * @param $replace is string value for replacing
+ */
+function hcc_symb_replace( $string, $search, $replace ) {
+  
+  if( empty( $string ) ) {
+    return '';
+  }
+  
+  if( empty( $search ) || empty( $replace ) ) {
+    return $string;
+  }
+  
+  $string  = trim( $string );
+  $search  = trim( $search );
+  $replace = trim( $replace );
+  
+  return str_ireplace( (string)$search,(string)$replace, (string)$string );
+}
+
+/*
  * Admin notices
  *
  */
