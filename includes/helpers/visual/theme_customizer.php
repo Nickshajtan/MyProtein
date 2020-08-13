@@ -1,4 +1,65 @@
 <?php
+/*
+ * Setup
+ *
+ */
+add_action( 'after_setup_theme', 'hcc_setup_customizing_support' );
+function hcc_setup_customizing_support() {
+    $defaults = array(
+        'default-color'          => 'transparent',
+        'default-image'          => '',
+        'default-repeat'         => 'no-repeat',
+        'default-position-x'     => 'center',
+        'default-position-y'     => 'center',
+	    'default-attachment'	 => 'scroll',
+        'wp-head-callback'       => '_custom_background_cb',
+        'admin-head-callback'    => '',
+        'admin-preview-callback' => ''
+    );
+    add_theme_support( 'custom-background', $defaults );
+  
+    $defaults = array(
+        'default-image'          => '',
+        'random-default'         => false,
+        'width'                  => 0,
+        'height'                 => 0,
+        'flex-height'            => true,
+        'flex-width'             => true,
+        'default-text-color'     => 'black',
+        'header-text'            => true,
+        'uploads'                => true,
+        'wp-head-callback'       => '',
+        'admin-head-callback'    => '',
+        'admin-preview-callback' => '',
+    );
+    if( version_compare('4.7.0', get_bloginfo('version'), '>=') ) {
+      $defaults['video'] = true;
+      $defaults['video-active-callback'] = 'is_front_page';
+    }
+    add_theme_support( 'custom-header', $defaults );
+  
+    //add_filter( 'is_header_video_active', 'hcc_is_header_video_active' );
+    function hcc_is_header_video_active( $show_video ){
+      return $show_video;
+    }
+}
+
+/*
+ * Load Video scripts
+ *
+ */
+add_action( 'wp_enqueue_scripts', 'hcc_custom_header_video_js' );
+function hcc_custom_header_video_js() {
+  $url = includes_url();
+  wp_enqueue_script( 'vendor-js', $url . '/js/wp-custom-header.min.js', array('jquery'), '', true );
+  wp_enqueue_script( 'vendor-js', $url . '/js/mediaelement/mediaelement-and-player.min.js', array('jquery'), '', true );
+  wp_enqueue_script( 'vendor-js', $url . '/js/mediaelement/wp-mediaelement.min.js', array('jquery'), '', true );
+}
+
+/*
+ * Customizer settings
+ *
+ */
 add_action( 'customize_register', 'hcc_customizer_init' );
 function hcc_customizer_init( $wp_customize ) {
     $hcc_transport = 'postMessage';
@@ -149,9 +210,9 @@ function hcc_customizer_css() {
 			break;
 	}
 	if ( 'inverse' == get_theme_mod( 'hcc_color_scheme' ) ) { 
-		echo 'background-color:#000;color:#fff;'; // черный фон, белый текст
+		echo 'background-color:#000;color:#fff;';
 	} else {
-		echo 'background-color:#fff;color:#000;'; // белый фон, черный текст
+		echo 'background-color:#fff;color:#000;';
 	}
 	if ( 0 < count( strlen( ( $background_image_url = get_theme_mod( 'hcc_background_image' ) ) ) ) ) {
     		echo 'background-image: url( \'' . $background_image_url . '\' );';

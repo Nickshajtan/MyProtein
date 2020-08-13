@@ -36,39 +36,6 @@ if ( ! function_exists( 'hcc_setup' ) ) {
     }
 }
 
-$customizing = get_option('hcc-theme-wp-customizing'); 
-if( $customizing ) {
-    add_action( 'after_setup_theme', 'hcc_setup_customizing_support' );
-}
-function hcc_setup_customizing_support() {
-    $defaults = array(
-        'default-color'          => '',
-        'default-image'          => '',
-        'wp-head-callback'       => '_custom_background_cb',
-        'admin-head-callback'    => '',
-        'admin-preview-callback' => ''
-    );
-    add_theme_support( 'custom-background', $defaults );
-  
-    $defaults = array(
-        'default-image'          => '',
-        'random-default'         => false,
-        'width'                  => 0,
-        'height'                 => 0,
-        'flex-height'            => false,
-        'flex-width'             => false,
-        'default-text-color'     => '',
-        'header-text'            => true,
-        'uploads'                => true,
-        'wp-head-callback'       => '',
-        'admin-head-callback'    => '',
-        'admin-preview-callback' => '',
-        'video'                  => true,
-        'video-active-callback'  => 'is_front_page',
-    );
-    add_theme_support( 'custom-header', $defaults );
-}
-
 if ( is_plugin_active( 'woocommerce/woocommerce.php' ) || 
     in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
     

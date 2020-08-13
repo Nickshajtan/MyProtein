@@ -130,6 +130,11 @@ get_template_part('includes/helpers/acf/acf_helpers', 'gutenberg');
 get_template_part('includes/helpers/acf/acf_helpers', 'gutenberg_blocks');
 get_template_part('includes/helpers/aq_resizer');
 get_template_part('includes/helpers/gutenberg/gutenberg'); 
+
+if( version_compare('5.0.0', get_bloginfo('version'), '>=') ) {
+  get_template_part('includes/helpers/gutenberg/palette');
+}
+
 get_template_part('includes/helpers/users_helpers');
 get_template_part('includes/helpers/rest_helpers');
 
