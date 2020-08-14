@@ -1,0 +1,123 @@
+@mixin local--slider-title {
+  &,
+  * {
+      @include font-source-sans( $middler, $white, bold, 1.2, $main-font);
+      @include mq('phone', min) {
+        font-size: $big + 3px;
+      }
+      @include mq('extra-tablet', min) {
+        font-size: $oversize + 10px;
+        line-height: 1;
+      }
+    }
+
+    span {
+      color: $helper-color;
+    }
+
+    .color_el,
+    .el_color,
+    span:not(.el_size),
+    span:not(.size_el) {
+      color: $helper-color;
+    }
+
+    .el_size,
+    span.el_size,
+    .size_el,
+    span.size_el {
+      color: $white;
+      font-size: $middle;
+      text-shadow: -4px -2px 0 $helper-color;
+
+      @include mq('phone', min) {
+        font-size: $big + 8px;
+      }
+      @include mq('extra-tablet', min) {
+        font-size: $oversize * 1.5;
+      }
+    }
+}
+
+.flex-slider-block {
+  min-height: 300px;
+  padding: 60px 0;
+  
+  @include mq('phone', min) {
+    min-height: 600px;
+  }
+  @include mq('extra-tablet', min) {
+    padding: 90px 0;
+  }
+  
+  &__slider {
+    &__title {
+      z-index: 3;
+      width: 100%;
+      max-width: 100%;
+      
+      @include el--position(110px, auto, auto, auto);
+      @include mq('phone', min) {
+        top: 170px;
+      }
+      @include mq('extra-tablet', min) {
+        max-width: 844px;  
+      }
+      @include local--slider-title;  
+    }
+    
+    &__arrows-container {
+      display: block;
+      height: 50px;
+      
+      @include el--position(auto, 0, 0, 90px);
+    }
+  }
+  
+  .slider-block {
+    &__slide {
+      position: relative;
+      min-height: 300px;
+      height: 100%;
+      
+      @include mq('phone', min) {
+        min-height: 600px;
+        position: static;
+      }
+      
+      &__title {
+        position: relative;
+        z-index: 3;
+        
+        @include local--slider-title;
+      }
+      
+      &__image {
+        min-height: 600px;
+        z-index: 2;
+        overflow: hidden;
+        
+        @include el--position(0, auto, 0, 0);
+        @include mq('phone', min) {
+          top: auto;
+          bottom: auto;
+        }
+        
+        img {
+          position: absolute;
+          filter: opacity(0.5);
+          
+          @include img--size( 100%, 888px, auto );
+          @include img--obj( top, cover );
+          @include el--position(0, auto, 0, 0);
+          @include mq('phone', min) {
+            min-height: 600px;
+          }
+          @include mq('extra-tablet', min) {
+            filter: none;
+          }
+        }
+      }
+    }
+  }
+}

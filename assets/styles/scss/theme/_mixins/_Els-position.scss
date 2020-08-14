@@ -1,0 +1,21 @@
+@mixin el--position( $top: auto, $left: auto, $right: auto, $bottom: auto ) {
+  top: $top;
+  left: $left;
+  right: $right;
+  bottom: $bottom;
+}
+
+/** Img **/
+@mixin img--obj( $position: center, $fit: cover ) {
+  object-position: $position;
+  object-fit: $fit;
+}
+
+@mixin img--size( $width: false, $max-width: false, $height: false, $max-height: false, $min-width: false, $min-height: false) {
+  @if $width { width: $width; }
+  @if $max-width { max-width: $max-width; }
+  @if $min-width { min-width: $min-width; }
+  @if $min-height { min-height: $min-height; }
+  @if $max-height { max-height: $max-height; }
+  @if $height { height: $height; }
+}
