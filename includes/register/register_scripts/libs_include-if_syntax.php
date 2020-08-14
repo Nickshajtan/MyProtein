@@ -12,15 +12,15 @@ function hcc_add_footer_libs() {
                 $url = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
                 $response = wp_remote_get( wp_normalize_path( $url ) );
                 $code = wp_remote_retrieve_response_code( $response );
-                if ( !is_wp_error( $response ) && isset( $url ) && !empty( $url) && ( $code == '200') ){
+                /*if ( !is_wp_error( $response ) && isset( $url ) && !empty( $url) && ( $code == '200') ){
                             wp_register_style( 'bootstrap', $url, array(), ' ' );
                             wp_enqueue_style( 'bootstrap' );
                 }
                 /*** Else ***/
-                else{
+                /*else{
                         wp_register_style( 'bootstrap', THEME_URI . '/assets/public/libs/bootstrap/bootstrap.min.css', array(), ' ' );
                         wp_enqueue_style( 'bootstrap' );
-                }  
+                }*/
                 //End Bootstrap CSS
             }
             if( $lib === 'bootstrap_grid_css' ){

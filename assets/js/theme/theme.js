@@ -45,7 +45,7 @@ function Loader(){
 //  Slick jQuery slider
 function SlickCarousel(){
       try{
-          let SlickSlider = $('.slick-slider');
+          let SlickSlider = $('.slick-slider') ;
           if($("div").is( SlickSlider )){
                 
                 SlickSlider.each(function(){
@@ -55,7 +55,7 @@ function SlickCarousel(){
                         dots: false,
                         prevArrow:"<button type='button' class='slick-prev pull-left'><img src='" + hcc_js_custom_params.theme_url + "img/icons/a-left-min.png'></button>",
                         nextArrow:"<button type='button' class='slick-next pull-right'><img src='" + hcc_js_custom_params.theme_url + "img/icons/a-right-min.png'></button>",
-                        //appendArrows: $('.slider-navigation'),
+                        appendArrows: $('.slider-navigation'),
                         slidesToShow: 1,
                         autoplay: true,
                         autoplaySpeed: 8000,

@@ -1,22 +1,241 @@
-header {
-  display: none;
-}
-/*
-header{
-    @include bg--auto( $dark, none, cover, no-repeat );
-    padding: 15px 0;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+.site-header {
+  position: relative;
+  padding-bottom: 15px;
+  transition: 0.3s;
+  z-index: 100;
+  
+  @include bg--auto( transparentize( $black, 0.5 ), none, cover, no-repeat );
+  
+  &,
+  *,
+  a, 
+  a:hover, 
+  a:focus, 
+  a:visited {
+    @include font-source-sans( $middler, $white, normal, 1, $main-font);
+  }
+  
+  a:hover, 
+  a:focus {
+    color: $helper-color;
+  }
+  
+  .site-branding {
+    img {
+      max-width: 193px;
+      max-height: 24px;
+    }
+  }
+  
+  .menu {
+    li {
+      display: block;
+      min-width: 120px;
+    }
+    
+    a {
+         position: relative;
+         text-align: center;
+         transition: 0.3s;
+         width: 100%;
+      
+         &:hover,
+         &:focus,
+         .current-menu-item & {           
+           color: $white;
+           font-size: $middler;
+         }
+      
+         &:after {
+           content: '';
+           display:block;
+           width: 8px;
+           height: 8px;
+           background-color: $helper-color;
+           position: relative;
+           top: -70px;
+           margin: 0 auto;
+           transition: width .3s ease-in-out;
+         }
+         
+         @include mq('tablet', min) {
+           &:after {
+             content: '';
+             display: block;
+             width: 0;
+             height: 5px;
+             background-color: $helper-color;
+             top: -70px;
+           }
+         }
+      
+         &:hover,
+         &:focus,
+         .current-menu-item & {           
+           color: $white;
+           
+           &:after {
+             display: block;
+           }
+           
+           @include mq('tablet', min) {
+             &:after {
+               width: 100%;
+             }
+           }
+         }
+      
+      @include mq('laptop', min) {
+        &:last-child {
+          padding-right: 0;
+        }
+      }
+    }
+    .current-menu-item a {
+          color: $white;
+          font-size: $middler;
+          font-weight: bold;
+      
+          &:after {
+            display: block;
+          }
+         
+          @include mq('tablet', min) {
+            &:after {
+              width: 100%;
+            }
+          }
+    }
+  }
+  
+  .search-block {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &,
+    * {
+      color: transparentize( $white, 0.5 );
+    }
+    
+    &:before {
+      content: '';
+      width: 36px;
+      height: 36px;
+      display: block;
+      background-image: url(../img/icons/search.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 50%;
+      background-color: $white;
+      cursor: pointer;
+      border-radius: 50px;
+      margin-right: 12px;
+    }
+  }
+  
+  .cart-block {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:after {
+      content: '';
+      width: 36px;
+      height: 36px;
+      display: block;
+      background-image: url(../img/icons/basket.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      cursor: pointer;
+      border-radius: 50px;
+      margin-left: 16px;
+    }
+  }
+  
+  &.sticky{
+    position: fixed;
+  }
+  
+  &.absolute {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     width: 100%;
-    z-index: 100;
-    border-bottom: 1px solid $orange;
-    font-family: $main-font;
-    &.sticky{
-        position: fixed;
-    }
+  }
+  
+  &__top {
+    padding: 41px 0 33px 0;
+    border-top: 1px solid transparentize( $white, 0.8 );
+  }
+  
+  &__middle {
+    padding: 26px 0 33px 0;
+    border-top: 1px solid transparentize( $white, 0.8 );
+  }
+  
+  &__bottom {
+    padding: 36px 0 12px 0;
+    border-top: 1px solid transparentize( $white, 0.8 );
+  }
+  
+  .socials {
+     
+      @include mq('extra-tablet', min ) {
+         
+         a:not( :first-child ),
+         a:not( :last-child ) {
+           margin: 0 9px; 
+         }
+        
+        a:first-child {
+          margin-right: 9px;
+          margin-left: 0;
+        }
+        
+        a:last-child {
+          margin-right: 0;
+          margin-left: 9px;
+        }
+        
+        a {
+          img {
+            border: 1px solid $white;
+            border-radius: 100px;
+          }
+        }
+        
+        a:hover,
+        a:focus {
+          transition: all 1s ease-in-out;
+          position: relative;
+          transform: scale(1.2);
+          
+          &:not(:hover) {
+            transition: 1s;
+          }
+          
+          img {
+            border: 1px solid $helper-color;
+          }
+        }
+      }
+   }
+  
+  @include mq('laptop', max) {
+    display: none;
+  }
+}
+
+
+
+/*
+header{
+
     .site-branding{
         font-size: $middle;
         line-height: 1;
@@ -30,100 +249,7 @@ header{
             top: 3px;
         }
     }
-    a{
-        color: $white;
-        transition: .3s;
-        position: relative;
-        padding-bottom: 3px;
-        &:after{
-            content: '';
-            position: absolute;
-            display: block;
-            width: 0;
-            height: 2px;
-            background: $orange;
-            bottom: 0;
-            right:  0;
-            transition: width .3s ease-in-out;
-        }
-        &:hover, &:focus, &.current-link{
-            text-decoration: none;
-            color: $orange;
-            &:after{
-                width: 80%;
-            }
-        }
-        &.site-branding{
-            &:after{
-                display: none;
-            }
-        }
-    }
-    .current-menu-item a{
-        &{
-            text-decoration: none;
-            color: $orange;
-            &:after{
-                width: 80%;
-            }
-        }
-    }
-    .header-top{
-        padding: 0;
-        padding-bottom: 5px;
-    }
-    .header-bottom{
-        padding: 0;
-    }
-    .menu{
-        li{
-            padding: 0 16px;
-            a{
-                letter-spacing: 2px;
-                font-weight: $weight-middler;
-                padding-left: 0;
-                padding-right: 0;
-            }
-            &:first-child{
-                padding-left: 0;
-            }
-            &:last-child{
-                padding-right:0;
-            }
-            a:hover, a:focus{
-                color: $yellow;
-            }
-            &.current-menu-item{
-                a{
-                    color: $yellow;
-                }
-            }
-        }
-    }
-    .socials{
-        a{
-            margin: 0 7px;
-            &:after{
-                display: none;
-            }
-            &:hover, &:focus{
-                img{
-                    transform: scale(.9);
-                    transition: .3s;
-                }
-            }
-            &:first-child{
-                margin-left: 0;
-            }
-            &:last-child{
-                margin-right: 0;
-            }
-        }
-    }
-    .phone{
-        margin-right: 10px;
-    }
-}
+
 .burger{
     display: none;
 }

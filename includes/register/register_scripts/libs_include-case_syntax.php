@@ -73,9 +73,9 @@ function hcc_add_footer_libs() {
     if( !empty( $libs ) ){
         foreach( $libs as $lib ){
             switch( $lib ) {
-              case 'bootstrap_css' :
+              /*case 'bootstrap_css' :
                 hcc_remote_get('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', 'bootstrap', '.min.css', 'style' );
-                break;
+                break;*/
               case 'bootstrap_grid_css' :
                 wp_register_style( 'bootstrap-grid', THEME_URI . '/assets/public/libs/bootstrap/bootstrap-grid.min.css', array(), ' ' );
                 wp_enqueue_style( 'bootstrap-grid' );

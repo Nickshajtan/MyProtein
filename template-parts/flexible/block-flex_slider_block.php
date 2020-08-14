@@ -10,7 +10,7 @@ $block_title    = ( $block_settings === 'no' ) ? hcc_get_acf_title(get_sub_field
 if( ( !empty( $slider ) && is_array( $slider ) ) ) : ?>
 
 <section id="flex-slider-block" class="flex-slider-block d-flex align-items-center">
-  <div class="container flex-slider-block__slider slider-block">
+  <div class="container flex-slider-block__slider slider-block slick-slider ">
        <?php foreach( $slider as $slide ) : 
              $slide_image_arr   = $slide['image']; 
              $slide_image       = ( is_array( $slide_image_arr ) ) ? esc_url( $slide_image_arr['url'] ) : esc_url( $slide_image_arr );
@@ -41,7 +41,7 @@ if( ( !empty( $slider ) && is_array( $slider ) ) ) : ?>
             <?php echo $block_title; ?>
           </div>
        <?php endif; ?>
-       <div class="flex-slider-block__slider__arrows-container p-absolute w-100"></div>
+       <div class="flex-slider-block__slider__arrows-container slider-navigation p-absolute w-100"></div>
   </div>
 </section>
 

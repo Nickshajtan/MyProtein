@@ -24,13 +24,14 @@ get_template_part('includes/register/register_scripts/styles', 'header');
 get_template_part('includes/register/register_scripts/scripts', 'main');
 
 $libs = get_option('hcc-theme-tl-libs-off');
-if( $libs ) {
+    
+if( $libs !== 1 ) {
     $syntax = get_option('hcc-theme-tl-libs-syntax');
     if( $syntax ) {
-      get_template_part('includes/register/register_scripts/libs_include', 'if-syntax');
+      get_template_part('includes/register/register_scripts/libs_include', 'if_syntax');
     }
     else {
-      get_template_part('includes/register/register_scripts/libs_include', 'case-syntax');
+      get_template_part('includes/register/register_scripts/libs_include', 'case_syntax');
     }
 }
 

@@ -47,7 +47,7 @@
     height: auto;
     padding: 100px 15px 60px 15px;
     
-    @media screen and ( min-height: 800px ) {
+    @media screen and ( min-height: 800px ) and ( max-width: 1500px ) {
       min-height: 60vh;
     }
     
