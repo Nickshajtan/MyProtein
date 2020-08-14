@@ -1,0 +1,197 @@
+/*** Validation ***/
+%was-validated {
+  .form-element-validation:valid{
+      box-shadow: 0 0 5px $helper-color;
+      border-color: $white;
+  }
+  
+  .form-element-validation:invalid{
+      border-color: $helper-color;
+      box-shadow: 0 0 5px $helper-color;
+  }
+  
+  input:invalid, textarea:invalid, 
+  .form-control:invalid~.invalid-feedback {
+      .valid-warning-feedback, .valid-feedback {
+          display: none;
+      }
+      .invalid-feedback{
+          display: block;
+      }
+  }
+  
+  input:required:valid, textarea:required:valid, 
+  .form-control:required:valid~.valid-feedback {
+      .valid-warning-feedback, .invalid-feedback {
+          display: none;
+      }
+      .valid-feedback{
+          display: block;
+      }
+  }
+  
+  .validation-group:not( .validated-valid ) {
+       input:optional:valid~.valid-feedback, 
+       textarea:optional:valid~.valid-feedback, 
+       .form-control:optional:valid~.valid-feedback, 
+       input:optional:valid~.invalid-feedback, 
+       textarea:optional:valid~.invalid-feedback, 
+       .form-control:optional:valid~.invalid-feedback {
+          display: none;
+      }   
+      
+      input:optional:valid~.valid-warning-feedback, 
+      textarea:optional:valid~.valid-warning-feedback, 
+      .form-control:optional:valid~.valid-warning-feedback, 
+      input:optional:valid~.valid-warning-feedback, 
+      textarea:optional:valid~.valid-warning-feedback, 
+      .form-control:optional:valid~.valid-warning-feedback {
+          display: block;
+      }
+  }
+}
+
+%validated-invalid {
+  .validated-invalid .invalid-feedback{
+      display: block;
+  }
+  
+  .validated-valid .valid-feedback{
+      display: block;
+  }
+  
+  .validated-warning .valid-warning-feedback{
+      display: block;
+  }
+  
+  .validated-warning .valid-feedback{
+      display: none;
+  }
+}
+
+/*** FORM ***/
+
+%form{
+  
+  &.was-validated {
+    @extend %was-validated;    
+  }
+  
+  @extend %validated-invalid;
+  
+  .form-group{
+    margin-bottom: 21px;
+    
+    .form-help{
+      font-size: 0.7rem;
+      margin-top: 5px;
+      margin-left: 15px;
+    }
+    
+    .valid-helper{
+      padding-left: 15px;
+      width: 100%;
+      margin-top: .25rem;
+      font-size: 80%;
+      display: none;
+      
+      &.valid-feedback{
+        color: forestgreen;
+      }
+      
+      &.valid-warning-feedback{
+        color: $white;
+      }
+      
+      &.invalid-feedback{
+        color: darkred;
+      }
+    }
+  }
+  
+  input[type=text], 
+  input[type=tel], 
+  input[type=email] {
+    height: 50px;
+  }
+  
+  input[type=text], 
+  input[type=tel], 
+  input[type=email], 
+  textarea, 
+  .input-group .form-control {
+        box-sizing: border-box;
+        
+        &, 
+        .input-group & {
+            &, 
+            &:not( :first-child ), 
+            &:not( :last-child ) {
+              
+                background: 0 0;
+                border-color: $white;
+                border-width: 1px;
+                border-radius: 0;
+                padding: 10px 15px;
+                color: $white;
+                box-shadow: 0 0 5px $transparent;
+              
+                &:hover, 
+                &:focus {
+                    outline: none;
+                    box-shadow: none;
+                    border-color: $helper-color;
+                    background: 0 0;
+                    color: #fff;
+                }   
+            }   
+        }
+    
+        &.element-was-validated:valid{
+            box-shadow: 0 0 5px forestgreen;
+            border-color: $white;
+        }
+    
+        &.element-was-validated:invalid{
+            border-color: $helper-color;
+            box-shadow: 0 0 5px darkred;
+        }
+    }
+  
+  input[type=submit] {
+    @extend %button;
+    
+    padding: 17px 53px;
+    margin-top: 10px;
+    margin-left: 30px;
+    
+    &:focus {
+      outline: none;
+    }
+    
+    @include mq('extra-tablet', max) {
+      @include push--auto;
+    }
+  }
+}
+
+/*** MODAL FORM ***/
+
+%modal-form {
+  &.was-validated{
+    input:invalid~.invalid-feedback, textarea:invalid~.invalid-feedback, .form-control:invalid~.invalid-feedback{
+        display: block;
+    }
+    input:required:valid~.valid-feedback, textarea:required:valid~.valid-feedback, .form-control:required:valid~.valid-feedback{
+        display: block;
+    }
+    input:optional:valid~.valid-warning-feedback, textarea:optional:valid~.valid-warning-feedback, .form-control:optional:valid~.valid-warning-feedback{
+        display: block;
+    }
+  }
+  
+  .form-group .valid-helper{
+    padding-left: 15px;
+    text-align: left;
+  }
+}

@@ -54,6 +54,11 @@ section{
   }
 }
 
+.button,
+%button {
+  @include proto--btn;
+}
+
 .load-more .button{
     display: inline-flex;
     align-items: flex-end;

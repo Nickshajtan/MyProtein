@@ -6,3 +6,24 @@
   background-color: $bg-color;
   padding: $padding;
 }
+
+@mixin proto--btn {
+  text-transform: uppercase;
+  max-width: 100%;
+  display: block;
+  border: 1px solid $helper-color;
+  box-sizing: border-box;
+  text-align: center;
+  transition: 0.3s;
+  cursor: pointer;
+  
+  @include rounded--button($white, 100px, relative, $helper-color, 17px 37px);
+  @include font-source-sans( $regular, $white, 600, 1, $main-font);
+  
+  &:hover,
+  &:focus {
+    background-color: $transparent;
+    border-color: $white;
+    color: $white;
+  }
+}

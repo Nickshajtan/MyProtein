@@ -54,7 +54,7 @@
     &__title {
       z-index: 3;
       width: 100%;
-      max-width: 100%;
+      max-width: 90%;
       
       @include el--position(110px, auto, auto, auto);
       @include mq('phone', min) {
