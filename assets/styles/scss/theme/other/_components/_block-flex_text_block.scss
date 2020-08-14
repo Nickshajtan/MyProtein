@@ -12,7 +12,7 @@
   &__title {
     text-transform: uppercase;
     
-    @include editor--headers;
+    @include editor--headers(true);
   }
   
   &__content {

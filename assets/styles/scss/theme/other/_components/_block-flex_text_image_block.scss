@@ -27,16 +27,6 @@
         }
       }
       @include editor--headers;
-      
-      .title {
-        padding-left: 0;
-        
-        &:before {
-          content: none;
-          display: none;
-        }
-      }
-      
       @include mq('extra-tablet', min) {
         &,
         * {

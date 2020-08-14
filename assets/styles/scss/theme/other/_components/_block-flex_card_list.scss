@@ -11,11 +11,14 @@
     border: solid 1px $transparent;
     box-sizing: border-box;
     
-    @include mq('extra-tablet', min) {
-      min-height: 395px;
+    @include push--auto;
+    @media screen and (min-width: 767px) and ( max-width: 900px ) {
+      min-height: 208px;
     }
     
-    @include push--auto;
+    @include mq('laptop', min) {
+      min-height: 395px;
+    }
     
     &:hover,
     &:focus {
@@ -55,7 +58,7 @@
         &,
         * {
           @include font-source-sans( $middler - 4px, $white, bold, 1.2, $main-font);
-          @include mq('extra-tablet', min) {
+          @include mq('laptop', min) {
             font-size: $middle;
           }
         }
