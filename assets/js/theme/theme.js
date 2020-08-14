@@ -24,6 +24,7 @@ jQuery( document ).ready(function($) {
     FeedBackButton(); //Enable contact button
     SlickCarousel(); //  Slick jQuery slider
     SectionCount(); // Count sections
+    SectionOlWrapper();
     slideDown(); // Slide to next section
     fancyboxInitial(); //Including Fancybox
     waterweellCarousel(); //  Waterweell jQuery slider
@@ -53,8 +54,8 @@ function SlickCarousel(){
                         infinite: false,
                         arrows: true,
                         dots: false,
-                        prevArrow:"<button type='button' class='slick-prev pull-left'><img src='" + hcc_js_custom_params.theme_url + "img/icons/a-left-min.png'></button>",
-                        nextArrow:"<button type='button' class='slick-next pull-right'><img src='" + hcc_js_custom_params.theme_url + "img/icons/a-right-min.png'></button>",
+                        prevArrow:"<button type='button' class='slick-prev pull-left'><img src='" + hcc_js_custom_params.theme_url + "img/icons/arrow-left.svg'></button>",
+                        nextArrow:"<button type='button' class='slick-next pull-right'><img src='" + hcc_js_custom_params.theme_url + "img/icons/arrow-right.svg'></button>",
                         appendArrows: $('.slider-navigation'),
                         slidesToShow: 1,
                         autoplay: true,
@@ -220,6 +221,10 @@ function fancyboxInitial(){
     catch(e){
           console.log('Problem with Fancybox jQuery plugin');
     }   
+}
+
+function SectionOlWrapper() {
+  $('section ol').find('li').wrapInner("<span></span>");
 }
 
 function SectionCount(){

@@ -36,6 +36,7 @@ if( $libs !== 1 ) {
 }
 
 get_template_part('includes/register/register_scripts/styles', 'footer');
+get_template_part('includes/register/register_scripts/scripts', 'footer');
 get_template_part('includes/register/register_scripts/deregister');
 
 //--remove version css, js--//

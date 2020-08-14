@@ -158,6 +158,8 @@
   
   &.sticky{
     position: fixed;
+    width: 100%;
+    background-color: transparentize( $black, 0.1 );
   }
   
   &.absolute {

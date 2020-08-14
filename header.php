@@ -61,7 +61,7 @@ endif; ?>
                 $addresses   = get_field('addresses', 'options');
               endif;
         ?>
-		<header id="masthead" class="site-header closed absolute">
+		<header id="masthead" class="site-header closed <?php if( is_front_page() ) : ?>absolute<?php endif; ?>">
 		
 			<div class="wrapper container-fluid pl-0 pr-0 site-header__container">
                <div class="burger">

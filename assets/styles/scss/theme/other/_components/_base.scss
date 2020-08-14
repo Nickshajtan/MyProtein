@@ -59,6 +59,7 @@ section{
   @include proto--btn;
 }
 
+/** Ajax loader **/
 .load-more .button{
     display: inline-flex;
     align-items: flex-end;
@@ -101,4 +102,25 @@ section{
             display: block;
         }
     }
+}
+
+/** Slick slider **/
+.slick-prev {
+  left: 0;
+  
+  &:hover,
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.slick-next {
+  right: 0;
+  
+  &:hover,
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
 }

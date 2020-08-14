@@ -28,14 +28,14 @@
   
   ol {
     &,
-    li, li>span {
+    li {
       list-style: decimal;
       list-style-position: inside;
-      color: $white;
+      color: $helper-color;
     }
     
-    & {
-      color: $helper-color;
+    li>span {
+      color: $white;
     }
   }
   

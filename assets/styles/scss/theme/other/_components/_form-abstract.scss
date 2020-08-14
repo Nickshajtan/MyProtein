@@ -121,6 +121,7 @@
   textarea, 
   .input-group .form-control {
         box-sizing: border-box;
+        font-size: $regular - 2px;
         
         &, 
         .input-group & {
