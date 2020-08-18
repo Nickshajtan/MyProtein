@@ -131,11 +131,15 @@ if( have_posts() ) :
               </section>
             </div>    
             
-            <?php if( $g_map_vis === 'show' ) :
-                // map here
+            <?php /*** Google Map ***/
+            if( get_field('locations','options') ) :
+                // get_template_part('template-parts/google-map/google_map', 'many_maps');
+                // get_template_part('template-parts/google-map/google_map', 'many_markers');
             endif; ?>
                
-            <?php if( $flex && !is_null( $flex ) && is_array( $flex ) || have_rows( 'flexible_content', $post_id ) ) : 
+            <?php /*** Flexible Bloks ***/
+
+           if( $flex && !is_null( $flex ) && is_array( $flex ) || have_rows( 'flexible_content', $post_id ) ) : 
                  while (has_sub_field('flexible_content', $post_id)) :
                                    $row_layout_slug = get_row_layout();
                                    get_template_part('template-parts/flexible/block', $row_layout_slug);

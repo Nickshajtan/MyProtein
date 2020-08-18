@@ -51,7 +51,8 @@ endif; ?>
               $show_second_row = false;
               
               $has_nav    = ( has_nav_menu('header') ) ? true : false;
-              $has_woo    = ( class_exists('WooCommerce') ) ? true : false;
+              $woo        = ( defined('WOO_SUPPORT') ) ? WOO_SUPPORT : is_plugin_active( 'woocommerce/woocommerce.php' );
+              $has_woo    = ( class_exists('WooCommerce') && $woo ) ? true : false;
               $isset_logo = ( function_exists( 'hcc_the_custom_logo' ) ) ? true : false;
       
               if( function_exists( 'get_field' ) ) : 
@@ -61,7 +62,7 @@ endif; ?>
                 $addresses   = get_field('addresses', 'options');
               endif;
         ?>
-		<header id="masthead" class="site-header closed <?php if( is_front_page() ) : ?>absolute<?php endif; ?>">
+		<header id="masthead" class="site-header closed <?php if( is_front_page() || is_404() /* error->page*/) : ?>absolute<?php endif; ?>">
 		
 			<div class="wrapper container-fluid pl-0 pr-0 site-header__container">
                <div class="burger">
@@ -90,7 +91,7 @@ endif; ?>
                             <?php endforeach; ?>
                          </div>
                        <?php endif;
-                       if( true || $has_woo ) : ?>
+                       if( $has_woo ) : ?>
                          <div class="col-12 col-xl-5 d-flex order-2 order-xl-2 offset-xl-1 justify-content-end search-block">
                             <a href="#" onclick="alert('Тут будет поиск')">Поиск по товарам</a>
                          </div>
@@ -148,3 +149,6 @@ endif; ?>
                 <?php yoast_breadcrumb( '<div id="breadcrumbs">', '</div>' ); ?>
             </div>
             <?php endif; ?>
+
+       <!-- include site loader -->
+        <?php //get_template_part('template-parts/site', 'loader'); ?>

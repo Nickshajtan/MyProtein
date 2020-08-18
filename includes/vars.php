@@ -38,7 +38,24 @@ if( !defined( 'SITE_URL' ) ){
 if( !defined( 'SITE_NAME' ) ){
     define( 'SITE_NAME', wp_kses_post( get_bloginfo('name') ) );
 }
-
+if( !defined( 'SITE_CUSTOMIZE' ) ){
+    define('SITE_CUSTOMIZE', get_option('hcc-theme-wp-customizing') );
+}
+// Plugins
+if( !defined( 'WOO_SUPPORT' ) ){
+  
+  $woo_active = is_plugin_active( 'woocommerce/woocommerce.php' );
+  $woo_in_arr = in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) );
+  
+  if( $woo_active === true || $woo_in_arr === true ) {
+    $woo = true;
+  }
+  else {
+    $woo = false;
+  }
+  
+  define( 'WOO_SUPPORT', $woo );
+}
 // ACF, Site options as define 
 if( !defined( 'API_KEY' ) ){
     define( 'API_KEY', get_field('google_key', 'options') );

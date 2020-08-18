@@ -225,15 +225,17 @@ function hcc_get_content(){
   * Site logo: the_custom_logo() & ACF define
   *
   */
-function hcc_the_custom_logo( $separator = '|' ){
-    $logo_img='';
-    if( !empty( SITE_LOGO ) ){
+function hcc_the_custom_logo( $logo_id = false, $separator = '|' ){
+    $logo_img = '';
+    $logo_id  = ( $logo_id === false ) ? SITE_LOGO : $logo_id;
+
+    if( !empty( $logo_id ) ){
         if( is_front_page() || is_home() ){
-             $logo_img = '<div class="site-branding">' . SITE_LOGO .'</div>';
+             $logo_img = '<div class="site-branding">' . $logo_id .'</div>';
         }
         else{
             if( !empty( THEME_HOME_URL) ){
-                $logo_img = '<a href="' . THEME_HOME_URL . '" target="_self" class="site-branding">' . SITE_LOGO .'</a>';       
+                $logo_img = '<a href="' . THEME_HOME_URL . '" target="_self" class="site-branding">' . $logo_id .'</a>';       
             }
             else{
                 $logo_img = '<a href="/" target="_self" class="site-branding">' . get_custom_logo() .'</a>';
@@ -352,6 +354,52 @@ function hcc_symb_replace( $string, $search, $replace ) {
   $replace = trim( $replace );
   
   return str_ireplace( (string)$search,(string)$replace, (string)$string );
+}
+
+/*
+ * Get ACF options array fields via WP get_option function. Wrapper.
+ * @param $repeater  is ACF repeater string name
+ * @param $subfields is array of ACF subfields names
+ * @param $types is boolean. Types add to result array subarray with type of ACF subfield
+ * @return array
+ */
+function hcc_get_option_field( $repeater, $subfields, $types = false ) {
+  try {
+    if( !is_string( $repeater ) || empty( $repeater ) ) {
+      throw new Exception(__('Must have $repeater param is not string or empty', 'hcc'));
+      return false;
+    }
+    
+    if( empty( $subfields ) || is_null( $subfields ) || !is_array( $subfields ) ) {
+      throw new Exception(__('Must have $subfields param is not array or empty', 'hcc'));
+      return false;
+    }
+    
+    $types  = ( isset( $types ) ) ?(boolean) $types : false;
+    
+    $values = array();
+    $count  = intval( get_option($repeater, 0) );
+    
+    for ( $i=0; $i<$count; $i++) {
+      $value[] = array();
+      foreach ($subfields as $subfield => $type) {
+        if( $types === false ) {
+          $value[$subfield] = get_option($repeater.'_'.$i.'_'.$subfield, '');
+        }
+        else {
+          $value[$subfield][$type] = get_option($repeater.'_'.$i.'_'.$subfield, '');
+        }
+        $value[$subfield] = get_option($repeater.'_'.$i.'_'.$subfield, '');
+      }
+      $values[] = $value;
+    }
+    
+    return $values;
+    
+  }
+  catch( Exception $e ) {
+    echo $e;
+  }
 }
 
 /*

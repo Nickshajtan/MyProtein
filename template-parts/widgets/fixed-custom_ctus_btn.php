@@ -1,27 +1,22 @@
-<?php 
+<?php
 /*
-*  This file contain some custom fixed widgets
-*
-*/
-?>
-       <!-- Color Switcher -->
-        <div class="switcher d-block sun">
-            <div class="light-theme"></div>
-            <div class="dark-theme"></div>
-        </div>
-        <!-- Color Switcher End -->
-        <!-- Contact Us Button -->
-        <?php if( function_exists( 'get_field' ) ) :
-                    $visibility  = get_field('contact_button_visibility', 'options');
+ * Custom Contact Us Button
+ *
+ *
+ */
+<?php if( function_exists( 'get_field' ) ) :
+            $visibility  = get_field('contact_button_visibility', 'options');
                     if( $visibility === 'true' ) :
                         $links       = get_field('socials_копия', 'options');
                         $phones      = get_field('phone_nums', 'options');
                         $name        = !empty( SITE_NAME ) ? SITE_NAME : '';
                         $theme_url   = !empty( THEME_URI ) ? THEME_URI : get_template_directory_uri();
                     endif;
-              endif; ?>
-        <?php $modal = get_option('hcc-theme-cf-modal'); ?>
-        <?php if( $visibility === 'true' ) : ?>
+endif; 
+$modal = get_option('hcc-theme-cf-modal'); 
+
+if( $visibility === 'true' ) : ?>
+       
         <div class="contact-button-wrap">
             <div class="button-tel">
                 <div class="button-tel-icon"></div>
@@ -30,10 +25,13 @@
                 </div>
             </div>
             <div class="buttons-socials <?php if( !$modal ) : ?> no-msg <?php endif; ?>">
-                <?php if( $modal ) : ?>
+                <?php 
+                $icon_path = esc_url( $theme_url . '/assets/public/img/icons/icon-email.svg');
+                $icon_src  = hcc_isset_img( dirname(__FILE__), '../..', $icon_path );
+                if( $modal ) : ?>
                 <a href="#" class="one-social message social-1" target="_self">
-                    <?php if( !empty( $theme_url ) ) : ?>
-                          <img src="<?php echo esc_url( $theme_url . '/assets/public/img/icons/icon-email.svg'); ?>" title="<?php echo __('Email icon') . $name; ?>" alt="<?php echo __('Email icon'); ?>">
+                    <?php if( $icon_src !== false ) : ?>
+                          <img src="<?php echo $icon_src; ?>" title="<?php echo __('Email icon') . $name; ?>" alt="<?php echo __('Email icon'); ?>">
                     <?php endif; ?>
                 </a>
                 <?php endif; ?>
@@ -49,7 +47,7 @@
                                 if( $actions === 'computer' ) : 
                                     if( $href ) : ?>
                                         <a href="<?php echo $href; ?>" class="one-social social-<?php echo $socialCounter . ' ' . $link_name; ?>" target="<?php echo $target; ?>">
-                                            <?php if( $image ) : ?>
+                                            <?php if( $image && is_array( $image ) ) : ?>
                                                 <img src="<?php echo esc_url( $image['url'] ); ?>" title="<?php echo esc_attr( $image['title'] ) ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>">
                                             <?php endif; ?>
                                         </a>
@@ -57,7 +55,7 @@
                                 elseif( $actions === 'mobile' ) : 
                                     if( $href && !is_mobile() ) : ?>
                                         <a href="<?php echo $href; ?>" class="one-social social-<?php echo $socialCounter . ' ' . $link_name; ?>" target="<?php echo $target; ?>">
-                                            <?php if( $image ) : ?>
+                                            <?php if( $image && is_array( $image ) ) : ?>
                                                 <img src="<?php echo esc_url( $image['url'] ); ?>" title="<?php echo esc_attr( $image['title'] ) ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>">
                                             <?php endif; ?>
                                         </a>
@@ -72,23 +70,20 @@
                                 endif;
                             $socialCounter++; endforeach; 
                 endif;
-                if( $phones ) :
-                        $counter = 1;
-                        foreach( $phones as $phone ) :
-                            if( $counter === 2 ) : break; endif; 
-                            $tel      = sanitize_text_field( trim( $phone['phone_num'] ) );
-                            $href_tel = preg_replace( '~[^0-9]+~', '', $tel ); 
+                if( $phones ) : 
+                            $phone     = $phones[0];
+                            $tel       = sanitize_text_field( trim( $phone['phone_num'] ) );
+                            $href_tel  = preg_replace( '~[^0-9]+~', '', $tel );
+                            $icon_path = esc_url( $theme_url . '/assets/public/img/icons/phone.svg' );
+                            $icon_src  = hcc_isset_img( dirname(__FILE__), '../..', $icon_path );
                             if( !empty( $href_tel ) ) : ?>
                                 <a href="tel:+38<?php echo $href_tel; ?>" class="one-social phone social-<?php echo $socialCounter++; ?>" target="_self">
-                                    <?php if( !empty( $theme_url ) ) : ?>
-                                          <img src="<?php echo esc_url( $theme_url . '/assets/public/img/icons/phone.svg' ); ?>" title="<?php echo __('Phone icon') . ' ' . $name; ?>" alt="<?php echo __('Phone icon'); ?>">
+                                    <?php if( $icon_src !== false ) : ?>
+                                          <img src="<?php echo $icon_src; ?>" title="<?php echo __('Phone icon') . ' ' . $name; ?>" alt="<?php echo __('Phone icon'); ?>">
                                     <?php endif; ?>
                                 </a>
                             <?php endif; 
-                            $counter++; 
-                        endforeach;
-                    endif; ?>
+                  endif; ?>
             </div>
         </div>
-        <?php endif; ?>
-        <!-- Contact Us Button End -->
+<?php endif; ?>

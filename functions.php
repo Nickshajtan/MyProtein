@@ -145,19 +145,22 @@ if ( is_plugin_active( 'custom-post-type-ui/custom-post-type-ui.php' ) ) {
 if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
     get_template_part('includes/helpers/yoast_helpers'); 
 }
-    
-if ( is_plugin_active( 'woocommerce/woocommerce.php' ) || in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+
+$woo = ( defined('WOO_SUPPORT') ) ? WOO_SUPPORT : is_plugin_active( 'woocommerce/woocommerce.php' );
+if ( $woo ) {
     get_template_part('includes/helpers/woo_helpers');
 }  
+unset( $woo );
 
 if( is_plugin_active( 'polylang/polylang.php' ) || is_plugin_active( 'loco-translate/loco.php' ) || is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ){
     get_template_part('includes/helpers/langs_helpers');
 }
 
-$customizing = get_option('hcc-theme-wp-customizing'); 
+$customizing = ( defined( 'SITE_CUSTOMIZE' ) ) ? SITE_CUSTOMIZE : get_option('hcc-theme-wp-customizing'); 
 if( $customizing ) {
     get_template_part('includes/helpers/visual/theme_customizer'); 
 }
+unset( $customizing );
 
 /* -- Include GTM -- */
 require 'includes/gtm/class-tgm-plugin-activation.php';

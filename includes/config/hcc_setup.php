@@ -36,14 +36,15 @@ if ( ! function_exists( 'hcc_setup' ) ) {
     }
 }
 
-if ( is_plugin_active( 'woocommerce/woocommerce.php' ) || 
-    in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+$woo = ( defined('WOO_SUPPORT') ) ? WOO_SUPPORT : is_plugin_active( 'woocommerce/woocommerce.php' );
+if ( $woo ) {
     
     add_action( 'after_setup_theme', 'hcc_setup_woocommerce_support' );
 }
 function hcc_setup_woocommerce_support() {
     add_theme_support('woocommerce');
 }
+unset( $woo );
 
 /**
  * Disable the confirmation notices when an administrator
@@ -193,33 +194,41 @@ function hcc_meta_robots () {
  * @param string/int $ post_id
  *
  */
+
 add_action( 'save_post', 'hcc_default_thumbnail' );
 function hcc_default_thumbnail( $post_id ){
     $post_thumbnail = get_post_thumbnail_id( $post_id );
     if ( is_admin() && !wp_is_post_revision( $post_id ) ) {
         if ( empty( $post_thumbnail ) ) {
-             
-             $path     = ( defined( THEME_URI ) ) ? THEME_URI . '/assets/' : get_template_directory_uri() . '/assets/';
-             $filename = wp_normalize_path( $path . 'wp-header-logo.png' );
-             
-             if( file_exists($filename) && filesize($filename) > 0 ){
-               $url = $filename;
-             }
-             else {
-               $default =  wp_get_attachment_image(2533);
-               if( empty( $default ) ){
-                   $url = wp_normalize_path( 'http://s.w.org/style/images/wp-header-logo.png' );
+          
+             $old_saved = get_page_by_title( 'Default thumbnail', 'ARRAY_A', 'attachment' )['ID'];
+          
+             if( empty( $old_saved ) || is_null( $old_saved ) ) {
+               $path     = ( defined( THEME_URI ) ) ? THEME_URI . '/assets/' : get_template_directory_uri() . '/assets/';
+               $filename = wp_normalize_path( $path . 'wp-header-logo.png' );
+
+               if( file_exists($filename) && filesize($filename) > 0 ){
+                 $url = $filename;
                }
                else {
-                   set_post_thumbnail( $post_id, 2533 );
+                 $default =  wp_get_attachment_image(2533);
+                 if( empty( $default ) ){
+                     $url = wp_normalize_path( 'http://s.w.org/style/images/wp-header-logo.png' );
+                 }
+                 else {
+                     set_post_thumbnail( $post_id, 2533 );
+                 }
                }
+
+               $attach_id = media_sideload_image( $url, $post_id, 'Default thumbnail', 'id' );
              }
-            
-             $attach_id     = media_sideload_image( $url, $post_id, 'Default thumbnail', 'id' );
+             else {
+               $attach_id = $old_saved;
+             }
 
              if( !empty( $attach_id ) ){
                set_post_thumbnail( $post_id, $attach_id );   
-              }   
+             }   
         }
     }
 }   
