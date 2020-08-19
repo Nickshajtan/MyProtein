@@ -23,7 +23,7 @@ $socials = hcc_get_option_field( 'options_socials',
     ), 
 false );
 
-$has_socials  = $socials;
+$has_socials  = ( $socials && in_array('footer', get_option('options_socials_display') ) ) ? $socials : false;
 
 if( !$has_logo && $has_nav || !$has_socials && $has_nav ) {
     $nav_class = 'col-xl-10';

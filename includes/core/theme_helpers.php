@@ -214,53 +214,57 @@ endif;
   * Apply all hooks the_content to get_the_content()
   *
   */
-function hcc_get_content(){
-    $content = get_the_content( $post -> ID );
-    $content = apply_filters( 'the_content', $content );
-    $content = str_replace( ']]>', ']]&gt;', $content );
-    echo $content;
-}
+if ( ! function_exists( 'hcc_get_content' ) ) :
+  function hcc_get_content(){
+      $content = get_the_content( $post -> ID );
+      $content = apply_filters( 'the_content', $content );
+      $content = str_replace( ']]>', ']]&gt;', $content );
+      echo $content;
+  }
+endif;
 
 /**
   * Site logo: the_custom_logo() & ACF define
   *
   */
-function hcc_the_custom_logo( $logo_id = false, $separator = '|' ){
-    $logo_img = '';
-    $logo_id  = ( $logo_id === false ) ? SITE_LOGO : $logo_id;
+if ( ! function_exists( 'hcc_the_custom_logo' ) ) :
+  function hcc_the_custom_logo( $logo_id = false, $separator = '|' ){
+      $logo_img = '';
+      $logo_id  = ( $logo_id === false ) ? SITE_LOGO : $logo_id;
 
-    if( !empty( $logo_id ) ){
-        if( is_front_page() || is_home() ){
-             $logo_img = '<div class="site-branding">' . $logo_id .'</div>';
-        }
-        else{
-            if( !empty( THEME_HOME_URL) ){
-                $logo_img = '<a href="' . THEME_HOME_URL . '" target="_self" class="site-branding">' . $logo_id .'</a>';       
-            }
-            else{
-                $logo_img = '<a href="/" target="_self" class="site-branding">' . get_custom_logo() .'</a>';
-            }
-        }
-    }
-    else{
-        if( $separator ){
-            $first    = substr( SITE_NAME, 0, strpos( SITE_NAME, $separator ) );
-            $second   = stristr( SITE_NAME, $separator );   
-        }
-        else{
-            $first = SITE_NAME;
-            $second = '';
-        }
-        
-        if( is_front_page() || is_home() ){
-            $logo_img = '<div class="site-branding"><span class="main-part">' . $first . '</span>' . '<span class="separator-part"> ' . $second .'</span></div>';
-        }
-        else{
-            $logo_img = '<a href="' . THEME_HOME_URL . '" target="_self" class="site-branding"><span class="main-part">' . $first . '</span>' . '<span class="separator-part"> ' . $second .'</span></a>';
-        }
-    }
-    echo $logo_img;
-}
+      if( !empty( $logo_id ) ){
+          if( is_front_page() || is_home() ){
+               $logo_img = '<div class="site-branding">' . $logo_id .'</div>';
+          }
+          else{
+              if( !empty( THEME_HOME_URL) ){
+                  $logo_img = '<a href="' . THEME_HOME_URL . '" target="_self" class="site-branding">' . $logo_id .'</a>';       
+              }
+              else{
+                  $logo_img = '<a href="/" target="_self" class="site-branding">' . get_custom_logo() .'</a>';
+              }
+          }
+      }
+      else{
+          if( $separator ){
+              $first    = substr( SITE_NAME, 0, strpos( SITE_NAME, $separator ) );
+              $second   = stristr( SITE_NAME, $separator );   
+          }
+          else{
+              $first = SITE_NAME;
+              $second = '';
+          }
+
+          if( is_front_page() || is_home() ){
+              $logo_img = '<div class="site-branding"><span class="main-part">' . $first . '</span>' . '<span class="separator-part"> ' . $second .'</span></div>';
+          }
+          else{
+              $logo_img = '<a href="' . THEME_HOME_URL . '" target="_self" class="site-branding"><span class="main-part">' . $first . '</span>' . '<span class="separator-part"> ' . $second .'</span></a>';
+          }
+      }
+      echo $logo_img;
+  }
+endif;
 
 /**
  * Returns mime types of file extensions
@@ -269,19 +273,21 @@ function hcc_the_custom_logo( $logo_id = false, $separator = '|' ){
  *
  * @return array
  */
-function hcc_get_mime_files_extension( $files_ext ) {
-	$mimes = get_allowed_mime_types();
-	$need_mimes = [];
-	foreach ( $files_ext as $file_ext ) {
-		foreach ( $mimes as $type => $mime ) {
-			if ( false !== strpos( $type, $file_ext ) ) {
-				$need_mimes[] = $mime;
-			}
-		}
-	}
+if ( ! function_exists( 'hcc_get_mime_files_extension' ) ) :
+  function hcc_get_mime_files_extension( $files_ext ) {
+      $mimes = get_allowed_mime_types();
+      $need_mimes = [];
+      foreach ( $files_ext as $file_ext ) {
+          foreach ( $mimes as $type => $mime ) {
+              if ( false !== strpos( $type, $file_ext ) ) {
+                  $need_mimes[] = $mime;
+              }
+          }
+      }
 
-	return $need_mimes;
-}
+      return $need_mimes;
+  }
+endif;
 
 /**
  * Return the iframe code with file
@@ -302,8 +308,8 @@ function hcc_file_viewer($attr, $url, $width = '100%', $height = '500px') {
  * Render pagination : remove title
  *
  */
-add_filter('navigation_markup_template', 'my_navigation_template', 10, 2 );
-function my_navigation_template( $template, $class ){
+add_filter('navigation_markup_template', 'hcc_navigation_template', 10, 2 );
+function hcc_navigation_template( $template, $class ){
 	return '<nav class="navigation %1$s" role="navigation"><div class="nav-links">%3$s</div></nav>';
 }
 
@@ -313,25 +319,27 @@ function my_navigation_template( $template, $class ){
  * @param $img_src is string
  * @param $sep is string separator
  */
-function hcc_isset_img( $this_file, $sep, $img_src ) {
-  if( !isset( $this_file ) || !isset( $img_src ) ) {
+if ( ! function_exists( 'hcc_isset_img' ) ) :
+  function hcc_isset_img( $this_file, $sep, $img_src ) {
+    if( !isset( $this_file ) || !isset( $img_src ) ) {
+      return false;
+    }
+
+    $this_file = trim( $this_file ) . '/';
+    $img_src   = esc_url( $img_src );
+    $img_src   = ( strpos( $img_src, '/' ) === 0 ) ? $img_src : '/' . $img_src;
+    $sep       = ( isset( $sep ) ) ? trim( $sep ) : '';
+    $abs       = ( defined('THEME_URI') ) ? THEME_URI : get_template_directory_uri();
+
+    $img_isset  =  wp_normalize_path( $this_file . $sep . $img_src );
+
+    if( file_exists( $img_isset ) ) {
+      $img_src    =  wp_normalize_path( $abs . $img_src );
+      return $img_src;
+    }
     return false;
   }
-  
-  $this_file = trim( $this_file ) . '/';
-  $img_src   = esc_url( $img_src );
-  $img_src   = ( strpos( $img_src, '/' ) === 0 ) ? $img_src : '/' . $img_src;
-  $sep       = ( isset( $sep ) ) ? trim( $sep ) : '';
-  $abs       = ( defined('THEME_URI') ) ? THEME_URI : get_template_directory_uri();
-  
-  $img_isset  =  wp_normalize_path( $this_file . $sep . $img_src );
-  
-  if( file_exists( $img_isset ) ) {
-    $img_src    =  wp_normalize_path( $abs . $img_src );
-    return $img_src;
-  }
-  return false;
-}
+endif;
 
 /*
  * Replace substrings in string value. Return string
@@ -339,22 +347,24 @@ function hcc_isset_img( $this_file, $sep, $img_src ) {
  * @param $search is needle string
  * @param $replace is string value for replacing
  */
-function hcc_symb_replace( $string, $search, $replace ) {
-  
-  if( empty( $string ) ) {
-    return '';
+if ( ! function_exists( 'hcc_symb_replace' ) ) :
+  function hcc_symb_replace( $string, $search, $replace ) {
+
+    if( empty( $string ) ) {
+      return '';
+    }
+
+    if( empty( $search ) || empty( $replace ) ) {
+      return $string;
+    }
+
+    $string  = trim( $string );
+    $search  = trim( $search );
+    $replace = trim( $replace );
+
+    return str_ireplace( (string)$search,(string)$replace, (string)$string );
   }
-  
-  if( empty( $search ) || empty( $replace ) ) {
-    return $string;
-  }
-  
-  $string  = trim( $string );
-  $search  = trim( $search );
-  $replace = trim( $replace );
-  
-  return str_ireplace( (string)$search,(string)$replace, (string)$string );
-}
+endif;
 
 /*
  * Get ACF options array fields via WP get_option function. Wrapper.
@@ -363,44 +373,46 @@ function hcc_symb_replace( $string, $search, $replace ) {
  * @param $types is boolean. Types add to result array subarray with type of ACF subfield
  * @return array
  */
-function hcc_get_option_field( $repeater, $subfields, $types = false ) {
-  try {
-    if( !is_string( $repeater ) || empty( $repeater ) ) {
-      throw new Exception(__('Must have $repeater param is not string or empty', 'hcc'));
-      return false;
-    }
-    
-    if( empty( $subfields ) || is_null( $subfields ) || !is_array( $subfields ) ) {
-      throw new Exception(__('Must have $subfields param is not array or empty', 'hcc'));
-      return false;
-    }
-    
-    $types  = ( isset( $types ) ) ?(boolean) $types : false;
-    
-    $values = array();
-    $count  = intval( get_option($repeater, 0) );
-    
-    for ( $i=0; $i<$count; $i++) {
-      $value[] = array();
-      foreach ($subfields as $subfield => $type) {
-        if( $types === false ) {
+if ( ! function_exists( 'hcc_get_option_field' ) ) :
+  function hcc_get_option_field( $repeater, $subfields, $types = false ) {
+    try {
+      if( !is_string( $repeater ) || empty( $repeater ) ) {
+        throw new Exception(__('Must have $repeater param is not string or empty', 'hcc'));
+        return false;
+      }
+
+      if( empty( $subfields ) || is_null( $subfields ) || !is_array( $subfields ) ) {
+        throw new Exception(__('Must have $subfields param is not array or empty', 'hcc'));
+        return false;
+      }
+
+      $types  = ( isset( $types ) ) ?(boolean) $types : false;
+
+      $values = array();
+      $count  = intval( get_option($repeater, 0) );
+
+      for ( $i=0; $i<$count; $i++) {
+        $value[] = array();
+        foreach ($subfields as $subfield => $type) {
+          if( $types === false ) {
+            $value[$subfield] = get_option($repeater.'_'.$i.'_'.$subfield, '');
+          }
+          else {
+            $value[$subfield][$type] = get_option($repeater.'_'.$i.'_'.$subfield, '');
+          }
           $value[$subfield] = get_option($repeater.'_'.$i.'_'.$subfield, '');
         }
-        else {
-          $value[$subfield][$type] = get_option($repeater.'_'.$i.'_'.$subfield, '');
-        }
-        $value[$subfield] = get_option($repeater.'_'.$i.'_'.$subfield, '');
+        $values[] = $value;
       }
-      $values[] = $value;
+
+      return $values;
+
     }
-    
-    return $values;
-    
+    catch( Exception $e ) {
+      echo $e;
+    }
   }
-  catch( Exception $e ) {
-    echo $e;
-  }
-}
+endif;
 
 /*
  * Admin notices

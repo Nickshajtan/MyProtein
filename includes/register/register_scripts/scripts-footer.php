@@ -27,6 +27,7 @@ function hcc_add_footer_scripts() {
         'more_text' => __('Show more', 'hcc'),
         'error_text' => __('The request failed', 'hcc'),
         'load_text' => __('Loading', 'hcc'),
+        'loader' => get_option('hcc-theme-tl-preloader'),
 	) );
     $template = get_post_meta( get_queried_object_id(), '_wp_page_template', true );
     if( $template == 'template-thanks.php' || $template == 'template-contacts.php' || $template == '404.php' || $template == 'template-privacy.php' ){

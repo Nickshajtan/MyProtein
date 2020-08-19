@@ -4,6 +4,7 @@
  *
  */
 
+$block_id_str  = str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz');
 $block_title   = hcc_get_acf_header('title text-white text-center');
 $block_link    = get_sub_field('button', $post->ID);
 $block_image   = get_sub_field('image', $post->ID);
@@ -20,7 +21,7 @@ endif;
 
 if( ( !empty( $block_title ) && is_array( $block_title ) ) || !empty( $block_image ) ) : ?>
 
-<section id="flex-banner-text-block" class="flex-banner-text-block block-banner d-flex align-items-center" <?php echo $image; ?>>
+<section id="flex-banner-text-block-<?php echo $block_id_str; ?>" class="flex-banner-text-block block-banner d-flex align-items-center" <?php echo $image; ?>>
   <div class="container">
     <div class="row d-flex align-items-center justify-content-center">
         

@@ -74,7 +74,7 @@ function hcc_cpt_manual_register() {
   // actions
   $type_name = 'shares';
   
-  if( !hcc_isset_post_type( $type_name, $post_types ) ) {
+  if( !post_type_exists( $type_name ) || !hcc_isset_post_type( $type_name, $post_types ) ) {
         $labels = hcc_labels_helper( $type_name );
 
         $args = array(
@@ -104,7 +104,7 @@ function hcc_cpt_manual_register() {
   // reviews
   $type_name = 'reviews';  
   
-  if( !hcc_isset_post_type( $type_name, $post_types ) ) {
+  if( !post_type_exists( $type_name ) || !hcc_isset_post_type( $type_name, $post_types ) ) {
         $labels = hcc_labels_helper( $type_name );
 
         $args = array(

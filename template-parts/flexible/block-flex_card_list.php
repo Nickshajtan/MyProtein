@@ -3,6 +3,7 @@
  * Card list Block for Flexible content with text & link
  *
  */
+$block_id_str  = str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz');
 $block_content = get_sub_field('card_list', $post->ID);
 $count         = (int) count( $block_content );
 
@@ -16,7 +17,7 @@ endif;
 
 if( !empty( $block_content ) && is_array( $block_content ) ) : ?>
 
-<section id="flex-card-list" class="flex-card-list d-grid grid-column-<?php echo $class; ?> p-0">
+<section id="flex-card-list-<?php echo $block_id_str; ?>" class="flex-card-list d-grid grid-column-<?php echo $class; ?> p-0">
 
   <?php foreach( $block_content as $card ) : 
           $card_title       = hcc_get_acf_title( $card, 'text-center' );

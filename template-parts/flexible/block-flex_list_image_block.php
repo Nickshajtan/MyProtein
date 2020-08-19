@@ -3,6 +3,7 @@
  * Text Block for Flexible content with image, button & list
  *
  */
+$block_id_str  = str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz');
 $block_title   = hcc_get_acf_header('text-white text-left title');
 $block_content = get_sub_field('block_content', $post->ID);
 $image_arr     = get_sub_field('image', $post->ID);
@@ -54,7 +55,7 @@ endif;
 
 if( !empty( $block_image ) || !empty( $block_title ) || !empty( $block_content ) ) : ?>
 
-<section id="flex-text-image-block" class="flex-text-image-block flex-list-image-block d-flex flex-column flex-lg-row align-items-center">
+<section id="flex-text-image-block-<?php echo $block_id_str; ?>" class="flex-text-image-block flex-list-image-block d-flex flex-column flex-lg-row align-items-center">
   <div class="container-fluid">
     <?php if( !empty( $block_title ) ) : ?>
       <div class="row-fluid">

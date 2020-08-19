@@ -4,11 +4,28 @@
  *
  */
 
-$phones      = get_field('phone_nums', 'options');
-$emails      = get_field('emails', 'options'); 
-$addresses   = get_field('addresses', 'options');
+$phones      = hcc_get_option_field( 'options_phone_nums', 
+    array(
+      'phone_num' => 'text-type',
+    ), 
+false );
+$emails      = hcc_get_option_field( 'options_emails', 
+    array(
+      'email' => 'text-type',
+    ), 
+false );
+$addresses   = hcc_get_option_field( 'options_addresses', 
+    array(
+      'adress' => 'text-type',
+      'g_href' => 'text-type',
+    ), 
+false );
 
-if( $phones || $emails || $addresses ) : ?>
+$phones_display    = ( in_array('header', get_option('options_phones_display') ) )    ? true : false; 
+$emails_display    = ( in_array('header', get_option('options_emails_display') ) )    ? true : false; 
+$addresses_display = ( in_array('header', get_option('options_addresses_display') ) ) ? true : false; 
+
+if( $phones && $phones_display || $emails && $emails_display || $addresses && $addresses_display ) : ?>
                  <div class="site-header__middle col-12 d-flex order-2 order-xl-2 pl-0 pr-0">
                    <div class="container">
                      <div class="row">

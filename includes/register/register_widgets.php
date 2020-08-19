@@ -29,16 +29,27 @@ function hcc_remove_default_widget() {
 * Register sidebars
 *
 */
-//add_action( 'init', 'hcc_register_sidebars' );
+add_action( 'init', 'hcc_register_sidebars' );
 function hcc_register_sidebars(){
     $args = array(
         'name'          => __('Sidebar', 'hcc') . ' %d',
         'id'            => "sidebar-%d",
         'before_widget' => '<li id="%1$s" class="widget %2$s">',
         'after_widget'  => '</li>',
-        'before_title'  => '<p class="widgettitle">',
-        'after_title'   => '</p>' 
+        'before_title'  => '<p class="widgettitle"><b>',
+        'after_title'   => '</b></p>' 
     );
-    register_sidebars( 2, $args );
+    
+    // Helper function
+    $register = function( $name, $count ) use ( $args ) {
+       $num = ( $count > 1 ) ? ' %d' : '';
+       $args['name'] = $name . $num;
+       $args['id']   = $name . $num;
+       register_sidebars( $count, $args );
+    };
+    
+    $register( __('Header', 'hcc'), 2 );
+    $register( __('Search', 'hcc'), 1 );
+    $register( __('Footer', 'hcc'), 3 );
 }
 

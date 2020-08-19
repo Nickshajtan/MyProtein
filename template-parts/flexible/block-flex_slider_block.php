@@ -3,13 +3,14 @@
  * Slider Block for Flexible content
  *
  */
+$block_id_str   = str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz');
 $slider         = get_sub_field('slider', $post->ID);
 $block_settings = get_sub_field('slider_radio', $post->ID);
 $block_title    = ( $block_settings === 'no' ) ? hcc_get_acf_title(get_sub_field('text', $post->ID), 'title text-white text-left') : false;
 
 if( ( !empty( $slider ) && is_array( $slider ) ) ) : ?>
 
-<section id="flex-slider-block" class="flex-slider-block d-flex align-items-center">
+<section id="flex-slider-block-<?php echo $block_id_str; ?>" class="flex-slider-block d-flex align-items-center">
   <div class="container-fluid flex-slider-block__slider slider-block pl-0 pr-0">
       <div class="row-fluid slick-slider">
        <?php foreach( $slider as $slide ) : 

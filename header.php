@@ -39,30 +39,18 @@ if( !class_exists('ACF') ) :
 endif; ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
-  <?php get_template_part('template-parts/header/head'); ?>
+  <?php get_template_part('template-parts/header/head');
+  /** Default site preloader **/
+  $loader = get_option('hcc-theme-tl-preloader');
+  if( $loader ) :
+    get_template_part('template-parts/header/loader', 'default');
+  endif;
+  ?>
 
   <body <?php body_class(); ?>>
     <?php wp_body_open(); ?>
 	<div id="page" class="site remodal-bg">
-	
-		<?php /** Header settings **/
-              
-              $show_first_row  = true;
-              $show_second_row = false;
-              
-              $has_nav    = ( has_nav_menu('header') ) ? true : false;
-              $woo        = ( defined('WOO_SUPPORT') ) ? WOO_SUPPORT : is_plugin_active( 'woocommerce/woocommerce.php' );
-              $has_woo    = ( class_exists('WooCommerce') && $woo ) ? true : false;
-              $isset_logo = ( function_exists( 'hcc_the_custom_logo' ) ) ? true : false;
-      
-              if( function_exists( 'get_field' ) ) : 
-                $socials     = get_field('socials', 'options');
-                $phones      = get_field('phone_nums', 'options');
-                $emails      = get_field('emails', 'options'); 
-                $addresses   = get_field('addresses', 'options');
-              endif;
-        ?>
-		<header id="masthead" class="site-header closed <?php if( is_front_page() || is_404() /* error->page*/) : ?>absolute<?php endif; ?>">
+		<header id="masthead" class="site-header closed <?php if( is_front_page() || is_404() ) : ?>absolute<?php endif; ?>">
 		
 			<div class="wrapper container-fluid pl-0 pr-0 site-header__container">
                <div class="burger">
@@ -71,77 +59,26 @@ endif; ?>
                    <span></span>
                </div>
                
-               
                <div class="row-fluid d-flex flex-column">
-                 
-                 <?php if( $socials && $show_first_row || $has_woo && $show_first_row ) : ?>
-                 <div class="site-header__top col-12 order-3 order-xl-1 pl-0 pr-0">
-                   <div class="container">
-                     <div class="row -flex align-items-center">
-                       <?php if( is_array( $socials ) && !is_null( $socials ) ) : ?>
-                         <div class="col-12 col-xl-3 socials d-flex order-3 order-xl-1">
-                            <?php foreach( $socials as $social ) : 
-                                $image = $social['icon'];
-                                $href  = esc_url( wp_kses_post( trim( $social['link'] ) ) );
-                                if( !empty( $image ) ) : ?>
-                                    <a href="<?php echo ( !empty( $href )  ) ? $href : '#'; ?>" target="_blank">
-                                        <img src="<?php echo esc_url( $image['url'] ); ?>" title="<?php echo esc_attr( $image['title'] ) ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>" class="svg-icon" >
-                                    </a>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                         </div>
-                       <?php endif;
-                       if( $has_woo ) : ?>
-                         <div class="col-12 col-xl-5 d-flex order-2 order-xl-2 offset-xl-1 justify-content-end search-block">
-                            <a href="#" onclick="alert('Тут будет поиск')">Поиск по товарам</a>
-                         </div>
-                         <div class="col-12 col-xl-3 d-flex order-1 order-xl-3 justify-content-end cart-block">
-                            <a href="#" onclick="alert('Тут будет корзина')">Корзина (0)</a>
-                         </div>
-                       <?php endif; ?>
-                     </div>
-                   </div>
-                 </div>
-                 <?php endif; ?>
-                 
-                 <?php if( $show_second_row && ( $phones || $emails || $addresses ) ) :
-                    get_template_part('template-parts/header/header', 'middle');
-                 endif; ?>
-                 
-                 <?php if( $isset_logo || $has_nav ) : ?>
-                 <div class="site-header__bottom col-12 d-flex order-1 order-xl-3 pl-0 pr-0">
-                   <div class="container">
-                     <div class="row d-flex justify-content-between align-items-center">
-                         <div class="col-12 col-xl-3">
-                           <?php hcc_the_custom_logo(); ?>
-                         </div>
-                       <nav id="site-navigation" class="main-navigation site-header__nav col-12 col-xl-9 d-flex justify-content-end">
-                              <?php $nav_args = array(
-                                        'theme_location'	=> 'header',
-                                        'menu_id'			=> 'header-menu',
-                                        'container'		    => '',
-                                    );
-                                    if( class_exists('HCC_Nav_Walker') && isset( $nav_args ) ) :
-                                      $nav_args['walker'] = new HCC_Nav_Walker();
-                                    endif; 
-                                    wp_nav_menu( $nav_args ); ?>
-                        </nav>
-                     </div>
-
-                   </div>
-                 </div>
-                 <?php endif; ?>
-                 
+                 <?php 
+                 /*** Widgets, Woo cart & Woo search, Socials ***/
+                 get_template_part('template-parts/header/header', 'row_top');
+                 /*** Contact info ***/
+                 get_template_part('template-parts/header/header', 'row_middle');
+                 /*** Logo & Nav ***/
+                 get_template_part('template-parts/header/header', 'row_bottom'); 
+                 ?>
                </div>
-                
-		    
 		    
 		    <?php if( current_theme_supports('custom-header') && get_option('hcc-theme-wp-customizing') && has_custom_header() ) :
               the_custom_header_markup();
             endif; ?>
           </div>
 	    </header>
-
+	    <?php  /*** Search widgets area ***/
+        get_template_part('template-parts/header/header', 'full_width_search'); ?>
+	    
+        
 	<div id="content" class="site-content">
 	    <main>
             <?php if ( function_exists( 'yoast_breadcrumb' ) ) : ?>
@@ -149,6 +86,3 @@ endif; ?>
                 <?php yoast_breadcrumb( '<div id="breadcrumbs">', '</div>' ); ?>
             </div>
             <?php endif; ?>
-
-       <!-- include site loader -->
-        <?php //get_template_part('template-parts/site', 'loader'); ?>

@@ -4,6 +4,7 @@
  *
  */
 
+$block_id_str  = str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz');
 // block content
 $first_row  = get_sub_field('first_row', $post->ID);
 $second_row = get_sub_field('second_row', $post->ID);
@@ -75,7 +76,7 @@ endif;
 
 if( is_array( $first_row ) && !empty( $first_row ) || is_array( $second_row ) && !empty( $second_row ) ) : ?>
 
-<section id="flex-chess-image-block" class="flex-chess-image-block">
+<section id="flex-chess-image-block-<?php echo $block_id_str; ?>" class="flex-chess-image-block">
   <?php if( is_array( $first_row ) && !empty( $first_row ) ) : ?>
    <?php if( !empty( $block_title ) ) : ?>
     <div class="container flex-chess-image-block__row row_first">

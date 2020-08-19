@@ -3,13 +3,13 @@
  * Text Block for Flexible content. Including WP editor with styles
  *
  */
-
+$block_id_str  = str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz');
 $block_title   = hcc_get_acf_header('title text-white text-left');
 $block_content = wp_kses_post( get_sub_field('block_content', $post->ID) );
 
 if( ( !empty( $block_title ) && is_array( $block_title ) ) || !empty( $block_content ) ) : ?>
 
-<section id="flex-text-block" class="flexible-content flex-text-block d-flex align-items-center">
+<section id="flex-text-block-<?php echo $block_id_str; ?>" class="flexible-content flex-text-block d-flex align-items-center">
   <div class="container">
     <div class="row d-flex align-items-center justify-content-start">
         

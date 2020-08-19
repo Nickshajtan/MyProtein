@@ -4,7 +4,7 @@
  *
  *
  */
-<?php if( function_exists( 'get_field' ) ) :
+if( function_exists( 'get_field' ) ) :
             $visibility  = get_field('contact_button_visibility', 'options');
                     if( $visibility === 'true' ) :
                         $links       = get_field('socials_копия', 'options');

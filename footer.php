@@ -19,6 +19,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  ?>
                 get_template_part('template-parts/footer/footer', 'row_top');
                 /*** Contact info ***/
                 get_template_part('template-parts/footer/footer', 'row_middle');
+                /*** Footer widgets ***/
+                get_template_part('template-parts/footer/footer', 'widgets');
                 /*** Copyright ***/
                 get_template_part('template-parts/footer/footer', 'row_bottom');
                 /*** Ajax error modal ***/

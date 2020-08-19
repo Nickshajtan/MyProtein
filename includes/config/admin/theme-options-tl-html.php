@@ -11,6 +11,17 @@
 				</td>
 			</tr>
 			<tr>
+				<th><?php echo __('Use frontend preloader', 'hcc'); ?></th>
+				<td>
+					<p class="description"><?php echo __('Enable default theme preloader.', 'hcc'); ?></p>
+					<?php $loader = get_option('hcc-theme-tl-preloader'); ?>
+					<p><label>
+                        <input name="hcc-theme-tl-preloader" type="checkbox" value="1" <?php checked( '1', $loader ); ?>/>
+					    <?php echo __('Enable', 'hcc'); ?>
+				    </label></p> 
+				</td>
+			</tr>
+			<tr>
 			  <th><?php echo __('Use libs including', 'hcc'); ?></th>
 			  <td>
 			    <p class="description"><?php echo __('Disabling JS/CSS/PHP libs including for default theme setup.', 'hcc'); ?></p>

@@ -4,6 +4,7 @@
  *
  */
 
+$block_id_str  = str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz');
 $block_title   = hcc_get_acf_header('title text-white text-center');
 $block_image   = get_sub_field('image', $post->ID);
 $block_image   = ( is_array( $block_image ) ) ? esc_url( $block_image['url'] ) : esc_url( $block_image );
@@ -23,7 +24,7 @@ $phone_nums   = $data_right['phone_nums'];
 
 if( ( !empty( $block_title ) && is_array( $block_title ) ) || !empty( $block_image ) || !empty( $data ) ) : ?>
 
-<section id="flex-banner-info-columns-block" class="flex-banner-info-columns-block flex-banner-info-block block-banner d-flex align-items-center" <?php echo $image; ?>>
+<section id="flex-banner-info-columns-block-<?php echo $block_id_str; ?>" class="flex-banner-info-columns-block flex-banner-info-block block-banner d-flex align-items-center" <?php echo $image; ?>>
   <div class="container">
     <div class="row d-flex align-items-end justify-content-center">
        

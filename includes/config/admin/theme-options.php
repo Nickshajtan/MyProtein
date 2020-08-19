@@ -71,6 +71,7 @@ function hcc_theme_options() {
     // tools
     add_settings_section('hcc-tl-settings-theme',  __('Tools settings', 'hcc'), 'hcc_tl_options_fields', '');
     register_setting( 'hcc-tl-theme-options', 'hcc-theme-tl-reload' );
+    register_setting( 'hcc-tl-theme-options', 'hcc-theme-tl-preloader' );
     register_setting( 'hcc-tl-theme-options', 'hcc-theme-tl-libs-off' );
     register_setting( 'hcc-tl-theme-options', 'hcc-theme-tl-libs-syntax' );
   

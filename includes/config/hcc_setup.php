@@ -168,7 +168,11 @@ function hcc_remove_menus(){
  * Remove toolbar items
  * https://digwp.com/2016/06/remove-toolbar-items/
  */
-add_action('admin_bar_menu', 'hcc_remove_toolbar_nodes', 999);
+$customizing = ( defined( 'SITE_CUSTOMIZE' ) ) ? SITE_CUSTOMIZE : get_option('hcc-theme-wp-customizing'); 
+if( !$customizing ) {
+  add_action('admin_bar_menu', 'hcc_remove_toolbar_nodes', 999);
+}
+
 function hcc_remove_toolbar_nodes($wp_admin_bar) {
 	$wp_admin_bar->remove_node('wp-logo');
 	$wp_admin_bar->remove_node('comments');
