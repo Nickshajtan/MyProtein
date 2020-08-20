@@ -29,8 +29,9 @@ class HCC_Nav_Walker extends Walker_Nav_Menu {
         $atts['target']    = ! empty( $item->target )     ? $item->target     : '';
         $atts['rel']       = ! empty( $item->xfn )        ? $item->xfn        : '';
         
-        $tag          = preg_match('#%(.*?)%#', $item->url, $matches);
-        $tag_matches  = str_replace( '%', '', $matches[0] );
+		$matches	  = '';
+        $tag          = preg_match('#%(.*?)%#', $item->url, $matches, PREG_OFFSET_CAPTURE);
+        $tag_matches  = ( isset( $matches[0] ) && !is_null( $matches[0] ) && !$matches[0] == false ) ? str_replace( '%', '', $matches[0] ) : '';
         $item_url     = str_replace( 'https://%', '', $item->url );
         $item_url     = str_replace( 'http://%', '', $item_url );
         $item_url     = str_replace( $tag_matches.'%', '', $item_url );

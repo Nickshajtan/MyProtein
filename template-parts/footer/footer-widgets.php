@@ -5,15 +5,9 @@
  *
  */
 
-if ( is_active_sidebar( 'Footer-1' ) ) {
-  $footer_first_sidebar  = true;
-}
-if ( is_active_sidebar( 'Footer-2' ) ) {
-  $footer_second_sidebar = true;
-}
-if ( is_active_sidebar( 'Footer-3' ) ) {
-  $footer_third_sidebar  = true;
-}
+$footer_first_sidebar  = ( is_active_sidebar( 'Footer-1' ) ) ? true : false;
+$footer_second_sidebar = ( is_active_sidebar( 'Footer-2' ) ) ? true : false;
+$footer_third_sidebar  = ( is_active_sidebar( 'Footer-3' ) ) ? true : false;
 
 if( $footer_first_sidebar === true && $footer_second_sidebar === true && $footer_third_sidebar === true ) {
   $class = 'col-12 col-md-6 col-lg-4';

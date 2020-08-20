@@ -22,9 +22,13 @@ $addresses   = hcc_get_option_field( 'options_addresses',
     ), 
 false );
 
-$phones_display    = ( in_array('footer', get_option('options_phones_display') ) )    ? true : false; 
-$emails_display    = ( in_array('footer', get_option('options_emails_display') ) )    ? true : false; 
-$addresses_display = ( in_array('footer', get_option('options_addresses_display') ) ) ? true : false; 
+$phones_check    = get_option('options_phones_display');
+$emails_check    = get_option('options_emails_display');
+$addresses_check = get_option('options_addresses_display');
+
+$phones_display    = ( is_array( $phones_check ) && in_array('footer', $phones_check ) )    ? true : false; 
+$emails_display    = ( is_array( $emails_check ) && in_array('footer', $emails_check ) )    ? true : false; 
+$addresses_display = ( is_array( $addresses_check ) && in_array('footer', $addresses_check ) ) ? true : false;  
 
 if( $phones && !empty( $phones ) && $phones_display || 
     $emails && !empty( $phones ) && $emails_display || 
@@ -80,3 +84,9 @@ if( $phones && !empty( $phones ) && $phones_display ||
                         </div>
                       </div>
 <?php endif; 
+
+unset( $phones_check );
+unset( $emails_check );
+unset( $addresses_check );
+
+?>
