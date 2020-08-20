@@ -47,6 +47,19 @@ remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
 remove_action('template_redirect', 'rest_output_link_header', 11, 0);
 
 /*
+ * Disable public REST reading
+ *
+ */
+add_filter( 'rest_authentication_errors', function( $result ){
+
+	if( empty( $result ) && !is_user_logged_in() ){
+		return new WP_Error( 'rest_forbidden', 'You are not currently logged in.', array( 'status' => 401 ) );
+	}
+
+	return $result;
+});
+
+/*
  * Redirect to the homepage all users trying to access feeds.
  *
  */

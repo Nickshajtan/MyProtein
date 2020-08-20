@@ -75,14 +75,13 @@ endif; ?>
             endif; ?>
           </div>
 	    </header>
-	    <?php  /*** Search widgets area ***/
-        get_template_part('template-parts/header/header', 'full_width_search'); ?>
+	    <?php  
+        /*** Search widgets area ***/
+        get_template_part('template-parts/header/header', 'full_width_search');
+        /*** Breadcrumbs ***/
+        get_template_part('template-parts/header/breadcrumbs');
+        ?>
 	    
-        
 	<div id="content" class="site-content">
 	    <main>
-            <?php if ( function_exists( 'yoast_breadcrumb' ) ) : ?>
-            <div class="breadcrumbs">
-                <?php yoast_breadcrumb( '<div id="breadcrumbs">', '</div>' ); ?>
-            </div>
-            <?php endif; ?>
+	    
