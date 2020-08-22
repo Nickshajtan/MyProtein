@@ -3,7 +3,7 @@
  * Styles for footer
  *
  */
-add_action( 'get_footer', 'hcc_add_footer_styles' );
+add_action( 'wp_footer', 'hcc_add_footer_styles' );
 function hcc_add_footer_styles() {
     //Compile theme fonts
     $path     = '/assets/public/fonts.min.css';

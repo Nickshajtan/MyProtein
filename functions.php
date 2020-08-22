@@ -20,14 +20,26 @@ $theme_error = function ($message, $subtitle = '', $title = '') {
     wp_die($message, $title);
 };
 
+$admin_notification = function( $message ) {
+    add_action('admin_notices', function() use( $message ) {
+                    echo '<div class="warning notice-warning"><p>' .  $message . '</p></div>';
+    });
+  
+    if( is_multisite() ) {
+      $details = get_blog_details( get_current_blog_id() );
+      $details = __("Siteurl $details->siteurl, ID $details->blog_id.", "hcc");
+      add_action('network_admin_notices', function() use( $message, $details ) {
+                    echo '<div class="warning notice-warning"><p>' .  $message . ' ' . $details . '</p></div>';
+      });
+    }
+}; 
+
 /*
  * Ensure compatible version of PHP is used
  * 
  */
 if (version_compare('7.1', phpversion(), '>=')){
-    add_action('admin_notices', function(){
-                    echo '<div class="warning notice-warning"><p>' .  __('You should be using PHP 7.1 or greater.', 'hcc') . '</p></div>';
-    });
+    $admin_notification( __('You should be using PHP 7.1 or greater.', 'hcc') );
     if ( is_user_logged_in() && current_user_can('edit_files') ) {
         $theme_error(__('You must be using PHP 7.1 or greater.', 'hcc'), __('Invalid PHP version', 'hcc'));
     }
@@ -41,9 +53,7 @@ if (version_compare('7.1', phpversion(), '>=')){
  * 
  */
 if (version_compare('4.7.0', get_bloginfo('version'), '>=')){
-    add_action('admin_notices', function(){
-                    echo '<div class="error notice-error"><p>' .  __('You must be using WordPress 4.7.0 or greater.', 'hcc') . '</p></div>';
-    });  
+    $admin_notification( __('You must be using WordPress 4.7.0 or greater.', 'hcc') );
     if ( is_user_logged_in() && current_user_can('update_core') && current_user_can('edit_files') ) {
         $theme_error(__('You must be using WordPress 4.7.0 or greater.', 'hcc'), __('Invalid WordPress version', 'hcc'));
     }
@@ -56,10 +66,8 @@ if (version_compare('4.7.0', get_bloginfo('version'), '>=')){
  * Check ACF including 
  *
  */
-if( !class_exists('ACF') ){
-    add_action('admin_notices', function(){
-                    echo '<div class="error notice-error"><p>' .  __('ACF is not included. Enable it now, please, this plugin is required', 'hcc') . '</p></div>';
-    });  
+if( !class_exists('ACF') ){ 
+    $admin_notification( __('ACF is not included. Enable it now, please, this plugin is required', 'hcc') );
     if ( is_user_logged_in() && current_user_can('update_plugins') && current_user_can('install_plugins') ) {
         $theme_error(__('ACF plugin is not included. Enable it now, please, this plugin is required for website correct work.', 'hcc'), __('Must use component not found.', 'hcc'));
     }

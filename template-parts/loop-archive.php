@@ -11,5 +11,6 @@ while ( have_posts() ) :
 	get_template_part( 'partials/content', 'post_intro' );
 
 endwhile;
-echo ccz_pagination_bar($wp_query);
+echo hcc_pagination_bar($wp_query);
+the_posts_pagination();
 ?>

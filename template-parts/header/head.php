@@ -39,5 +39,10 @@
     <?php endif; ?>
     <!--    End Windows   -->
 	<link rel="profile" href="https://gmpg.org/xfn/11">
-	<?php wp_head(); ?>
+	<?php 
+    $customizing = ( defined( 'SITE_CUSTOMIZE' ) ) ? SITE_CUSTOMIZE : get_option('hcc-theme-wp-customizing'); 
+    if( $customizing ) :
+        get_template_part('template-parts/header/styles', 'variables');
+    endif;
+    wp_head(); ?>
 </head>

@@ -305,6 +305,30 @@ function hcc_file_viewer($attr, $url, $width = '100%', $height = '500px') {
 }
 
 /*
+* Blog archive pagination
+*/
+if( !function_exists('hcc_pagination_bar') ) :
+  function hcc_pagination_bar( $query_wp ) 
+  {
+      $pages = $query_wp->max_num_pages;
+      $big = 999999999; 
+      if ($pages > 1)
+      {
+          $page_current = max(1, get_query_var('paged'));
+          echo paginate_links(array(
+              'base'			=> str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+              'format'		=> '?paged=%#%',
+              'current'		=> $page_current,
+              'total'			=> $pages,
+              'type'			=> 'list',
+              'prev_text'	=> '<',
+              'next_text'	=> '>',
+          ));
+      }
+  }
+endif;
+
+/*
  * Render pagination : remove title
  *
  */
