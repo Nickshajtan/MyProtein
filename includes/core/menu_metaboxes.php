@@ -6,6 +6,10 @@
 add_action( 'admin_head-nav-menus.php', 'hcc_register_meta_box_accordion_nav_menus' );
 function hcc_register_meta_box_accordion_nav_menus(){
 	add_meta_box( 'hcc-menu-meta-box', __('Menu files', 'hcc'), 'hcc_render_meta_box_accordion_nav_menus', 'nav-menus', 'side', 'default' );
+    remove_meta_box( 'add-post-type-post', 'nav-menus', 'side' );
+    //remove_meta_box( 'add-post-type-shares', 'nav-menus', 'side' );
+    //remove_meta_box( 'add-post-type-reviews', 'nav-menus', 'side' );
+    //remove_meta_box( 'woocommerce_endpoints_nav_link', 'nav-menus', 'side' );
 }
 /**
  * Output to the metabox "Files"

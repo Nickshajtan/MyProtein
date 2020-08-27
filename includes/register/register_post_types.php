@@ -52,7 +52,7 @@ function hcc_cpt_manual_register() {
     
       $labels = array(
                 "name" => __($main_name, "hcc"),
-                "singular_name" => __("Event", "hcc"),
+                "singular_name" => __($main_singular, "hcc"),
                 "menu_name" => __($main_name, "hcc"),
                 "all_items" => __("All " . $type_name, "hcc"),
                 "add_new" => __("Add " . $singular_name, "hcc"),

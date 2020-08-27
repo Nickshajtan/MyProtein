@@ -74,7 +74,7 @@ if( $phones && $phones_display || $emails && $emails_display || $addresses && $a
                      </div>
                    </div>
                  </div>
-<?php endif;
+<?php endif; 
 
 unset( $phones_check );
 unset( $emails_check );

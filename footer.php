@@ -27,15 +27,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  ?>
                 get_template_part('template-parts/modals/message', 'error');
                 /*** Custom contact form Modal ***/
                 get_template_part('template-parts/modals/modal', 'custom_form');
-                /*** Custom modal via Remodal ***/
-                get_template_part('template-parts/modals/modal', 'custom_remodal');
                 /*** Custom fixed contact us button ***/
                 get_template_part('template-parts/widgets/fixed', 'custom_ctus_btn');
               ?>  
             </footer><!-- #colophon -->
         </div><!-- #page -->
-        <!-- include custom widgets -->
-        <?php //get_template_part('template-parts/widgets', 'fixed'); ?>
         
         <div class="overlay"></div>
         <?php wp_footer(); ?>
@@ -46,6 +42,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly  ?>
                 document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.23.6'><\/script>".replace("HOST", location.hostname));
             //]]></script>
         <?php endif;
+        /*** Custom modal via Remodal ***/
+        get_template_part('template-parts/modals/modal', 'custom_remodal');
 
         /*** Customizer ***/
         $customizing = ( defined( 'SITE_CUSTOMIZE' ) ) ? SITE_CUSTOMIZE : get_option('hcc-theme-wp-customizing', false); 

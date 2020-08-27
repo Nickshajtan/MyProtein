@@ -1,16 +1,42 @@
-<?php 
-while ( have_posts() ) :
-	the_post();
+<?php
+/*
+ * Loop for archives
+ *
+ */
 
-	if (is_archive()) :
-		echo '<big> Category title:'.single_cat_title('',false).'</big>';
-	else:
-		echo '<big> Blog posts page title:'.single_post_title('',false).'</big>';
-	endif;
+$title = ( is_archive() )    ? single_cat_title('', false) : single_post_title('', false);
+$title = ( empty( $title ) ) ? __('Category page', 'hcc')  : wp_kses_post( $title ); ?>
 
-	get_template_part( 'partials/content', 'post_intro' );
+<section class="cat-page">
+  <div class="container">
+    <div class="row">
+      <?php if ( !empty( $title ) ) : ?>
+          <div class="col-12 cat-page__title">
+            <?php echo '<h1 class="title text-left">' . $title . '</h1>'; ?>
+          </div>
+      <?php endif;
+      
+      if( have_posts() ) : ?>
+        <div class="col-12 cat-page__list">
+          <?php while ( have_posts() ) :
+            the_post();
 
-endwhile;
-echo hcc_pagination_bar($wp_query);
-the_posts_pagination();
-?>
+            if( get_template_part( 'template-parts/content/content-archive', get_post_type() ) === false ) {
+                    get_template_part( 'template-parts/content/content-archive', 'post' );
+            }
+
+
+          endwhile; ?>
+        </div>
+
+        <div class="pagination cat-page__pagination">
+             <?php if( function_exists('hcc_pagination_bar') ) :
+                echo hcc_pagination_bar($wp_query);
+             elseif( function_exists('the_posts_pagination') ) :
+                the_posts_pagination();  
+             endif; ?>
+        </div>      
+      <?php endif; ?>
+    </div>
+  </div>
+</section>

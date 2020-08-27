@@ -15,7 +15,7 @@ if(have_posts()) : while(have_posts()) : the_post();
                                    get_template_part('template-parts/flexible', $row_layout_slug);
                     endwhile;
           else : 
-                    get_template_part('template-parts/content', 'none');
+                    get_template_part('template-parts/content/content', 'none');
           endif;
 
           // If comments are open or we have at least one comment, load up the comment template.

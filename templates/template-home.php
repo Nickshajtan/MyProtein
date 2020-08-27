@@ -28,7 +28,7 @@ if(have_posts()) : while(have_posts()) : the_post();
             endif; ?>
           </div>
           <?php else : 
-                get_template_part('template-parts/content', 'none');
+                get_template_part('template-parts/content/content', 'none');
           endif;
 
 endwhile; endif; 

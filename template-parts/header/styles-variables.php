@@ -61,9 +61,27 @@ function hcc_styles_hexToRgb($hex, $return_string = true, $return_value = false)
 ?>
 <style>
   :root {
-    --colorOne:   <?php echo hcc_styles_hexToRgb('#000', true, true); ?>;
-    --colorTwo:   <?php echo hcc_styles_hexToRgb('#fff', true, true); ?>;
-    --colorThree: <?php echo hcc_styles_hexToRgb('#ddd', true, true); ?>;
-    --colorFour:  <?php echo hcc_styles_hexToRgb('#333', true, true); ?>;
+    /*** Colors ***/
+    --colorOne:   <?php echo hcc_styles_hexToRgb('#FFE95D', true); ?>;
+    --colorTwo:   <?php echo hcc_styles_hexToRgb('#FFC65D', true); ?>;
+    --colorThree: <?php echo hcc_styles_hexToRgb('#7FE553', true); ?>;
+    --colorFour:  <?php echo hcc_styles_hexToRgb('#40951B', true); ?>;
+    --colorFive:  <?php echo hcc_styles_hexToRgb('#8FDDD4', true); ?>;
+    
+    --colorText:     <?php echo hcc_styles_hexToRgb('#1B1B1B', true); ?>;
+    --colorHeaders:  <?php echo hcc_styles_hexToRgb('#1B1B1B', true); ?>;
+    /*** Colors End ***/
+    /*** Color RGB Strings ***/
+    --colorStrOne:   <?php echo hcc_styles_hexToRgb('#FFE95D', true, true); ?>;
+    --colorStrTwo:   <?php echo hcc_styles_hexToRgb('#FFC65D', true, true); ?>;
+    --colorStrThree: <?php echo hcc_styles_hexToRgb('#7FE553', true, true); ?>;
+    --colorStrFour:  <?php echo hcc_styles_hexToRgb('#40951B', true, true); ?>;
+    --colorStrFive:  <?php echo hcc_styles_hexToRgb('#8FDDD4', true, true); ?>;
+    /*** Color RGB Strings End ***/
+    /*** Fonts ***/
+    --fontsOne:   'Montserrat';
+    --fontsTwo:   'Oswald';
+    --fontsThree: 'Roboto';
+    /*** Fonts End ***/
   }
 </style>

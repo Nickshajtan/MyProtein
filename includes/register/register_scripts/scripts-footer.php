@@ -16,7 +16,7 @@ function hcc_add_footer_scripts() {
     wp_register_script( 'vendor-js', THEME_URI . '/assets/public/js/vendor.min.js', array('jquery'), '', true );
     wp_enqueue_script( 'vendor-js' );
     //Including theme scripts. Always must be on the end!
-    wp_register_script( 'theme-js', THEME_URI . '/assets/public/js/theme.min.js', array('jquery'), '', true );
+    wp_register_script( 'theme-js', THEME_URI . '/assets/public/js/theme.min.js', array('jquery', 'vendor-js'), '', true );
     wp_localize_script( 'theme-js', 'hcc_ajax_params', array(
 		'ajaxurl' => SITE_URL . '/wp-admin/admin-ajax.php',
         'error_header' => __('Sending error', 'hcc'),
