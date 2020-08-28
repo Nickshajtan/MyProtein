@@ -9,7 +9,7 @@ function hcc_register_meta_box_accordion_nav_menus(){
     remove_meta_box( 'add-post-type-post', 'nav-menus', 'side' );
     //remove_meta_box( 'add-post-type-shares', 'nav-menus', 'side' );
     //remove_meta_box( 'add-post-type-reviews', 'nav-menus', 'side' );
-    //remove_meta_box( 'woocommerce_endpoints_nav_link', 'nav-menus', 'side' );
+    remove_meta_box( 'woocommerce_endpoints_nav_link', 'nav-menus', 'side' );
 }
 /**
  * Output to the metabox "Files"

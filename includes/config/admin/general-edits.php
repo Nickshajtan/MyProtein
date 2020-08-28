@@ -277,6 +277,8 @@ function hcc_add_nav_message(){
 		    'message' =>  __('If you want to add a link to an existing page element use #ID, ID - a unique identifier for your item. Use constructs like %home% or %page_name% at the beginning of the line to indicate the page of the element. This option using HCC_Nav_Walker class', 'hcc'),
         ) );
         wp_enqueue_script( 'admin-nav-js' );
+        wp_register_style( 'admin-nav-css', THEME_URI . '/includes/config/admin/assets/css/nav-message.css' );
+        wp_enqueue_style( 'admin-nav-css' );
 }
 // Security helpers
 get_template_part('includes/helpers/security_helpers');

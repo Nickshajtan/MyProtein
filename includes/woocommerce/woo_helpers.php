@@ -23,7 +23,7 @@ add_action( 'after_setup_theme', 'hcc_woocommerce_setup' );
  *
  */
 function hcc_woocommerce_scripts() {
-	wp_enqueue_style( 'ccz-woocommerce-style', THEME_URI . '/woocommerce.css' );
+	wp_enqueue_style( 'hcc-woocommerce-style', THEME_URI . '/woocommerce.css' );
 
 	$font_path   = WC()->plugin_url() . '/assets/fonts/';
 	$inline_font = '@font-face {
@@ -110,7 +110,7 @@ if ( ! function_exists( 'hcc_woocommerce_product_columns_wrapper' ) ) {
 	 * @return  void
 	 */
 	function hcc_woocommerce_product_columns_wrapper() {
-		$columns = ccz_woocommerce_loop_columns();
+		$columns = hcc_woocommerce_loop_columns();
 		echo '<div class="columns-' . absint( $columns ) . '">';
 	}
 }

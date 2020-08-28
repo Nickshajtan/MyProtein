@@ -156,7 +156,7 @@ if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
 
 $woo = ( defined('WOO_SUPPORT') ) ? WOO_SUPPORT : is_plugin_active( 'woocommerce/woocommerce.php' );
 if ( $woo ) {
-    get_template_part('includes/helpers/woo_helpers');
+    get_template_part('includes/woocommerce/woo_helpers');
 }  
 unset( $woo );
 

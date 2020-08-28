@@ -16,13 +16,13 @@ get_header();
 if( have_posts() ) : 
     while ( have_posts() ) :
         the_post(); ?>
-        <div class="container-fluid site-container">
+        <section class="container-fluid site-container page-wrap">
               <div class="row">
-                <div class="col-12">
+                <div class="col-12 page-wrap__content">
                   <?php the_content(); ?>
                 </div>
               </div>
-        </div>
+        </section>
     <?php endwhile;
 else :
     get_template_part( 'template-parts/content/content', 'none' );

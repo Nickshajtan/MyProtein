@@ -69,7 +69,7 @@ function hcc_get_acf_header( $class = '' ){
             $tag   = get_sub_field('tag');
             $title = wp_kses_post( get_sub_field('block_title') );
             if (empty($tag)) { $tag = 'div';	};
-            if (empty($title)) { $title = '';	};
+            if (empty($title)) { return false;	};
   
             if (!empty($title) && function_exists('hcc_symb_replace') ) {
               $title = hcc_symb_replace( $title, '%enter%', '<br />' );
@@ -91,7 +91,7 @@ function hcc_get_acf_title( $element, $class = '' ){
             $tag   = $element['tag'];
             $title = wp_kses_post( $element['block_title'] );
             if (empty($tag)) { $tag = 'div';	};
-            if (empty($title)) { $title = '';	};
+            if (empty($title)) { return false;	};
   
             if (!empty($title) && function_exists('hcc_symb_replace') ) {
               $title = hcc_symb_replace( $title, '%enter%', '<br />' );
@@ -113,7 +113,7 @@ function hcc_get_acf_sub_title( $element, $class = '' ){
             $tag   = $element['sub_tag'];
             $title = wp_kses_post( $element['block_sub_title'] );
             if (empty($tag)) { $tag = 'div'; };
-            if (empty($title)) { $title = ''; };
+            if (empty($title)) { return false; };
   
             if (!empty($title) && function_exists('hcc_symb_replace') ) {
               $title = hcc_symb_replace( $title, '%enter%', '<br />' );
