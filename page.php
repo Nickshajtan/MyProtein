@@ -17,7 +17,7 @@ if( have_posts() ) :
     while ( have_posts() ) :
         the_post(); ?>
         <section class="container-fluid site-container page-wrap">
-              <div class="row">
+              <div class="row-fluid">
                 <div class="col-12 page-wrap__content">
                   <?php the_content(); ?>
                 </div>

@@ -51,5 +51,11 @@ function hcc_register_sidebars(){
     $register( __('Header', 'hcc'), 2 );
     $register( __('Search', 'hcc'), 1 );
     $register( __('Footer', 'hcc'), 3 );
+  
+    $woo = ( defined('WOO_SUPPORT') ) ? WOO_SUPPORT : is_plugin_active( 'woocommerce/woocommerce.php' );
+    if ( $woo ) {
+      $register( __('WOO-Left', 'hcc'), 1 );
+      $register( __('WOO-Right', 'hcc'), 1 );
+    }
 }
 
