@@ -1,6 +1,6 @@
-var minuteLocale  = hcc_js_custom_params.minute;
-var minutesLocale = hcc_js_custom_params.minutes;
-var minutLocale   = hcc_js_custom_params.minut;
+const minuteLocale  = hcc_js_custom_params.minute;
+const minutesLocale = hcc_js_custom_params.minutes;
+const minutLocale   = hcc_js_custom_params.minut;
 
 actionTimer(); //Timer
 

@@ -18,69 +18,111 @@ function modalForms(){
     //Esc
     $(document).keydown(function(eventObject){
                 if (eventObject.which == 27){ 
-                            hideForm(); 
+                            hideForm( $('.modal-form') ); 
                 }
     });
     //click out form close
     $('.modal-wrapper').on('click', function(e){
-            hideForm();  
+            hideForm( $('.modal-form') );  
     }).on('click', 'div', function(e) {
             e.stopPropagation();
     });
     //click on close icon
     $('.modal').find('.closer').on('click', function(){
-            hideForm();
+            hideForm( $('.modal-form') );
     });
 }
 
 function showForm(form){
+  try {
     if( !$('.modal-error').hasClass('show-visible') && !$('form').hasClass('on-focus') && !$('.contact-button-wrap').hasClass('active') ){
         var header  = $('#masthead');
         if( !header.hasClass('opened') && !$('.contact-button-wrap').hasClass('active') ){
-                form.addClass('show-visible');
-                $('body').addClass('noscroll modal-open');
+                if($("*").is( form )){
+                  form.addClass('show-visible');
+                  $('body').addClass('noscroll modal-open');
+                }
         }
     }
+  }
+  catch(e) {
+    console.log('Problem with showForm script ' + e);
+  }
 }
 
 function showStronglyForm(form){
-        var header  = $('#masthead');
-        if( !header.hasClass('opened') ){
+  try {
+    const header  = $('#masthead');
+    if( !header.hasClass('opened') ){
+            if($("*").is( form )){
                 $(form).addClass('show-visible');
                 $('body').addClass('noscroll modal-open');
-        }
+            }
+   }
+  }
+  catch(e) {
+    console.log('Problem with showStronglyForm script ' + e);
+  }
 }
 
-function hideForm(){
-    let $form      = $('.modal-form').find('form');
-    let $input     = $form.find('input');
-    let $textarea  = $form.find('textarea');
-    let $group     = $form.find('.validation-group');
-    $('.modal').removeClass('show-visible');
-    $form.removeClass('validated-success validated-unsuccess was-validated ');
-    $group.removeClass('validated-invalid validated-valid validated-warning group-was-validated');
-    $group.find('.form-element-validation').removeClass('element-was-validated');
-    $input.not('[type=submit]').val('');
-    $textarea.val('');
+function hideForm( el ){
+  try {
+    
+    const form = (typeof form === 'undefined') ? $('.modal-form') : el;
+  
+    if($("*").is( form )){
+      let $form      = form.find('form');
+      let $input     = $form.find('input');
+      let $textarea  = $form.find('textarea');
+      let $group     = $form.find('.validation-group');
+      $('.modal').removeClass('show-visible');
+      $form.removeClass('validated-success validated-unsuccess was-validated ');
+      $group.removeClass('validated-invalid validated-valid validated-warning group-was-validated');
+      $group.find('.form-element-validation').removeClass('element-was-validated');
+      $input.not('[type=submit]').val('');
+      $textarea.val('');
+    }
+  
     $('body').removeClass('noscroll modal-open');
     $('.overlay').removeClass('on');
-    hideFeedBackInner();
+    
+    if( typeof hideFeedBackInner === 'function' ) {
+      hideFeedBackInner(); 
+    }
+  }
+  catch(e) {
+    console.log('Problem with hideForm script ' + e);
+  }
 }
 
-function hideThisForm(form){
-    let $form      = $(this).find('form');
-    let $input     = $(this).find('input');
-    let $textarea  = $(this).find('textarea');
-    let $group     = $(this).find('.validation-group');
-    form.removeClass('show-visible');
-    $form.removeClass('validated-success validated-unsuccess was-validated ');
-    $group.removeClass('validated-invalid validated-valid validated-warning group-was-validated');
-    $group.find('.form-element-validation').removeClass('element-was-validated');
-    $input.not('[type=submit]').val('');
-    $textarea.val('');
+function hideThisForm(el){
+  try {
+
+    const form = (typeof form === 'undefined') ? $('.modal-form') : el;
+
+    if($("*").is( form )){
+        let $form      = $(this).find('form');
+        let $input     = $(this).find('input');
+        let $textarea  = $(this).find('textarea');
+        let $group     = $(this).find('.validation-group');
+        form.removeClass('show-visible');
+        $form.removeClass('validated-success validated-unsuccess was-validated ');
+        $group.removeClass('validated-invalid validated-valid validated-warning group-was-validated');
+        $group.find('.form-element-validation').removeClass('element-was-validated');
+        $input.not('[type=submit]').val('');
+        $textarea.val('');
+    }
+
     $('body').removeClass('noscroll modal-open');
     $('.overlay').removeClass('on');
-    hideFeedBackInner();
+
+    if( typeof hideFeedBackInner === 'function' ) {
+      hideFeedBackInner(); 
+    }
+  }
+  catch(e) {
+    console.log('Problem with hideThisForm script ' + e);
+  }
 }
 
 function showFormOut(form){

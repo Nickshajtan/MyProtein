@@ -9,7 +9,9 @@ if( have_posts() ) :
         the_post();
         $content = get_the_content();
         $title   = wp_kses_post( get_the_title() );
+        $title   = ( !empty( $title ) ) ? $title : __('ВАША ЗАЯВКА ПРИНЯТА!', 'hcc'); 
         $content = wp_kses_post( apply_filters( 'the_content', $content ) );
+        $content = ( !empty( $content ) ) ? $content :  __('В скором времени с Вами свяжется наш оператор для уточнения заказа 🙂', 'hcc'); 
         $link    = get_field('link', get_the_ID() );
 
         if( $link && is_array( $link ) ) : 

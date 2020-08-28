@@ -3,7 +3,7 @@
 *
 */
 jQuery(function($){
-    var ajaxurl = hcc_ajax_params.ajaxurl;
+    var ajaxurl         = hcc_ajax_params.ajaxurl;
     var more_text       = hcc_ajax_params.more_text;
     var error_text      = hcc_ajax_params.error_text;
     var load_text       = hcc_ajax_params.load_text;

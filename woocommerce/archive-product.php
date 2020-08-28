@@ -41,7 +41,6 @@ get_header();
 do_action( 'woocommerce_before_main_content' ); ?>
   <section class="container-fluid site-container woo-wrap woo-shop">
     <div class="row-fluid">
-     
       <?php if( !is_null( $prod_terms ) && is_array( $prod_terms ) ) : ?>
       <div class="col-12 woo-shop__categories">
         <div class="row">
