@@ -7,27 +7,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly 
 defined( 'ABSPATH' ) || exit;
 
-global $post;
-$prod_terms = get_the_terms( $post->ID, 'product_cat' );
-
-$prod_terms = get_categories( [
-	'taxonomy'     => 'product_cat',
-	'type'         => 'product',
-	'child_of'     => 0,
-	'parent'       => '',
-	'orderby'      => 'name',
-	'order'        => 'ASC',
-	'hide_empty'   => 1,
-	'hierarchical' => 1,
-	'exclude'      => '',
-	'include'      => '',
-	'number'       => 0,
-	'pad_counts'   => false,
-	// полный список параметров смотрите в описании функции http://wp-kama.ru/function/get_terms
-] );
-
-
-//var_dump( $prod_terms );
+$shop_display = trim( get_option('woocommerce_shop_page_display') ); // what is displaying on shop page
 
 get_header(); 
 
@@ -38,39 +18,74 @@ get_header();
  * @hooked woocommerce_breadcrumb - 20
  * @hooked WC_Structured_Data::generate_website_data() - 30
  */
-do_action( 'woocommerce_before_main_content' ); ?>
-  <section class="container-fluid site-container woo-wrap woo-shop">
-    <div class="row-fluid">
-      <?php if( !is_null( $prod_terms ) && is_array( $prod_terms ) ) : ?>
-      <div class="col-12 woo-shop__categories">
-        <div class="row">
-          <?php foreach ($prod_terms as $cat) :
-          endforeach; ?>
-          <?php echo apply_shortcodes('[product_categories parent="0" hide_empty="0"]'); ?>
-        </div>
-      </div>
-      
-      <div class="col-12 woo-shop__child-categories">
-        <div class="row">
-          <div class="col-12 col-xl-3">
-            <?php echo apply_shortcodes('[product_categories parent="18" hide_empty="0" columns="1"]'); ?>
-          </div>
-          <div class="col-12 col-xl-3">
-            <?php echo apply_shortcodes('[product_categories parent="19" hide_empty="0" columns="1"]'); ?>
-          </div>
-          <div class="col-12 col-xl-3">
-            <?php echo apply_shortcodes('[product_categories parent="20" hide_empty="0" columns="1"]'); ?>
-          </div>
-          <div class="col-12 col-xl-3">
-            <?php echo apply_shortcodes('[product_categories parent="21" hide_empty="0" columns="1"]'); ?>
-          </div>
-        </div>
-      </div>
-      <?php endif; ?>
-    </div>
-  </section>
+do_action( 'woocommerce_before_main_content' );
+if ( woocommerce_product_loop() ) : ?>
   
-<?php 
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <?php
+            /**
+             * Hook: woocommerce_before_shop_loop.
+             *
+             * @hooked woocommerce_output_all_notices - 10
+             * @hooked woocommerce_result_count - 20
+             * @hooked woocommerce_catalog_ordering - 30
+             */
+            do_action( 'woocommerce_before_shop_loop' );
+          ?>
+        </div>
+      </div>
+    </div>
+  
+    <?php if ( wc_get_loop_prop( 'total' ) ) :
+      /**
+       * Hook: woocommerce_shop_loop.
+       */
+       do_action( 'woocommerce_shop_loop' );
+     endif;
+
+    switch( $shop_display ) :
+      case 'subcategories' :
+        wc_get_template_part('loop/loop', 'categories');
+        break;
+      case 'both' :
+        wc_get_template_part('loop/loop', 'categories');
+        wc_get_template_part('loop/loop', 'products');
+        break;
+      case '' :
+        wc_get_template_part('loop/loop', 'products');
+        break;
+      default :
+        wc_get_template_part('loop/loop', 'categories');
+    endswitch;
+
+    ?>
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+        <?php
+        /**
+         * Hook: woocommerce_after_shop_loop.
+         *
+         * @hooked woocommerce_pagination - 10
+         */
+        do_action( 'woocommerce_after_shop_loop' );
+        ?>
+        </div>
+      </div>
+    </div>
+
+  <?php else :
+        /**
+         * Hook: woocommerce_no_products_found.
+         *
+         * @hooked wc_no_products_found - 10
+         */
+        do_action( 'woocommerce_no_products_found' );
+  
+endif;
 
 /**
  * Hook: woocommerce_after_main_content.

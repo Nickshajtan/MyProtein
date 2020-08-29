@@ -18,8 +18,7 @@ if( function_exists('hcc_getPostViews') ) {
 } 
 ?>
 
-<article id="<?php echo $post_id; ?>" <?php post_class( array('post', $post_id, ) ); ?>>
-  <div class="container">
+<article id="<?php echo $post_id; ?>" <?php post_class( array('post', $post_id, 'col-12' ) ); ?>>
     <div class="row">
       <div class="col-12 post__data">
         <?php if( has_post_thumbnail() ) : ?>
@@ -27,26 +26,26 @@ if( function_exists('hcc_getPostViews') ) {
         <?php endif;
         if( !empty( $date ) ) : ?>
           <div class="w-100 post__data__date">
-            <p>Published: <date><em><?php echo $date; ?></em></date></p>
+            <p class="text-white">Published: <date><em><?php echo $date; ?></em></date></p>
           </div>
         <?php endif;
         if( $autor ) : ?>
           <div class="w-100 post__data__autor">
-            <p>Author: <em><?php echo $autor; ?></em></p>
+            <p class="text-white">Author: <em><?php echo $autor; ?></em></p>
           </div>
         <?php endif;
         if( !empty( $views ) ) : ?>
           <div class="w-100 post__data__views">
-            <p>Views: <em><?php echo $views; ?></em></p>
+            <p class="text-white">Views: <em><?php echo $views; ?></em></p>
           </div>
         <?php endif; 
         if( !is_null( $cats ) && is_array( $cats ) ) : ?>
           <div class="w-100 post__data__categories-list">
             <div class="d-inline">
-              <p>Category:</p> 
+              <p class="text-white">Category:</p> 
               <ul>
                 <?php foreach( $cats as $cat ) : 
-                  echo '<li>' . $cat . '</li>'; 
+                  echo '<li class="text-white">' . $cat . '</li>'; 
                 endforeach; ?>
               </ul>
             </div>
@@ -54,16 +53,15 @@ if( function_exists('hcc_getPostViews') ) {
         <?php endif; 
         if( !empty( $title ) ) : ?>
           <div class="w-100 post__data__title">
-            <h3><?php echo $title; ?></h3>
+            <h3 class="text-white"><?php echo $title; ?></h3>
           </div>
         <?php endif;
         if( !empty( $content ) ) : ?>
-          <div class="w-100 post__data__content">
+          <div class="w-100 post__data__content text-white">
             <?php echo $content; ?>
           </div>
         <?php endif; ?>
       </div>
     </div>
-  </div>
 </article>
   

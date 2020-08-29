@@ -19,7 +19,7 @@ if( function_exists('hcc_getPostViews') ) {
 } 
 ?>
 
-<article id="<?php echo $post_id; ?>" <?php post_class( array('post', $post_id, ) ); ?>>
+<article id="<?php echo $post_id; ?>" <?php post_class( array('post', $post_id,  ) ); ?>>
   <div class="container">
     <div class="row">
       <div class="col-12 post__data">

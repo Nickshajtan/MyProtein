@@ -13,13 +13,14 @@ if( function_exists('hcc_setPostViews') ){
 }
 get_header();
 ?>
-<?php
-while ( have_posts() ) :
-	the_post();
-    get_template_part('template-parts/content/content', 'single');
-endwhile; 
-?>
-
+<section class="single-page">
+      <?php
+      while ( have_posts() ) :
+          the_post();
+          get_template_part('template-parts/content/content', 'single');
+      endwhile; 
+      ?>
+</section>
 <?php
 get_sidebar();
 get_footer();
