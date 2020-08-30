@@ -13,9 +13,7 @@ $class = ( $left_sidebar && $second_sidebar ) ? 'col-lg-4' : 'col-lg-12';
 $class = ( $left_sidebar || $second_sidebar ) ? 'col-lg-8' : 'col-lg-12';
 
 get_header();
-if( have_posts() ) : 
-    while ( have_posts() ) :
-        the_post(); ?>
+if( have_posts() ) : ?>
       <section class="container-fluid site-container woo-wrap">
                 <div class="row-fluid">
                   <?php if( $left_sidebar ) : ?>
@@ -33,8 +31,7 @@ if( have_posts() ) :
                   <?php endif; ?>
                 </div>
       </section>
-    <?php endwhile;
-else :
+<?php else :
     get_template_part( 'template-parts/content/content', 'none' );
 endif; 
 get_footer();
