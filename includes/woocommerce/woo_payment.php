@@ -1,0 +1,6 @@
+<?php
+/*
+ * Payment WOO settings
+ *
+ *
+ */
