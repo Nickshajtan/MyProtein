@@ -79,9 +79,7 @@ endif; ?>
         /*** Search widgets area ***/
         get_template_part('template-parts/header/header', 'full_width_search');
         /*** Breadcrumbs ***/
-        if( function_exists('is_woocommerce') && !is_woocommerce() ) :
-          get_template_part('template-parts/header/breadcrumbs'); 
-        endif;
+        get_template_part('template-parts/header/breadcrumbs'); 
         ?>
 	    
 	<div id="content" class="site-content">
