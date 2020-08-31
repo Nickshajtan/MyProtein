@@ -34,6 +34,11 @@ if ( woocommerce_product_loop() ) : ?>
              */
             do_action( 'woocommerce_before_shop_loop' );
           ?>
+          <?php if( function_exists('wc_print_notices') ) : ?>
+            <div class="w-100 shop-notices">
+              <?php wc_print_notices(); ?>
+            </div>
+          <?php endif; ?>
         </div>
       </div>
     </div>

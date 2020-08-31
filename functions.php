@@ -160,6 +160,7 @@ if ( $woo ) {
     get_template_part('includes/woocommerce/woo_styles');
     get_template_part('includes/woocommerce/woo_breadcrumbs');
     get_template_part('includes/woocommerce/woo_additionals');
+    get_template_part('includes/woocommerce/templates_hooks');
     get_template_part('includes/woocommerce/woo_account');
 }  
 unset( $woo );

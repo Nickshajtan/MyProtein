@@ -47,4 +47,37 @@ function hcc_add_footer_scripts() {
         'minut' => __('minutes', 'hcc'),
     ) );
     wp_enqueue_script( 'theme-js' );
+  
+    if( function_exists('is_product') && is_product() ) {
+      /*** If CDN available ***/
+      $popper_url = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js';
+      $response = wp_remote_get(wp_normalize_path($popper_url));
+      $code = wp_remote_retrieve_response_code( $response );
+      if ( !is_wp_error( $response ) && isset( $popper_url ) && !empty( $popper_url ) && ( $code == '200') ){
+                  wp_register_script( 'popper', $popper_url, array(), ' ' );
+                  wp_enqueue_script( 'popper' );
+      }
+      /*** Else ***/
+      else{
+              wp_register_script( 'popper', THEME_URI . '/assets/public/libs/bootstrap/popper.min.js', array('jquery'), '', true );
+              wp_enqueue_script( 'popper' );
+      }  
+      //End Bootstrap Popper JS
+      
+      //Bootstrap JS
+      /*** If CDN available ***/
+      $url = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js';
+      $response = wp_remote_get(wp_normalize_path($url));
+      $code = wp_remote_retrieve_response_code( $response );
+      if ( !is_wp_error( $response ) && isset( $url ) && !empty( $url ) && ( $code == '200') ){
+                  wp_register_script( 'bootstrap', $url, array(), ' ' );
+                  wp_enqueue_script( 'bootstrap' );
+      }
+      /*** Else ***/
+      else{
+              wp_register_script( 'bootstrap', THEME_URI . '/assets/public/libs/bootstrap/bootstrap.min.js', array('jquery'), '', true );
+              wp_enqueue_script( 'bootstrap' );
+      }  
+      //End Bootstrap JS
+    }
 }

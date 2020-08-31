@@ -141,3 +141,18 @@ if ( ! function_exists( 'hcc_woocommerce_wrapper_after' ) ) {
 	}
 }
 add_action( 'woocommerce_after_main_content', 'hcc_woocommerce_wrapper_after' );
+
+
+/**
+ * Change currency symbols
+ */
+add_filter('woocommerce_currency_symbol', 'hcc_symbol_to_letter', 9999, 2); 
+function hcc_symbol_to_letter( $valyuta_symbol, $valyuta_code ) {
+	if( $valyuta_code === 'UAH' ) {
+		return 'грн';
+	}
+	if( $valyuta_code === 'RUB' ) {
+		return 'руб';
+	}
+	return $valyuta_symbol;
+}

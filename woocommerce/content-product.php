@@ -7,13 +7,14 @@
 defined( 'ABSPATH' ) || exit;
 
 global $product;
+$id = $product->get_id();
 
 // Ensure visibility.
 if ( empty( $product ) || false === wc_get_loop_product_visibility( $product->get_id() ) || ! $product->is_visible() ) {
 	return;
 }
 ?>
-<li <?php wc_product_class( '', $product ); ?>>
+<li <?php wc_product_class( 'woo-shop__products__grid__item', $product ); ?>>
 	<?php
 	/**
 	 * Hook: woocommerce_before_shop_loop_item.
@@ -51,6 +52,7 @@ if ( empty( $product ) || false === wc_get_loop_product_visibility( $product->ge
 	 * @hooked woocommerce_template_loop_product_link_close - 5
 	 * @hooked woocommerce_template_loop_add_to_cart - 10
 	 */
-	do_action( 'woocommerce_after_shop_loop_item' );
+     do_action( 'woocommerce_after_shop_loop_item' );
+     
 	?>
 </li>
