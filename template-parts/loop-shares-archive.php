@@ -61,7 +61,7 @@ query_posts( $args ); ?>
                <?php if( function_exists('hcc_pagination_bar') ) :
                   echo hcc_pagination_bar($wp_query);
                elseif( function_exists('the_posts_pagination') ) :
-                  the_posts_pagination();  
+                  get_template_part('template-parts/pagination');
                endif; ?>
              </div>
         </div>      
