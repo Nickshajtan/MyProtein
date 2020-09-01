@@ -18,44 +18,30 @@ else {
     $paged = 1;
 }
 
-$args = array(
-    'numberposts'      => 0,
-    'posts_per_page'   => $per_option,
-    'paged'            => $paged,
-    'post_type'        => get_post_type(),
-    'orderby'          => 'status',
-    'order'            => 'ASC',
-    'suppress_filters' => true,
+$param = array(
+  'numberposts'      => 0,
+  'posts_per_page'   => $per_option,
+  'paged'            => $paged,
+  'post_type'        => array( get_post_type(), 'product' ),
+  'orderby'          => 'rand',
+  'order'            => 'ASC',
+  'suppress_filters' => true,
+  'tax_query' => array(
+		array(
+			'taxonomy'         => 'product_tag',
+			'field'            => 'slug',
+			'terms'            => array( 'shares', 'present', ),
+            'operator'         => 'IN',
+            'include_children' => false,
+		)
+	)
 );
-
-$products = get_posts( array(
-  'numberposts' => 0,
-  'post_type'   => 'products',
-  'orderby'     => 'date',
-  'order'       => 'ASC',
-  'tag'         => 'shares', 'present',
-) );
-
-if( !is_null( $products ) && ( is_array( $products ) || is_object( $products ) ) ) {
-  $args    = array();
-  $counter = 0;
-  foreach( $products as $product ){
-    $args[$counter]['ID']           = $product->ID;
-    $args[$counter]['post_author']  = $product->post_author;
-    $args[$counter]['post_date']    = $product->post_date;
-    $args[$counter]['type']         = 'share';
-    $counter++;
-  }
-}
 
 global $wp_query;
 global $post;
-$args            = array_merge( $wp_query->query, $args );
-$wp_query->query = ( !is_null( $products ) && ( is_array( $products ) ) || is_object( $products ) ) 
-                   ? shuffle( array_merge( $args, $products ) ) : $wp_query->query;
-
-$tmp_post        = $post;
-query_posts( $args ); ?>
+$param             = array_merge( $wp_query->query, $param );
+$tmp_post          = $post;
+$query = query_posts( $param ); ?>
 
 <section class="cat-page">
   <div class="container">
@@ -65,14 +51,13 @@ query_posts( $args ); ?>
             <?php echo '<h1 class="title text-left">' . $title . '</h1>'; ?>
           </div>
       <?php endif;
-      
+
       if( have_posts() ) : ?>
         <div class="col-12 cat-page__list">
           <div class="row">
               <?php while ( have_posts() ) :
                 the_post();
-
-                if( get_template_part( 'template-parts/content/content-archive', get_post_type() ) === false ) {
+                if( get_template_part( 'template-parts/content/content-archive', $post_type ) === false ) {
                         get_template_part( 'template-parts/content/content-archive', 'post' );
                 }
 
@@ -81,10 +66,13 @@ query_posts( $args ); ?>
               get_template_part('template-parts/pagination'); ?>
           </div>
         </div>    
-      <?php endif; ?>
+      <?php else :
+            get_template_part( 'template-parts/content/content', 'none' );
+      endif; ?>
     </div>
   </div>
 </section>
 <?php $post = $tmp_post; 
 wp_reset_postdata(); 
-wp_reset_query(); ?>
+wp_reset_query();
+unset( $query ); ?>

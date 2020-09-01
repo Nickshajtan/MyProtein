@@ -94,6 +94,7 @@ function hcc_cpt_manual_register() {
                 "menu_icon" => "dashicons-admin-post",
                 "supports" => array( "title", "editor", "custom-fields", "revisions", "thumbnail", "post-formats" ),
                 "can_export" => true,
+                "taxonomies" => array('product_tag'),
            );
           
           if( !is_null( $labels ) && is_array( $labels ) && !is_null( $args ) && is_array( $args ) ) {
@@ -131,3 +132,107 @@ function hcc_cpt_manual_register() {
           }
   }
 }
+
+/*
+ * Set default taxonomy for post type
+ *
+ *
+ */
+
+$set_default_tax = function( $taxonomy, $tax_name, $post_type = array('post') ) {
+  try{
+    if( is_admin() ){
+    
+      $taxonomy = trim( $taxonomy );
+      $tax_name = trim( $tax_name );
+      $term_id  = get_option( "default_{$taxonomy}" );
+
+      global $tax;
+      global $type;
+      $tax  = trim( $taxonomy );
+      $type = $post_type;
+
+      if( empty( $tax ) || empty( $type ) ) {
+        throw new Exception("must use global param has incorrect value");
+      }
+      
+      add_action( 'save_post', 'hcc_set_default_term', 11 );
+      function hcc_set_default_term( $post_id, $post ) {
+        global $tax;
+        global $type;
+        
+        if( empty( $tax ) || empty( $type ) ) {
+          throw new Exception("must use global param has incorrect value");
+        }
+
+        $def_term_id  = get_option( "default_$tax" );
+
+        if( !$def_term_id ) {
+           throw new Exception("can not to get a tax option");
+           return false;
+        }
+
+        if ( !in_array( $post->post_type, $type ) ) {
+          throw new Exception("$type is not this post type");
+          return false;
+        }
+
+        if( !has_term('', $tax, $post ) ) {
+          if( $def_term = get_term( $def_term_id ) ) {
+            wp_set_object_terms( $post->ID, $def_term, $tax );
+          }
+          else {
+            throw new Exception("$def_term is not default tax");
+          }
+        }
+      }
+
+      add_action( 'wp_loaded', function() use( $taxonomy, $tax_name, $post_type, $term_id ) {
+          
+          if( empty( $taxonomy ) || empty( $tax_name ) || empty( $post_type ) || empty( $term_id ) ) {
+              throw new Exception("must use param has incorrect value");
+          }
+        
+          if ( !$term_id ){
+              $term    = get_term_by( 'name', $tax_name, $taxonomy );
+              $term_id = $term ? $term->term_id : 0;
+            
+              if( $term_id === 0 ) {
+                throw new Exception("$term_id is not default tax id");
+              }
+              
+              if( $term_id !== 0 ) {
+                update_option( "default_{$taxonomy}", $term_id );
+              }
+              
+          }
+
+          $els = get_posts( array( 'post_type' => $post_type, 'numberposts' => 0, ) );
+
+          if( !empty( $els ) ) {
+            foreach( $els as $el ) {
+              hcc_set_default_term( $el->ID, $el );
+            }
+          }
+          else {
+            throw new Exception("$els has empty value");
+          }
+      });
+
+    }
+  }
+  catch( Exception $e ) {
+    $message = 'Error ' . $e->getMessage() . ' on line ' . $e->getLine() . ' in file ' . basename( __FILE__ );
+    add_action('admin_notices', function() use( $message ){
+      echo '<div class="error notice-error"><p>' .  $message . '; </p></div>';
+    }, 10, 1); 
+    echo $message;
+  }
+  finally {
+    unset( $tax );
+    unset( $type );
+  }
+  
+};
+
+$set_default_tax('product_tag', 'Акции', array('shares') );

@@ -6,6 +6,18 @@
 
 $title      = ( is_archive() )    ? single_cat_title('', false) : single_post_title('', false);
 $title      = ( empty( $title ) ) ? __('Category page', 'hcc')  : wp_kses_post( $title );
+$post_type  = $wp_query->query['post_type'];
+
+$args = array(
+  'numberposts'      => 0,
+  'posts_per_page'   => $per_option,
+  'paged'            => $paged,
+  'post_type'        => get_post_type(),
+  'orderby'          => 'date',
+  'order'            => 'ASC',
+  'suppress_filters' => true,
+);
+$posts = get_posts( $args );
 
 $args = array(
   'number'       => '',
@@ -18,9 +30,10 @@ $args = array(
   'fields'       => '',
   'hierarchical' => false, 
 );
-$comments = get_comments( $args );
+$comments   = get_comments( $args );
+unset( $args );
 
-if( !is_null( $comments ) && ( is_array( $comments ) || is_object( $comments ) ) ) {
+if( !empty( $comments ) && ( is_array( $comments ) || is_object( $comments ) ) ) {
   $args    = array();
   $counter = 0;
   foreach( $comments as $comment ){
@@ -32,12 +45,14 @@ if( !is_null( $comments ) && ( is_array( $comments ) || is_object( $comments ) )
     $args[$counter]['type']         = 'comment';
     $counter++;
   }
+} 
 
-  if( !is_null( $args ) && ( is_array( $args ) || is_object( $args ) ) ) {
-    global $wp_query; 
-    $wp_query->query = shuffle( array_merge( $wp_query->query, $args ) ); 
-  }
-} ?>
+if( !empty($args) && ( is_array($args) || is_object($args) ) ) {
+  $posts = array_merge( $posts, $args );
+  asort($posts);
+}
+
+?>
 
 <section class="cat-page">
   <div class="container">
@@ -47,21 +62,25 @@ if( !is_null( $comments ) && ( is_array( $comments ) || is_object( $comments ) )
             <?php echo '<h1 class="title text-left">' . $title . '</h1>'; ?>
           </div>
       <?php endif;
-      if( have_posts() ) : ?>
+      if( !empty( $posts ) && ( is_array( $posts ) || is_object( $posts ) ) ) : ?>
         <div class="col-12 cat-page__list">
          <div class="row">
-            <?php while ( have_posts() ) :
-              the_post();
-              if( get_template_part( 'template-parts/content/content-archive', get_post_type() ) === false ) {
-                      get_template_part( 'template-parts/content/content-archive', 'post' );
-              }
+            <?php foreach( $posts as $post ) :
+	              setup_postdata($post);
+  
+                  if( get_template_part( 'template-parts/content/content-archive', $post_type ) === false ) {
+                          get_template_part( 'template-parts/content/content-archive', 'post' );
+                  }
            
-            endwhile;
+            endforeach;
             //Pagination
             get_template_part('template-parts/pagination');?>
          </div>
-        </div>     
-      <?php endif; ?>
+        </div>   
+      <?php else :
+            get_template_part( 'template-parts/content/content', 'none' );  
+      endif; ?>
     </div>
   </div>
 </section>
+<?php wp_reset_postdata(); ?>

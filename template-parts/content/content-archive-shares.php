@@ -6,7 +6,12 @@
  */ 
 
 $post_id = 'post' . get_the_ID();
-$tags    = get_the_tags();
+$tags    = wp_get_post_terms( get_the_ID(), array( 'shares', 'present', ) , array('names') );
+
+$settings = get_field('cpt_settings', get_the_ID());
+$type     = wp_kses_post( $settings['event_type'] ); 
+$link     = ( !empty( $tags ) && empty( $settings['cpt_btn'] ) ) ? esc_url( get_permalink( get_the_ID() ) ) : $settings['cpt_btn'];
+
 $date    = get_the_date();
 $autor   = get_the_author_meta('display_name');
 $cats    = get_the_category(','); 
@@ -14,7 +19,7 @@ $title   = wp_kses_post( get_the_title() );
 $content = wp_kses_post( get_the_content() );
 $content = apply_filters( 'the_content',  wp_trim_words( $content, 200, '...') );
 
-if( !empty( $tags ) ) {
+if( !empty( $tags ) && !$settings ) {
   $text = $content;
   for ($i = 0; $i < strlen($text); $i++){
     if ($text[$i]=="." || $text[$i]=="!" || $text[$i]=="?") {
@@ -24,10 +29,6 @@ if( !empty( $tags ) ) {
   }
   $content = $pretext;
 }
-
-$settings = get_field('cpt_settings', get_the_ID());
-$type     = wp_kses_post( $settings['event_type'] ); 
-$link     = ( !empty( $tags ) ) ? esc_url( get_permalink( get_the_ID() ) ) : $settings['cpt_btn'];
 
 if( !is_null( $link ) && is_array( $link ) ) {
   $link_url = ( $link ) ? esc_url( $link['url'] ) : '#';
@@ -42,7 +43,7 @@ else {
 
 $time     = $settings['date_picker'];
 
-if( !empty( $tags ) ) {
+if( !empty( $tags ) && !$settings ) {
   $title = '';
   foreach( $tags as $tag ) {
     $type  .= wp_kses_post( $tag->name ) . ' ';
