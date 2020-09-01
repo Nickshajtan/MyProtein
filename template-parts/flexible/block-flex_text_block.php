@@ -5,7 +5,7 @@
  */
 $block_id_str  = str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz');
 $block_title   = hcc_get_acf_header('title text-white text-left');
-$block_content = wp_kses_post( get_sub_field('block_content', $post->ID) );
+$block_content = apply_filters( 'the_content', wp_kses_post( get_sub_field('block_content', $post->ID) ) );
 
 if( ( !empty( $block_title ) && is_array( $block_title ) ) || !empty( $block_content ) ) : ?>
 

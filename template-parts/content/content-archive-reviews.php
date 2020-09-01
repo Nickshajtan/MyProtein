@@ -11,7 +11,7 @@ $autor   = get_the_author_meta('display_name');
 $cats    = get_the_category(',');
 $title   = wp_kses_post( get_the_title() );
 $content = wp_kses_post( get_the_content() );
-$content = wp_trim_words( $content, 200, '...'); 
+$content = apply_filters( 'the_content', wp_trim_words( $content, 200, '...') ); 
 
 if( function_exists('hcc_getPostViews') ) {
   $views = hcc_getPostViews( get_the_ID() ); 
@@ -27,7 +27,7 @@ if( !isset( $post->type ) && $post->type !== 'comment' ) {
 }
 else {
   if( is_object( $post ) ) {
-    $link     = esc_url( get_comments_link( $post_id ) );
+    $link     = esc_url( get_comments_link( get_the_ID() ) );
     $link     = (!empty( $link )) ? $link : '#';
     $client   = $post->post_author;
     $photo    = get_avatar( $client, array(50, 50), 'indenticon', array('class' => 'img-inner img-responsive', 'force_display' => true));

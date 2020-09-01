@@ -6,24 +6,54 @@
  */ 
 
 $post_id = 'post' . get_the_ID();
+$tags    = get_the_tags();
 $date    = get_the_date();
 $autor   = get_the_author_meta('display_name');
-$cats    = get_the_category(',');
+$cats    = get_the_category(','); 
 $title   = wp_kses_post( get_the_title() );
 $content = wp_kses_post( get_the_content() );
-$content = wp_trim_words( $content, 200, '...'); 
+$content = apply_filters( 'the_content',  wp_trim_words( $content, 200, '...') );
+
+if( !empty( $tags ) ) {
+  $text = $content;
+  for ($i = 0; $i < strlen($text); $i++){
+    if ($text[$i]=="." || $text[$i]=="!" || $text[$i]=="?") {
+      $pretext .= $text[$i]; break;
+    }
+    $pretext .= $text[$i];
+  }
+  $content = $pretext;
+}
+
+$settings = get_field('cpt_settings', get_the_ID());
+$type     = wp_kses_post( $settings['event_type'] ); 
+$link     = ( !empty( $tags ) ) ? esc_url( get_permalink( get_the_ID() ) ) : $settings['cpt_btn'];
+
+if( !is_null( $link ) && is_array( $link ) ) {
+  $link_url = ( $link ) ? esc_url( $link['url'] ) : '#';
+  $link_tgt = ( $link ) ? esc_attr( $link['target'] ) : '_self';
+  $link_txt = ( $link ) ? wp_kses_post( $link['title'] ) : __('Купить', 'hcc');
+}
+else {
+  $link_url = ( $link ) ? esc_url( $link ) : '#';
+  $link_tgt = '_self';
+  $link_txt = __('Купить', 'hcc');
+}
+
+$time     = $settings['date_picker'];
+
+if( !empty( $tags ) ) {
+  $title = '';
+  foreach( $tags as $tag ) {
+    $type  .= wp_kses_post( $tag->name ) . ' ';
+    $title .= wp_trim_words( wp_kses_post( $tag->description ), 200, '...' );
+  }
+}
+$type     = ( !empty( $type ) ) ? $type : __('Акция', 'hcc'); 
 
 if( function_exists('hcc_getPostViews') ) {
   $views = hcc_getPostViews( get_the_ID() ); 
 } 
-
-$settings = get_field('cpt_settings', get_the_ID());
-$type     = wp_kses_post( $settings['event_type'] ); 
-$link     = $settings['cpt_btn'];
-$link_url = ( $link ) ? esc_url( $link['url'] ) : '#';
-$link_tgt = ( $link ) ? esc_attr( $link['target'] ) : '_self';
-$link_txt = ( $link ) ? wp_kses_post( $link['title'] ) : '';
-$time     = $settings['date_picker'];
 
 ?>
 

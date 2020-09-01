@@ -21,8 +21,8 @@ if( !empty( $block_content ) && is_array( $block_content ) ) : ?>
 
   <?php foreach( $block_content as $card ) : 
           $card_title       = hcc_get_acf_title( $card, 'text-center' );
-          $card_text        = wp_kses_post( $card['block_content'] );
-          $card_text_hover  = wp_kses_post( $card['block_content_hover'] );
+          $card_text        = apply_filters( 'the_content', wp_kses_post( $card['block_content'] ) );
+          $card_text_hover  = apply_filters( 'the_content', wp_kses_post( $card['block_content_hover'] ) );
           $card_link        = ( !empty( $card['link'] ) && is_string( $card['link'] ) ) ? esc_url( trim( $card['link'] ) ) : '#';
           $card_target      = ( $card['link_target'] === 'yes' ) ? 'target="_blank"' : 'target="_self"';
           $card_image       = $card['image'];

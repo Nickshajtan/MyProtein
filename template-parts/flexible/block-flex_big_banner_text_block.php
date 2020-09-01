@@ -6,7 +6,7 @@
 
 $block_id_str   = str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz');
 $block_title    = hcc_get_acf_header('title text-white text-center');
-$block_subtitle = wp_kses_post( get_sub_field('block_subtitle', $post->ID) );
+$block_subtitle = apply_filters( 'the_content', wp_kses_post( get_sub_field('block_subtitle', $post->ID) ) );
 $block_link     = get_sub_field('button', $post->ID);
 $block_image    = get_sub_field('image', $post->ID);
 $block_image    = ( is_array( $block_image ) ) ? esc_url( $block_image['url'] ) : esc_url( $block_image );

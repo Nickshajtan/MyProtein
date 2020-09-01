@@ -28,10 +28,33 @@ $args = array(
     'suppress_filters' => true,
 );
 
+$products = get_posts( array(
+  'numberposts' => 0,
+  'post_type'   => 'products',
+  'orderby'     => 'date',
+  'order'       => 'ASC',
+  'tag'         => 'shares', 'present',
+) );
+
+if( !is_null( $products ) && ( is_array( $products ) || is_object( $products ) ) ) {
+  $args    = array();
+  $counter = 0;
+  foreach( $products as $product ){
+    $args[$counter]['ID']           = $product->ID;
+    $args[$counter]['post_author']  = $product->post_author;
+    $args[$counter]['post_date']    = $product->post_date;
+    $args[$counter]['type']         = 'share';
+    $counter++;
+  }
+}
+
 global $wp_query;
 global $post;
-$args     = array_merge( $wp_query->query, $args );
-$tmp_post = $post;
+$args            = array_merge( $wp_query->query, $args );
+$wp_query->query = ( !is_null( $products ) && ( is_array( $products ) ) || is_object( $products ) ) 
+                   ? shuffle( array_merge( $args, $products ) ) : $wp_query->query;
+
+$tmp_post        = $post;
 query_posts( $args ); ?>
 
 <section class="cat-page">

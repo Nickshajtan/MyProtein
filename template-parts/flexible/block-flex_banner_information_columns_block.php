@@ -13,9 +13,9 @@ $image         = ( !empty( $bg ) ) ? 'style="background-image: url(' . $bg . ');
 
 $data       = get_sub_field('data', $post->ID);
 $data_left  = $data['left_column'];
-$left_text  = wp_kses_post( $data_left['block_content']);
+$left_text  = apply_filters( 'the_content', wp_kses_post( $data_left['block_content']) );
 $data_right = $data['right_column'];
-$right_text = wp_kses_post( $data_right['block_content']);
+$right_text = apply_filters( 'the_content', wp_kses_post( $data_right['block_content']) );
 
 $time         = $data_left['work_time'];
 $addresses    = $data_left['addresses'];

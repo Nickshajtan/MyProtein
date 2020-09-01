@@ -5,7 +5,7 @@
  */
 $block_id_str  = str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz');
 $block_title   = hcc_get_acf_header('text-white text-right');
-$block_content = get_sub_field('block_content', $post->ID);
+$block_content = apply_filters( 'the_content', get_sub_field('block_content', $post->ID) );
 
 ?>
 
