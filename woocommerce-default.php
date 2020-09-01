@@ -18,7 +18,15 @@ if( have_posts() ) : ?>
                 <div class="row-fluid">
                   <?php if( $left_sidebar ) : ?>
                   <div class="woo-sidebar-left woo-sidebar col-12 col-lg-4 p-0">
-                    <?php dynamic_sidebar('WOO-Left'); ?>
+                     <?php 
+                      /**
+                       * Hook: woocommerce_sidebar.
+                       *
+                       * @hooked woocommerce_get_sidebar - 10
+                       */
+                      do_action( 'woocommerce_sidebar' );
+                      ?>
+                    <ul><?php dynamic_sidebar('WOO-Left'); ?></ul>
                   </div>
                   <?php endif; ?>
                   <div class="<?php echo $class; ?> woo-wrap__content">
@@ -26,7 +34,15 @@ if( have_posts() ) : ?>
                   </div>
                   <?php if( $second_sidebar ) : ?>
                   <div class="woo-sidebar-right woo-sidebar col-12 col-lg-4 p-0">
-                    <?php dynamic_sidebar('WOO-Right'); ?>
+                    <?php 
+                    /**
+                     * Hook: woocommerce_sidebar.
+                     *
+                     * @hooked woocommerce_get_sidebar - 10
+                     */
+                    do_action( 'woocommerce_sidebar' );
+                    ?>
+                    <ul><?php dynamic_sidebar('WOO-Right'); ?></ul>
                   </div>
                   <?php endif; ?>
                 </div>

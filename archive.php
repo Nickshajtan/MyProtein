@@ -10,8 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 get_header();
 if ( have_posts() ) :
 
-	get_template_part( 'template-parts/loop', 'archive' );
-
+	if( get_template_part( 'template-parts/loop-'. get_post_type(), 'archive' ) === false ) {
+       get_template_part( 'template-parts/loop', 'archive' );
+    }
 
 else :
 

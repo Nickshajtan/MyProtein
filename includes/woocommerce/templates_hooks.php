@@ -55,7 +55,7 @@ add_action('woocommerce_after_shop_loop_item_title', function() {
   }
   
   if( $product->is_type( 'variable' ) ){
-    echo __('от ', 'woocommerce') . $price_text;
+    echo __('от ', 'woocommerce') . $price_text . '<br />' . $product->get_attribute('pol') . '<br/>' . $product->get_attribute('vkus') . '<br/>' .$product->get_attribute('volume') . '<br/>';;
   }
 });
 
@@ -80,9 +80,8 @@ add_action('woocommerce_catalog_ordering', 'woocommerce_catalog_ordering');
  *
  */
 add_action( 'pre_get_posts', function( $query ) {
-  $id = get_queried_object()->term_id;
   
-  if( is_product_category( $id ) ) {  
+  if( is_product_category( ) ) {  
     $rows       = (int) get_option( 'woocommerce_catalog_rows' );
     $columns    = (int) get_option( 'woocommerce_catalog_columns' );
     $columns    = ( !empty( $columns ) ) ? $columns - 1 : 3;
@@ -107,7 +106,7 @@ add_action( 'pre_get_posts', function( $query ) {
         'post_type'        => 'product',
         'orderby'          => 'status',
         'order'            => 'ASC',
-        'category_name'    => get_cat_name( $id ),
+        'category_name'    => get_cat_name( get_queried_object()->term_id ),
     );
 
     if( $query->is_main_query() ) {

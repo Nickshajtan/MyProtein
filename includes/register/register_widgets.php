@@ -70,10 +70,11 @@ function hcc_register_sidebars(){
   
   // Debug
   /*
-  function() {
-    var_dump( wp_get_sidebars_widgets() );
+  $test = function() {
+    var_dump( wp_get_sidebars_widgets()['woo-left'] );
     wp_die();
-  }
+  };
+  $test();
   */
 }
 

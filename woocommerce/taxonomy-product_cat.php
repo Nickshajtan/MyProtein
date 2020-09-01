@@ -20,12 +20,29 @@ $class           = ( $left_sidebar && $second_sidebar ) ? 'woo-shop__products__g
 $class           = ( empty( $class ) && $second_sidebar ) ? 'woo-shop__products__grid_right-sidebar' : '';
 $class           = ( empty( $class ) && $left_sidebar )   ? 'woo-shop__products__grid_left-sidebar' : '';
 
-get_header(); 
-
-if( have_posts() ) : ?>
+get_header();
+/**
+ * Hook: woocommerce_before_main_content.
+ *
+ * @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
+ * @hooked woocommerce_breadcrumb - 20
+ * @hooked WC_Structured_Data::generate_website_data() - 30
+ */
+do_action( 'woocommerce_before_main_content' ); ?>
 
 <section class="container woo-wrap woo-category">
     <div class="row">
+      <div class="col-12">
+        <?php
+        /**
+         * Hook: woocommerce_archive_description.
+         *
+         * @hooked woocommerce_taxonomy_archive_description - 10
+         * @hooked woocommerce_product_archive_description - 10
+         */
+        do_action( 'woocommerce_archive_description' );
+        ?>
+      </div>
       <div class="col-12 d-flex flex-row align-items-center justify-content-end filters-area-row">
         <?php wc_print_notices(); ?>
         <?php 
@@ -34,28 +51,53 @@ if( have_posts() ) : ?>
          */
         do_action( 'woocommerce_catalog_ordering' );
         ?>
-        <button class="grid">grid</button>
-        <button class="list">list</button>
+        <?php if( have_posts() ) : ?>
+          <button class="grid">grid</button>
+          <button class="list">list</button>
+        <?php endif; ?>
       </div>
-      <ul class="col-12 woo-shop__products__grid d-grid grid-columns-<?php echo $columns . ' ' . $class; ?>">
+      <ul class="col-12 woo-shop__products__grid d-grid grid-column-<?php echo $columns . ' ' . $class; ?>">
         <?php if( $left_sidebar ) : ?>
         <li class="aside">
-          <aside><?php dynamic_sidebar('WOO-Left'); ?></aside>
+          <?php 
+          /**
+           * Hook: woocommerce_sidebar.
+           *
+           * @hooked woocommerce_get_sidebar - 10
+           */
+          do_action( 'woocommerce_sidebar' ); ?>
+          <aside><ul><?php dynamic_sidebar('WOO-Left'); ?></ul></aside>
         </li>
         <?php endif;
         if( $second_sidebar ) : ?>
         <li class="aside">
-          <aside><?php dynamic_sidebar('WOO-Right'); ?></aside>
+          <?php 
+          /**
+           * Hook: woocommerce_sidebar.
+           *
+           * @hooked woocommerce_get_sidebar - 10
+           */
+          do_action( 'woocommerce_sidebar' ); ?>
+          <aside><ul><?php dynamic_sidebar('WOO-Right'); ?></ul></aside>
         </li>
         <?php endif;
-        while (have_posts()) : the_post();
-          /**
-           * Hook: woocommerce_shop_loop.
-           */
-          do_action( 'woocommerce_shop_loop' );
+        if( have_posts() ) :
+          while (have_posts()) : the_post();
+            /**
+             * Hook: woocommerce_shop_loop.
+             */
+            do_action( 'woocommerce_shop_loop' );
 
-          wc_get_template_part( 'content', 'product' );
-        endwhile; ?>
+            wc_get_template_part( 'content', 'product' );
+          endwhile;
+        else :
+            /**
+             * Hook: woocommerce_no_products_found.
+             *
+             * @hooked wc_no_products_found - 10
+             */
+            do_action( 'woocommerce_no_products_found' );
+        endif; ?>
         
         <style>
           .woo-shop__products__grid {
@@ -71,7 +113,6 @@ if( have_posts() ) : ?>
             display: block;
             height: auto;
             min-width: 30%;
-            background-color: red;
             grid-area: aside;
           }
           
@@ -88,9 +129,14 @@ if( have_posts() ) : ?>
     </div>
 </section>
 
-<?php else :
-  get_template_part('template-parts/content/content', 'none');
-endif;
+<?php
+/**
+ * Hook: woocommerce_after_main_content.
+ *
+ * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+ */
+do_action( 'woocommerce_after_main_content' );
+
 get_footer(); ?>
 <script>
 jQuery('.grid').on('click', function() {

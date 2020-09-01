@@ -175,6 +175,12 @@ if( $customizing ) {
 }
 unset( $customizing );
 
+$optimization = get_option('guid-write');
+if( $optimization ) {
+    get_template_part('includes/helpers/guid_write'); 
+}
+unset( $optimization );
+
 /* -- Include GTM -- */
 require 'includes/gtm/class-tgm-plugin-activation.php';
 require 'includes/gtm/plugins.php'; !

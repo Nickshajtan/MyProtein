@@ -10,12 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 get_header();
 if ( have_posts() ) :
   
-	get_template_part( 'template-parts/loop', 'archive' );
+	if( get_template_part( 'template-parts/loop-'. get_post_type(), 'archive' ) === false ) {
+       get_template_part( 'template-parts/loop', 'archive' );
+    }
 
     $title = '<b class="title text-white">' . '<span>' .  __('Хотите оставить свой отзыв?', 'hcc') . '</span><br />' . '</b>';
 
 	@include( 'template-parts/form-custom-reviews_section.php' );
-
 
 else :
 
