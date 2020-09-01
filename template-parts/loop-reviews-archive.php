@@ -29,6 +29,7 @@ if( !is_null( $comments ) && ( is_array( $comments ) || is_object( $comments ) )
     $args[$counter]['post_date']    = $comment->comment_date;
     $args[$counter]['post_content'] = wp_kses_post( strip_tags( $comment->comment_content ) );
     $args[$counter]['post_title']   = wp_kses_post( strip_tags( $comment->comment_title ) );
+    $args[$counter]['type']         = 'comment';
     $counter++;
   }
 
