@@ -27,19 +27,11 @@ $title      = ( empty( $title ) ) ? __('Category page', 'hcc')  : wp_kses_post( 
               }
 
 
-            endwhile; ?>
+            endwhile;
+            //Pagination
+            get_template_part('template-parts/pagination');?>
          </div>
-        </div>
-
-        <div class="pagination cat-page__pagination col-12">
-             <div class="row">
-               <?php if( function_exists('hcc_pagination_bar') ) :
-                  echo hcc_pagination_bar($wp_query);
-               elseif( function_exists('the_posts_pagination') ) :
-                  get_template_part('template-parts/pagination');
-               endif; ?>
-             </div>
-        </div>      
+        </div>     
       <?php endif; ?>
     </div>
   </div>

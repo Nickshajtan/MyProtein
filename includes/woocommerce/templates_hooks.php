@@ -69,6 +69,12 @@ add_action('woocommerce_after_shop_loop_item', function() {
 });
 
 /*
+ * Override WOO sorting for categories
+ *
+ */
+add_action('woocommerce_catalog_ordering', 'woocommerce_catalog_ordering');
+
+/*
  * Override Main query for Product categories
  *
  *

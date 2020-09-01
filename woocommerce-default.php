@@ -24,7 +24,7 @@ if( have_posts() ) : ?>
                   <div class="<?php echo $class; ?> woo-wrap__content">
                     <?php woocommerce_content(); ?>
                   </div>
-                  <?php if( $left_sidebar ) : ?>
+                  <?php if( $second_sidebar ) : ?>
                   <div class="woo-sidebar-right woo-sidebar col-12 col-lg-4 p-0">
                     <?php dynamic_sidebar('WOO-Right'); ?>
                   </div>

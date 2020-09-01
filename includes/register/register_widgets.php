@@ -13,16 +13,16 @@ add_action( 'widgets_init', 'hcc_remove_default_widget', 20 );
 function hcc_remove_default_widget() {
 	unregister_widget('WP_Widget_Archives'); 
 	unregister_widget('WP_Widget_Calendar'); 
-	//unregister_widget('WP_Widget_Categories'); 
+	unregister_widget('WP_Widget_Categories'); 
 	unregister_widget('WP_Widget_Meta');
 	unregister_widget('WP_Widget_Pages');
 	unregister_widget('WP_Widget_Recent_Comments');
 	//unregister_widget('WP_Widget_Recent_Posts');
 	unregister_widget('WP_Widget_RSS');
-	//unregister_widget('WP_Widget_Search');
+	unregister_widget('WP_Widget_Search');
 	//unregister_widget('WP_Widget_Tag_Cloud');
-	//unregister_widget('WP_Widget_Text'); 
-	//unregister_widget('WP_Nav_Menu_Widget');
+	unregister_widget('WP_Widget_Text'); 
+	unregister_widget('WP_Nav_Menu_Widget');
 }
 
 /*
@@ -42,10 +42,20 @@ function hcc_register_sidebars(){
     
     // Helper function
     $register = function( $name, $count ) use ( $args ) {
-       $num = ( $count > 1 ) ? ' %d' : '';
-       $args['name'] = $name . $num;
-       $args['id']   = $name . $num;
-       register_sidebars( $count, $args );
+       if( $count > 1 ) {
+         $counter = 1;
+         while( $counter < $count + 1 ) {
+            $args['name'] = $name . ' ' . $counter;
+            $args['id']   = mb_strtolower($name . '-' . $counter);
+            register_sidebar( $args );
+            $counter++;
+         }
+       }
+       else {
+         $args['name'] = $name;
+         $args['id']   = mb_strtolower($name);
+         register_sidebar( $args );
+       }
     };
     
     $register( __('Header', 'hcc'), 2 );
@@ -57,5 +67,13 @@ function hcc_register_sidebars(){
       $register( __('WOO-Left', 'hcc'), 1 );
       $register( __('WOO-Right', 'hcc'), 1 );
     }
+  
+  // Debug
+  /*
+  function() {
+    var_dump( wp_get_sidebars_widgets() );
+    wp_die();
+  }
+  */
 }
 

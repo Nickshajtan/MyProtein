@@ -19,15 +19,18 @@ else {
 }
 
 $args = array(
-                'numberposts'      => 0,
-                'posts_per_page'   => $per_option,
-                'paged'            => $paged,
-                'post_type'        => get_post_type(),
-                'orderby'          => 'status',
-                'order'            => 'ASC',
-                'suppress_filters' => true,
+    'numberposts'      => 0,
+    'posts_per_page'   => $per_option,
+    'paged'            => $paged,
+    'post_type'        => get_post_type(),
+    'orderby'          => 'status',
+    'order'            => 'ASC',
+    'suppress_filters' => true,
 );
+
+global $wp_query;
 global $post;
+$args     = array_merge( $wp_query->query, $args );
 $tmp_post = $post;
 query_posts( $args ); ?>
 
@@ -45,28 +48,20 @@ query_posts( $args ); ?>
           <div class="row">
               <?php while ( have_posts() ) :
                 the_post();
-                global $post;
 
                 if( get_template_part( 'template-parts/content/content-archive', get_post_type() ) === false ) {
                         get_template_part( 'template-parts/content/content-archive', 'post' );
                 }
 
-
-              endwhile; ?>
+              endwhile;
+              //Pagination
+              get_template_part('template-parts/pagination'); ?>
           </div>
-        </div>
-
-        <div class="pagination cat-page__pagination col-12">
-             <div class="row">
-               <?php if( function_exists('hcc_pagination_bar') ) :
-                  echo hcc_pagination_bar($wp_query);
-               elseif( function_exists('the_posts_pagination') ) :
-                  get_template_part('template-parts/pagination');
-               endif; ?>
-             </div>
-        </div>      
+        </div>    
       <?php endif; ?>
     </div>
   </div>
 </section>
-<?php $post = $tmp_post; ?>
+<?php $post = $tmp_post; 
+wp_reset_postdata(); 
+wp_reset_query(); ?>
