@@ -26,10 +26,10 @@ add_action( 'woocommerce_before_shop_loop_item_title', function() {
   $alt   = wp_kses_post( get_the_title( $id ) . '|' . get_bloginfo('name') );
   
   if( is_page( get_option('woocommerce_shop_page_id') ) ) {
-    $image = ( !empty( $thumb ) ) ? aq_resize( $thumb, 270, 270, true, true, true) : false;
+    $image = ( !empty( $thumb ) && strpos( $thumb, 'wp-header-logo' ) === false ) ? aq_resize( $thumb, 270, 270, true, true, true) : false;
   }
   else {
-    $image = ( !empty( $thumb ) ) ? aq_resize( $thumb, 364, 411, true, true, true) : false;
+    $image = ( !empty( $thumb ) && strpos( $thumb, 'wp-header-logo' ) === false ) ? aq_resize( $thumb, 364, 411, true, true, true) : false;
   }
   
   if( !empty( $image ) ) {

@@ -104,6 +104,9 @@ get_template_part('includes/register/register_post_types');
 get_template_part('includes/register/register_taxonomies');
 get_template_part('includes/register/register_image_sizes');
 
+get_template_part('includes/register/post_types_custom_columns');
+get_template_part('includes/register/taxonomies_custom_columns');
+
 /*-- WP Multisite (MU) settings --*/
 
 if( is_multisite() ){

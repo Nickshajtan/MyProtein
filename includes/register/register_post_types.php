@@ -156,10 +156,9 @@ $set_default_tax = function( $taxonomy, $tax_name, $post_type = array('post') ) 
         throw new Exception("must use global param has incorrect value");
       }
       
-      add_action( 'save_post', 'hcc_set_default_term', 11 );
-      function hcc_set_default_term( $post_id, $post ) {
-        global $tax;
-        global $type;
+      $hcc_set_default_term = function( $post_id, $post ) use ( $taxonomy, $post_type ) {
+        $tax  = $taxonomy;
+        $type = $post_type;
         
         if( empty( $tax ) || empty( $type ) ) {
           throw new Exception("must use global param has incorrect value");
@@ -185,9 +184,22 @@ $set_default_tax = function( $taxonomy, $tax_name, $post_type = array('post') ) 
             throw new Exception("$def_term is not default tax");
           }
         }
+      };
+      
+      if( is_array($post_type) || is_object($post_type) ) {
+        foreach( $post_type as $type ) {
+          add_action( "save_post_{$type}", function( $post_id, $post ) use ( $taxonomy, $post_type, $hcc_set_default_term ) {  
+            $hcc_set_default_term( $post_id, $post );
+          }, 11, 2 ); 
+        }
+      }
+      else {
+        add_action( "save_post_{$post_type}", function( $post_id, $post ) use ( $taxonomy, $post_type, $hcc_set_default_term ) {  
+          $hcc_set_default_term( $post_id, $post );
+        }, 11, 2 );
       }
 
-      add_action( 'wp_loaded', function() use( $taxonomy, $tax_name, $post_type, $term_id ) {
+      add_action( 'wp_loaded', function() use( $taxonomy, $tax_name, $post_type, $term_id, $hcc_set_default_term ) {
           
           if( empty( $taxonomy ) || empty( $tax_name ) || empty( $post_type ) || empty( $term_id ) ) {
               throw new Exception("must use param has incorrect value");
@@ -211,7 +223,7 @@ $set_default_tax = function( $taxonomy, $tax_name, $post_type = array('post') ) 
 
           if( !empty( $els ) ) {
             foreach( $els as $el ) {
-              hcc_set_default_term( $el->ID, $el );
+              $hcc_set_default_term( $el->ID, $el );
             }
           }
           else {
@@ -229,8 +241,8 @@ $set_default_tax = function( $taxonomy, $tax_name, $post_type = array('post') ) 
     echo $message;
   }
   finally {
-    unset( $tax );
-    unset( $type );
+    //unset( $tax );
+    //unset( $type );
   }
   
 };

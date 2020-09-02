@@ -44,7 +44,7 @@ if( !is_null( $prod_terms ) && is_array( $prod_terms ) ) : ?>
                 $link_url     = esc_url( get_category_link( $cat_id ) );
                 $thumbnail_id = get_term_meta( $cat_id, 'thumbnail_id', true );
                 $image        = esc_url( wp_get_attachment_url( $thumbnail_id ) );
-                $image        = ( !empty( $image ) ) ? aq_resize( $image, 270, 270, true, true, true) : false;
+                $image        = ( !empty( $image ) && strpos( $image, 'wp-header-logo' ) === false ) ? aq_resize( $image, 270, 270, true, true, true) : false;
                 
                 if( !empty( $cat_name ) ) : ?>
                 <li <?php wc_product_cat_class( 'woo-shop__categories__grid__item', $category ); ?>>
