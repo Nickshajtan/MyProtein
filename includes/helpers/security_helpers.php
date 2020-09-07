@@ -1,5 +1,23 @@
 <?php 
 /*
+* Return custom message on login page
+*/ 
+add_filter( 'login_errors', 'hcc_login_errors' );
+function hcc_login_errors() {
+  return __('Неверный Логин или Пароль', 'hcc');
+}
+
+/*
+* Redirect to Home page for autor pages
+*/ 
+add_action('template_redirect', 'hcc_author_page_redirect');
+function hcc_author_page_redirect() {
+  if( is_author() ) {
+    wp_redirect( home_url() ); exit;
+  }
+}
+
+/*
 * Create developers account & users registration emails notify ( to admin )
 */ 
 add_action( 'pre_user_query', 'hcc_protect_user_query' );

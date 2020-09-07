@@ -3,3 +3,4 @@ jQuery( document ).ready(function($) {
   smoothScroll();
   slideDown(); // Slide to next section
 });
+

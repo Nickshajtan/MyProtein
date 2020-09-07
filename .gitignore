@@ -50,3 +50,5 @@ node_modules/
 
 # ignore dev files
 dev_files/
+
+/vendor/

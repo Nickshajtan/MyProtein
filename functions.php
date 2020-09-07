@@ -87,6 +87,9 @@ if(!function_exists('wp_get_current_user')) {
   include(ABSPATH . "wp-includes/pluggable.php"); 
 }
 
+/* -- Composer classes autoloader --*/
+require_once '../vendor/autoload.php';
+
 /* -- include classes --*/
 require_once('includes/classes/Aq_Resize.class.php');
 require_once('includes/classes/HCC_Nav_Walker.class.php');
@@ -133,6 +136,10 @@ if ( !is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) || $hcc_cf7_com
     get_template_part('includes/core/contact_form');
 }
 
+if( is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
+    get_template_part('includes/helpers/c7_helpers');
+}
+
 /* -- helpers -- */
 get_template_part('includes/helpers/acf/acf_helpers', 'core');
 get_template_part('includes/helpers/acf/acf_helpers', 'visual');
@@ -141,6 +148,7 @@ get_template_part('includes/helpers/acf/acf_helpers', 'gutenberg');
 get_template_part('includes/helpers/acf/acf_helpers', 'gutenberg_blocks');
 get_template_part('includes/helpers/aq_resizer');
 get_template_part('includes/helpers/gutenberg/gutenberg'); 
+get_template_part('includes/helpers/search_helpers'); 
 
 if( version_compare('5.0.0', get_bloginfo('version'), '>=') ) {
   get_template_part('includes/helpers/gutenberg/palette');
