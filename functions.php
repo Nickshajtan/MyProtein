@@ -202,7 +202,7 @@ if( $customizing ) {
 }
 unset( $customizing );
 
-$optimization = get_option('guid-write');
+$optimization = get_option('hcc-theme-wp-guid');
 if( $optimization ) {
     get_template_part('includes/helpers/guid_write'); 
 }

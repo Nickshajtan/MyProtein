@@ -46,11 +46,15 @@ endif; ?>
     get_template_part('template-parts/header/loader', 'default');
   endif;
   ?>
-
   <body <?php body_class(); ?>>
     <?php wp_body_open(); ?>
 	<div id="page" class="site remodal-bg">
-		<header id="masthead" class="site-header closed <?php if( is_front_page() || is_404() ) : ?>absolute<?php endif; ?>">
+	    <?php // Menu settings
+        $set_pages    = get_field('header_options', get_term( get_nav_menu_locations()['header'], 'nav_menu' ))['image_pages'];
+        $header_class = ( is_array( $set_pages ) && !in_array( get_page_link( get_queried_object_id() ), $set_pages ) )
+                        ? '' : 'absolute';
+        ?>
+		<header id="masthead" class="site-header closed <?php echo $header_class; ?>">
 		
 			<div class="wrapper container-fluid pl-0 pr-0 site-header__container">
                <div class="burger">

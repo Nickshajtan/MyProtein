@@ -49,4 +49,12 @@
 					</ul>
 			  </td>
 			</tr>
+			<tr>
+			  <th><?php echo __('WordPress post link into guild', 'hcc'); ?></th>
+			  <td>
+			    <p class="description"><?php echo __('Write static post link into guids place of wp_posts table.', 'hcc'); ?></p>
+			    <?php $customizing = get_option('hcc-theme-wp-guid'); ?>
+			    <p> <label> <input name="hcc-theme-wp-guid" type="checkbox" value="1" <?php checked( '1', $customizing); ?>/>  <?php echo __('Use', 'hcc'); ?></label></p> 
+			  </td>
+			</tr>
 		</table>

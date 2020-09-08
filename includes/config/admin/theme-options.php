@@ -37,6 +37,8 @@ function hcc_theme_options() {
 	register_setting( 'hcc-wp-theme-options', 'hcc-theme-wp-blog-dn');
     // wordpress customizing
 	register_setting( 'hcc-wp-theme-options', 'hcc-theme-wp-customizing');
+    // wordpress guid
+	register_setting( 'hcc-wp-theme-options', 'hcc-theme-wp-guid');
     
     add_settings_section('hcc-wp-settings-theme', 'WordPress' . __(' settings', 'hcc'), 'hcc_wp_options_fields', '');
     
@@ -79,11 +81,18 @@ function hcc_theme_options() {
     register_setting( 'hcc-tl-theme-options', 'hcc-theme-tl-gzip' );
     
     // admin pages settings
-    add_settings_section('hcc-admin-settings-theme', 'CDN' . __(' sourses', 'hcc'), 'hcc_admin_options_fields', '');
+    add_settings_section('hcc-admin-settings-theme', __('Admin panel', 'hcc'), 'hcc_admin_options_fields', '');
     register_setting( 'hcc-admin-theme-options', 'hcc-theme-admin-instructions' );
   
+    // woocommerce settings
+    $woo = ( defined('WOO_SUPPORT') ) ? WOO_SUPPORT : is_plugin_active( 'woocommerce/woocommerce.php' );
+    if( $woo ) {
+      add_settings_section('hcc-woo-settings-theme', 'Woocommerce', 'hcc_woo_options_fields', '');
+      register_setting( 'hcc-woo-theme-options', 'hcc-theme-woo-cache' );
+    }
+  
     // CDN sourses settings
-    add_settings_section('hcc-cdn-settings-theme',  __('Admin panel', 'hcc'), 'hcc_cdn_options_fields', '');
+    add_settings_section('hcc-cdn-settings-theme',  'CDN' . __(' sourses', 'hcc'), 'hcc_cdn_options_fields', '');
     register_setting( 'hcc-cdn-theme-options', 'hcc-theme-cdn-styles' );
     register_setting( 'hcc-cdn-theme-options', 'hcc-theme-cdn-scripts' );
     
@@ -110,6 +119,10 @@ function hcc_admin_tabs( $active_tab = 'wordpress' ) {
       'admin-panel'  =>  __('Admin panel', 'hcc'), 
       'cdn'          =>  'CDN' . __(' sourses', 'hcc'), 
     );
+    $woo = ( defined('WOO_SUPPORT') ) ? WOO_SUPPORT : is_plugin_active( 'woocommerce/woocommerce.php' );
+    if( $woo ) {
+      $tabs['woocommerce'] = 'Woocommerce';
+    }
     echo '<h1>'.__('Theme Options', 'hcc').'</h1>
         <h2 class="nav-tab-wrapper">';
         foreach( $tabs as $tab => $name ){
@@ -152,6 +165,11 @@ function hcc_theme_options_page() {
                             settings_fields( 'hcc-admin-theme-options' );
                             do_settings_sections( 'hcc-admin-settings-theme' );
                             get_template_part('includes/config/admin/theme-options-admin-html');
+                            break;
+                    case 'woocommerce' :
+                            settings_fields( 'hcc-woo-theme-options' );
+                            do_settings_sections( 'hcc-woo-settings-theme' );
+                            get_template_part('includes/config/admin/theme-options-woo-html');
                             break;
                     case 'cdn' :
                             settings_fields( 'hcc-cdn-theme-options' );
