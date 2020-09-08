@@ -17,19 +17,19 @@ class HCC_autoloader {
          spl_autoload_register(array($this, 'libs'));
      }
  
-     public function library($class){
+     public function libs($class){
          set_include_path(CORE_CLASSES_DIR . '/libs');
          spl_autoload_extensions('.class.php');
          spl_autoload($class);
      }
  
-     public function helper($class){
+     public function helpers($class){
          set_include_path(CORE_CLASSES_DIR .'/helpers');
          spl_autoload_extensions('.class.php');
          spl_autoload($class);
      }
  
-     public function modul($class){ 
+     public function modules($class){ 
          set_include_path(CORE_CLASSES_DIR .'/modules');
          spl_autoload_extensions('.class.php');
          spl_autoload($class);
