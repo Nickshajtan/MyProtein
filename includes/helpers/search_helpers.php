@@ -49,10 +49,11 @@ add_filter( 'wp_search_stopwords', function( $stopwords ){
  * Filters the ORDER BY used when ordering search results.
  *
  */
-
+/*
 add_filter( 'posts_search_orderby', function( $search_orderby, $this ){
   return $search_orderby;
 }, 10, 2);
+*/
 
 /*
  * Filters the HTML format of the search form.
@@ -105,6 +106,4 @@ add_filter( 'search_rewrite_rules', function( $search_rewrite ){
  *
  */
 
-add_action( 'pre_get_search_form', function( $args ){
-
-});
+//add_action( 'pre_get_search_form', function( $args ){});

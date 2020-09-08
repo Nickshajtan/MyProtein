@@ -87,15 +87,25 @@ if(!function_exists('wp_get_current_user')) {
   include(ABSPATH . "wp-includes/pluggable.php"); 
 }
 
-/* -- Composer classes autoloader --*/
-require_once '../vendor/autoload.php';
-
-/* -- include classes --*/
-require_once('includes/classes/Aq_Resize.class.php');
-require_once('includes/classes/HCC_Nav_Walker.class.php');
-
 /* -- defines -- */
 get_template_part('includes/vars');
+
+/* -- Composer app classes autoloader --*/
+add_action( 'wp_loaded', function(){
+  $theme = ( defined('THEME_URI') ) ? THEME_URI : get_template_directory_uri();
+  require_once( $theme . '/vendor/autoload.php' );
+});
+
+/* -- Core classes autoloader --*/
+add_action( 'wp_loaded', function(){
+  $theme = ( defined('THEME_URI') ) ? THEME_URI : get_template_directory_uri();
+  require_once($theme . "/includes/classes/core/HCC_autoloader.class.php");
+  $autoloader    = new HCC_autoloader();
+});
+           
+/* -- include core classes manual --*/
+require_once('includes/classes/core/Aq_Resize.class.php');
+require_once('includes/classes/core/HCC_Nav_Walker.class.php');
 
 /* -- register -- */
 

@@ -492,7 +492,6 @@ function hcc_setPostViews( $post_id, $who_count = 1, $exclude_bots = 1 ) {
 }
 
 endif;
-hcc_setPostViews($post->ID)
 
 /*
  * Admin notices

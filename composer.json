@@ -12,12 +12,15 @@
     "autoload": {
         "classmap": [],
         "psr-4": {
-            "Helpers\\": "includes/classes/autoload/helpers",
-            "Core\\": "includes/classes/autoload/core",
-            "App\\": "includes/classes/autoload"
+            "Helpers\\": "includes/classes/app/helpers",
+            "Controllers\\": "includes/classes/app/controllers",
+            "Modules\\": "includes/classes/app/modules",
+            "Libs\\": "includes/classes/app/libs",
+            "Core\\": "includes/classes/app/core",
+            "App\\": "includes/classes/app"
         },
         "files": [
-            "includes/classes/autoload/config.php"
+            "includes/classes/app/config.php"
         ]
     }
 }

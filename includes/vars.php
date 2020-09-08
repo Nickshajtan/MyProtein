@@ -87,3 +87,12 @@ if( !defined( 'SITE_INFO' ) ){
 if( !defined( 'SITE_NAME' ) ){
     define( 'SITE_NAME', get_bloginfo('name') );
 }
+
+//Classes
+if( !defined('CORE_CLASSES_DIR') ) {
+  define('CORE_CLASSES_DIR', wp_normalize_path( get_stylesheet_directory() . '/includes/classes/core/' ) );
+}
+
+if( !defined('APP_CLASSES_DIR') ) {
+  define('APP_CLASSES_DIR', wp_normalize_path( get_stylesheet_directory() . '/includes/classes/app/' ) );
+}
