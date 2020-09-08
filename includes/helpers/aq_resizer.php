@@ -11,7 +11,7 @@ if(!function_exists('aq_resize')) {
             $url = $sitepress->convert_url( $url, $sitepress->get_default_language() );
         }
         /* WPML Fix */
-        $aq_resize = Aq_Resize::getInstance();
+        $aq_resize = \Core\Aq_Resize::getInstance();
         return $aq_resize->process( $url, $width, $height, $crop, $single, $upscale );
     }
 }

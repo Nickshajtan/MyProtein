@@ -1,4 +1,11 @@
 <?php
+/*
+ * Core classes autoloader
+ * HCC
+ *
+ */
+namespace Core;
+
 class HCC_autoloader {
   public static $loader;
   

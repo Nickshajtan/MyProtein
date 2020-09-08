@@ -60,7 +60,7 @@ if( $has_logo || $has_nav ) : ?>
                               );
 
                               if( class_exists('HCC_Nav_Walker') && isset( $nav_args ) ) :
-                                $nav_args['walker'] = new HCC_Nav_Walker();
+                                $nav_args['walker'] = new \Core\HCC_Nav_Walker();
                               endif; 
 
                               wp_nav_menu( $nav_args ); ?>

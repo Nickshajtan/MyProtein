@@ -101,7 +101,7 @@ else {
 /* -- Core classes autoloader --*/
 if ( file_exists( $autoloader = __DIR__ . '/includes/classes/core/HCC_autoloader.class.php' ) ) {
   require_once( $autoloader );
-  $autoloader    = new HCC_autoloader();
+  $autoloader    = new \Core\HCC_autoloader();
 }
 else {
   $admin_notification( __('HCC classes autoloader is not included', 'hcc') );
@@ -160,6 +160,8 @@ get_template_part('includes/helpers/acf/acf_helpers', 'visual');
 get_template_part('includes/helpers/acf/acf_helpers', 'templates');
 get_template_part('includes/helpers/acf/acf_helpers', 'gutenberg');
 get_template_part('includes/helpers/acf/acf_helpers', 'gutenberg_blocks');
+get_template_part('includes/helpers/acf/acf_helpers', 'menus');
+
 get_template_part('includes/helpers/aq_resizer');
 get_template_part('includes/helpers/gutenberg/gutenberg'); 
 get_template_part('includes/helpers/search_helpers'); 

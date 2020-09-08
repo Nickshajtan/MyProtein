@@ -20,8 +20,10 @@
  *
  * @return str|array
  */
+namespace Core;
+
 if(!class_exists('Aq_Resize')) {
-    class Aq_Exception extends Exception {}
+    class Aq_Exception extends \Exception {}
     class Aq_Resize
     {
         /**
