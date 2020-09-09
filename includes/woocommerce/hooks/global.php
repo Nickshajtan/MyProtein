@@ -1,7 +1,6 @@
 <?php
 /*
  * Global WOO templates hooks
- * See also in file woo_helpers
  *
  */
 
@@ -22,7 +21,7 @@ if ( ! function_exists( 'hcc_woocommerce_wrapper_before' ) ) {
 	 * @return void
 	 */
 	function hcc_woocommerce_wrapper_before() {
-		echo '<section id="primary" class="content-area woo-wrap woo-shop"><div class="container"><div class="row">';
+		echo '<section id="primary" class="content-area woo-wrap "><div class="container"><div class="row">';
 	}
 }
 add_action( 'woocommerce_before_main_content', 'hcc_woocommerce_wrapper_before' );

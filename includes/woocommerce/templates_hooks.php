@@ -2,9 +2,20 @@
 /*
  * Global template hooks
  * 
- *
  */
 get_template_part('includes/woocommerce/hooks/global');
+
+/*
+ * Global loop template hooks
+ * 
+ */
+get_template_part('includes/woocommerce/hooks/loop');
+
+/*
+ * WOO sidebar template hooks
+ * 
+ */
+get_template_part('includes/woocommerce/hooks/sidebar');
 
 
 
@@ -80,12 +91,6 @@ add_action('woocommerce_after_shop_loop_item', function() {
   global $product;
   echo '<a href="' . do_shortcode('[add_to_cart_url id="'. $product->get_id() .'"]') .'" class="woo-shop__products__item__to-cart add_to_cart_button w-100 button btn_rectangle text-white text-center">' .  __('Купить', 'woocommerce') . '</a>';
 });
-
-/*
- * Override WOO sorting for categories
- *
- */
-add_action('woocommerce_catalog_ordering', 'woocommerce_catalog_ordering');
 
 /*
  * Override Main query for Product categories

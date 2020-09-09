@@ -36,37 +36,32 @@ function hcc_woocommerce_active_body_class( $classes ) {
 	return $classes;
 }
 
-
-
-
-
-
 /**
  * Products per page.
  *
  */
+//add_filter( 'loop_shop_per_page', 'hcc_woocommerce_products_per_page' );
 function hcc_woocommerce_products_per_page() {
 	return 12;
 }
-//add_filter( 'loop_shop_per_page', 'hcc_woocommerce_products_per_page' );
 
 /**
  * Product gallery thumnbail columns.
  *
  */
+//add_filter( 'woocommerce_product_thumbnails_columns', 'hcc_woocommerce_thumbnail_columns' );
 function hcc_woocommerce_thumbnail_columns() {
 	return 4;
 }
-//add_filter( 'woocommerce_product_thumbnails_columns', 'hcc_woocommerce_thumbnail_columns' );
 
 /**
  * Default loop columns on product archives.
  *
  */
+//add_filter( 'loop_shop_columns', 'hcc_woocommerce_loop_columns' );
 function hcc_woocommerce_loop_columns() {
 	return 3;
 }
-//add_filter( 'loop_shop_columns', 'hcc_woocommerce_loop_columns' );
 
 /**
  * Related Products Args.
@@ -74,6 +69,7 @@ function hcc_woocommerce_loop_columns() {
  * @param array $args related products args.
  * @return array $args related products args.
  */
+//add_filter( 'woocommerce_output_related_products_args', 'hcc_woocommerce_related_products_args' );
 function hcc_woocommerce_related_products_args( $args ) {
 	$defaults = array(
 		'posts_per_page' => 3,
@@ -84,30 +80,3 @@ function hcc_woocommerce_related_products_args( $args ) {
 
 	return $args;
 }
-add_filter( 'woocommerce_output_related_products_args', 'hcc_woocommerce_related_products_args' );
-
-if ( ! function_exists( 'hcc_woocommerce_product_columns_wrapper' ) ) {
-	/**
-	 * Product columns wrapper.
-	 *
-	 * @return  void
-	 */
-	function hcc_woocommerce_product_columns_wrapper() {
-		$columns = hcc_woocommerce_loop_columns();
-		echo '<div class="columns-' . absint( $columns ) . '">';
-	}
-}
-add_action( 'woocommerce_before_shop_loop', 'hcc_woocommerce_product_columns_wrapper', 40 );
-
-if ( ! function_exists( 'hcc_woocommerce_product_columns_wrapper_close' ) ) {
-	/**
-	 * Product columns wrapper close.
-	 *
-	 * @return  void
-	 */
-	function hcc_woocommerce_product_columns_wrapper_close() {
-		echo '</div>';
-	}
-}
-add_action( 'woocommerce_after_shop_loop', 'hcc_woocommerce_product_columns_wrapper_close', 40 );
-
