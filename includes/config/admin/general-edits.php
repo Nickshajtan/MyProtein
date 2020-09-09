@@ -243,7 +243,7 @@ function hcc_add_post_state( $post_states, $post ) {
  */
 add_action( 'admin_notices', 'hcc_add_post_notice' );
 function hcc_add_post_notice() {
-	global $post;
+	$post = get_post();
 	if( @get_page_template_slug( $post->ID ) == 'templates/template-contacts.php' ) {
 		/* Add a notice to the edit page */
 		//add_action( 'edit_form_after_title', 'hcc_add_page_notice_cnt', 1 );
@@ -258,7 +258,7 @@ function hcc_add_post_notice() {
 }
 
 function hcc_add_page_notice_cnt() {
-	echo '<div class="notice notice-warning inline"><p>' . __( 'Contents of this pager are edited from the Theme options -> Contacts or follow this', 'hcc') . '<a href="/wp-admin/admin.php?page=acf-options-contacts">' . __('link', 'hcc' ) . '</a></p></div>';
+	echo '<div class="notice notice-warning inline"><p>' . __( 'Contents of this pager are edited from the Theme options -> Contacts or follow this', 'hcc') . '<a href="/wp-admin/admin.php?page=acf-options-contacts"> ' . __('link', 'hcc' ) . '</a></p></div>';
 }
 function hcc_add_page_notice_err() {
 	echo '<div class="notice notice-warning inline"><p>' . __( 'This page is used to display error page content. DO NOT CHANGE ITS SLAG!', 'hcc' ) . '</p></div>';

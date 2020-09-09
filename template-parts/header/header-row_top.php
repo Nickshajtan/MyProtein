@@ -40,10 +40,10 @@ if( $has_socials || $has_woo || $sidebars ) : ?>
                        <?php endif;
                        if( $has_woo && !$sidebars ) : ?>
                          <div class="col-12 col-xl-5 d-flex order-2 order-xl-2 offset-xl-1 justify-content-end search-block">
-                            <a href="#" onclick="alert('Тут будет поиск')">Поиск по товарам</a>
+                            <?php the_widget('WC_Widget_Product_Search'); ?>
                          </div>
                          <div class="col-12 col-xl-3 d-flex order-1 order-xl-3 justify-content-end cart-block">
-                            <a href="#" onclick="alert('Тут будет корзина')">Корзина (0)</a>
+                            <?php the_widget('WC_Widget_Cart'); ?>
                          </div>
                        <?php endif;
                        if( !$has_woo && $sidebars ) : 
