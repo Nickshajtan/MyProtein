@@ -5,7 +5,7 @@
  */
 
 /**
- * Remove defaults
+ * Override defaults
  */
 add_action( 'woocommerce_init', function() {
   remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
@@ -74,8 +74,59 @@ add_action( 'woocommerce_init', function() {
   
   add_action('woocommerce_after_shop_loop_item', function() {
     global $product;
-    echo '<div class="add_to_cart_button hidden">' . do_shortcode('[add_to_cart id="'. $product->get_id() .'"]') . '</div>';
-    echo '<a href="' . do_shortcode('[add_to_cart_url id="'. $product->get_id() .'"]') .'" class="woo-shop__products__item__to-cart add_to_cart_button w-100 button btn_rectangle text-white text-center">' .  __('Купить', 'woocommerce') . '</a>';
+    $id     = $product->get_id();
+    
+    $cart_btn   = function( $link, $text, $class = 'enable' ){
+      echo '<a href="' . $link .'" class="woo-shop__products__item__to-cart add_to_cart_button w-100 button btn_rectangle text-white text-center ' . $class . '">' . $text . '</a>';
+    };
+    
+    $quantity     = absint( $product->stock_quantity );
+    $stock_status = $product->stock_status;
+    
+    if( $product->is_type( 'simple' ) ) {
+      if( $stock_status !== 'outofstock' && $quantity > 0 ) {
+        
+        echo '<div class="add_to_cart_button hidden">' . do_shortcode('[add_to_cart id="'. $id .'"]') . '</div>';
+        
+        if( $quantity <= 3 ) {
+          $cart_btn( do_shortcode('[add_to_cart_url id="'. $id .'"]'), __('Заканчивается', 'woocommerce') );
+        }
+        else{
+          $cart_btn( do_shortcode('[add_to_cart_url id="'. $id .'"]'), __('Купить', 'woocommerce') );
+        }
+        
+      }
+      else {
+        $cart_btn( '#', __('Нет в наличии', 'woocommerce'), 'disable' );
+      }
+    }
+
+    if( $product->is_type( 'variable' ) ) {
+      $active = false;
+      $variations = $product->get_available_variations();
+      if( !empty( $variations ) && is_array( $variations ) ) {
+        foreach($variations as $variation) {
+             $variation_id  = $variation['variation_id'];
+             $variation_obj = new WC_Product_variation($variation_id);
+             $stock         = $variation_obj->get_stock_quantity();
+             
+             if( $active === false ) {
+               $active = ( $stock > 0 ) ? true : false;
+             }
+             
+        }
+      }
+      
+      if( $active === true ) {
+        echo '<div class="add_to_cart_button hidden">' . do_shortcode('[add_to_cart id="'. $id .'"]') . '</div>';
+        $cart_btn( do_shortcode('[add_to_cart_url id="'. $id .'"]'), __('Купить', 'woocommerce') );
+      }
+      else {
+        $cart_btn( '#', __('Нет в наличии', 'woocommerce'), 'disable' );
+      }
+      
+    }
+    
   });
 
 });
