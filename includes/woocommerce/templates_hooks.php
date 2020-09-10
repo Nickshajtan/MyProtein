@@ -24,6 +24,12 @@ get_template_part('includes/woocommerce/hooks/sidebar');
 get_template_part('includes/woocommerce/hooks/category', 'loop');
 
 /*
+ * WOO categories template page hooks
+ * 
+ */
+get_template_part('includes/woocommerce/hooks/category', 'page');
+
+/*
  * WOO categories item template hooks
  * 
  */
@@ -36,11 +42,14 @@ get_template_part('includes/woocommerce/hooks/category', 'item');
 get_template_part('includes/woocommerce/hooks/product', 'item');
 
 
+
+
+
 /*
  * Override Main query for Product categories
  *
  *
- */
+ *//*
 add_action( 'pre_get_posts', function( $query ) {
   
   if( is_product_category( ) ) {  
@@ -80,3 +89,4 @@ add_action( 'pre_get_posts', function( $query ) {
   }
 }, 1);
 
+*/

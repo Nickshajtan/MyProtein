@@ -74,6 +74,7 @@ add_action( 'woocommerce_init', function() {
   
   add_action('woocommerce_after_shop_loop_item', function() {
     global $product;
+    echo '<div class="add_to_cart_button hidden">' . do_shortcode('[add_to_cart id="'. $product->get_id() .'"]') . '</div>';
     echo '<a href="' . do_shortcode('[add_to_cart_url id="'. $product->get_id() .'"]') .'" class="woo-shop__products__item__to-cart add_to_cart_button w-100 button btn_rectangle text-white text-center">' .  __('Купить', 'woocommerce') . '</a>';
   });
 

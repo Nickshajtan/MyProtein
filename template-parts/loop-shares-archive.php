@@ -37,6 +37,9 @@ $param = array(
 	)
 );
 
+//var_dump( get_posts( $param ) );
+//wp_die();
+
 global $wp_query;
 global $post;
 $param             = array_merge( $wp_query->query, $param );

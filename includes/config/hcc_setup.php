@@ -237,6 +237,10 @@ function hcc_default_thumbnail( $post_id ){
     }
 }   
 
+if( function_exists('is_product') && is_product() ) {
+  romove_action( 'save_post', 'hcc_default_thumbnail' );
+}
+
 /**
  * Rename posts labels. 
  * You be able to use this function to any post type with changing post_type in filter.

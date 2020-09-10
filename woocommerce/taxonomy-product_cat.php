@@ -1,6 +1,6 @@
 <?php
 /*
- * Woo main page of shop
+ * Woo category page of shop
  *
  *
  */
@@ -20,8 +20,14 @@ if ( 'subcategories' === $display_type ) {
     }
 }
 
-get_header(); 
+//var_dump( wp_get_sidebars_widgets()["woo-left"] );
+//var_dump( get_option('widgets') );
+//wp_die();
 
+$left_sidebar    = ( is_active_sidebar( 'WOO-Left' ) )  ? true : false;
+$right_sidebar   = ( is_active_sidebar( 'WOO-Right' ) ) ? true : false;
+
+get_header();
 /**
  * Hook: woocommerce_before_main_content.
  *
@@ -69,7 +75,7 @@ endif;
         if( function_exists('wc_print_notices') ) : ?>
           <div class="col-12 shop-notices d-block"><div class="row"><?php wc_print_notices(); ?></div></div>
         <?php endif;
-
+        
         /**
          * Custom categories output
          *
@@ -77,56 +83,82 @@ endif;
          */
         if ( 'subcategories' === $display_type || 'both' === $display_type ) :
           wc_get_template_part( 'content', 'product_cat_loop' );
-        endif; ?>
-        
-        <div class="col-12 d-flex flex-row align-items-center justify-content-end filters-area-row">
-          <div class="row">
-          <?php
-          /**
-           * Hook: woocommerce_before_shop_loop.
-           *
-           * @hooked woocommerce_output_all_notices - 10
-           * @hooked woocommerce_result_count - 20
-           * @hooked woocommerce_catalog_ordering - 30
-           */
-          do_action( 'woocommerce_before_shop_loop' );
-            
-          if( is_product_taxonomy() || is_search() ) : 
-            wc_get_template_part('sort/grid', 'sorting');
-          endif; ?>
-          </div>
-        </div>
-        <?php woocommerce_product_loop_start();
-
-        if ( wc_get_loop_prop( 'total' ) && 'subcategories' !== $display_type ) :
-            while ( have_posts() ) :
-                the_post();
-
-                /**
-                 * Hook: woocommerce_shop_loop.
-                 */
-                do_action( 'woocommerce_shop_loop' );
-
-                wc_get_template_part( 'content', 'product' );
-            endwhile;
         endif;
 
-        woocommerce_product_loop_end(); ?> 
-        <div class="col-12 woo-wrap__pagination d-flex justify-content-center align-items-center">
-          <?php 
-            /**
-             * Hook: woocommerce_after_shop_loop.
-             *
-             * @hooked woocommerce_pagination - 10
-             */
-            do_action( 'woocommerce_after_shop_loop' );
+        if( have_posts() && 'subcategories' !== $display_type ) : ?>
+          <div class="col-12 d-flex flex-row align-items-center justify-content-end filters-area-row"> 
+            <div class="row">
+              <?php if( function_exists('woocommerce_catalog_ordering') ) :
+                woocommerce_catalog_ordering();
+              endif;
+              wc_get_template_part('sort/grid', 'sorting');
+              ?>
+            </div>
+          </div>
+        <?php endif; ?>
+        
+          <div class="col-12 woo-wrap__cat-page">
+            <div class="row">
+                <?php woocommerce_product_loop_start();
+                  
+                if( $left_sidebar ) : ?>
+                    <li class="aside aside_left">
+                      <?php 
+                      /**
+                       * Hook: woocommerce_sidebar.
+                       *
+                       * @hooked woocommerce_get_sidebar - 10
+                       */
+                      do_action( 'woocommerce_sidebar' ); ?>
+                      <aside><ul><?php dynamic_sidebar('WOO-Left'); ?></ul></aside>
+                    </li>
+                <?php endif;
+                  
+                if ( wc_get_loop_prop( 'total' ) ) :
+                    while ( have_posts() ) :
+                        the_post();
 
-            // Pagination
-            get_template_part('template-parts/pagination');
-          ?>
-        </div>
+                        /**
+                         * Hook: woocommerce_shop_loop.
+                         */
+                        do_action( 'woocommerce_shop_loop' );
 
-  <?php else : ?>
+                        wc_get_template_part( 'content', 'product' );
+                    endwhile;
+                endif;
+
+                if( $right_sidebar ) : ?>
+                    <li class="aside aside_right">
+                      <?php 
+                      /**
+                       * Hook: woocommerce_sidebar.
+                       *
+                       * @hooked woocommerce_get_sidebar - 10
+                       */
+                      do_action( 'woocommerce_sidebar' ); ?>
+                      <aside><ul><?php dynamic_sidebar('WOO-Right'); ?></ul></aside>
+                    </li>
+                <?php endif;
+               
+                woocommerce_product_loop_end(); ?>
+                <div class="col-12 woo-wrap__pagination d-flex justify-content-center align-items-center">
+                  <?php 
+                    /**
+                     * Hook: woocommerce_after_shop_loop.
+                     *
+                     * @hooked woocommerce_pagination - 10
+                     */
+                    do_action( 'woocommerce_after_shop_loop' );
+
+                    // Pagination
+                    get_template_part('template-parts/pagination');
+                  ?>
+                </div> 
+            </div>
+          </div>
+          
+   <?php else : ?>
+         
           <div class="col-12 woo-wrap__not-found h-100 d-flex justify-content-center align-items-center">
             <?php 
             /**
@@ -136,47 +168,18 @@ endif;
              */
             do_action( 'woocommerce_no_products_found' ); ?>
           </div>
-  <?php endif;
-
-  /**
-   * Hook: woocommerce_after_main_content.
-   *
-   * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
-   */
-  do_action( 'woocommerce_after_main_content' );
-
-  /**
-   * Hook: woocommerce_sidebar.
-   *
-   * @hooked woocommerce_get_sidebar - 10
-   */
-  do_action( 'woocommerce_sidebar' );
+        
+    <?php endif; ?>
+    
+<?php
+/**
+ * Hook: woocommerce_after_main_content.
+ *
+ * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+ */
+do_action( 'woocommerce_after_main_content' );
 
 get_footer(); ?>
-
-<style>
-  .add_to_cart_button.hidden {
-    position: absolute;
-    visibility: hidden;
-  }
-</style>
-
-<script>/*
-jQuery('.woo-wrap__list__item').each(function(){
-  let imitate = $(this).find('.woo-shop__products__item__to-cart');
-  let real    = $(this).find('.add_to_cart_button.hidden');
-  real = real.find('a.add_to_cart_button');
-  console.log( real.attr('data-product_id') );
-  
-  imitate.on('click', function(e){
-    e.preventDefault();
-    console.log('click add to cart');
-    real.trigger('click');
-  });
-});*/
-</script>
-
-<?php if( is_product_taxonomy() || is_search() ) : ?>
 
  <style>
           .woo-shop__products__grid,
@@ -218,5 +221,9 @@ jQuery('.list').on('click', function() {
   jQuery('.woo-wrap__list_products').addClass('row-blocks').removeClass('d-grid');
 });
 </script>
-
-        <?php   endif; ?>
+<style>
+  .add_to_cart_button.hidden {
+    position: absolute;
+    visibility: hidden;
+  }
+</style>

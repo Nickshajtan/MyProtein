@@ -241,21 +241,29 @@ function hcc_add_post_state( $post_states, $post ) {
  * Add post notice
  *
  */
-add_action( 'admin_notices', 'hcc_add_post_notice' );
-function hcc_add_post_notice() {
-	$post = get_post();
-	if( @get_page_template_slug( $post->ID ) == 'templates/template-contacts.php' ) {
-		/* Add a notice to the edit page */
-		//add_action( 'edit_form_after_title', 'hcc_add_page_notice_cnt', 1 );
-		/* Remove the WYSIWYG editor */
-		//remove_post_type_support( 'page', 'editor' );
-	}
 
-	if( isset( $post->post_name ) && ( $post->post_name == 'error-404' || $post->post_name == 'error-403' || $post->post_name == 'error-401' )) {
-		/* Add a notice to the edit page */
-		add_action( 'edit_form_after_title', 'hcc_add_page_notice_err', 1 );
-	}
-}
+add_action('init', function(){
+  $post = get_post();
+  if( isset( $post ) && is_object( $post ) ) {
+    
+    @(function(){
+      if( get_page_template_slug( $post->ID ) == 'templates/template-contacts.php' ) {
+          /* Add a notice to the edit page */
+          //add_action( 'edit_form_after_title', 'hcc_add_page_notice_cnt', 1 );
+          /* Remove the WYSIWYG editor */
+          //remove_post_type_support( 'page', 'editor' );
+      }
+    })();
+    
+    @(function(){
+      if( isset( $post->post_name ) && ( $post->post_name == 'error-404' || $post->post_name == 'error-403' || $post->post_name == 'error-401' )) {
+          /* Add a notice to the edit page */
+          add_action( 'edit_form_after_title', 'hcc_add_page_notice_err', 1 );
+      }
+    })();
+    
+  }
+});
 
 function hcc_add_page_notice_cnt() {
 	echo '<div class="notice notice-warning inline"><p>' . __( 'Contents of this pager are edited from the Theme options -> Contacts or follow this', 'hcc') . '<a href="/wp-admin/admin.php?page=acf-options-contacts"> ' . __('link', 'hcc' ) . '</a></p></div>';

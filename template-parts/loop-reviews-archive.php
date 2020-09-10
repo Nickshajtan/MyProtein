@@ -7,6 +7,7 @@
 $title      = ( is_archive() )    ? single_cat_title('', false) : single_post_title('', false);
 $title      = ( empty( $title ) ) ? __('Category page', 'hcc')  : wp_kses_post( $title );
 $post_type  = $wp_query->query['post_type'];
+$per_option = ( get_option('post_per_page') > 1 ) ? trim( get_option('post_per_page') ) : 4;
 
 $args = array(
   'numberposts'      => 0,
