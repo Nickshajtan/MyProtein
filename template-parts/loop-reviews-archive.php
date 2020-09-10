@@ -39,6 +39,7 @@ if( !empty( $comments ) && ( is_array( $comments ) || is_object( $comments ) ) )
   $counter = 0;
   foreach( $comments as $comment ){
     $args[$counter]['ID']           = $comment->comment_ID;
+    $args[$counter]['post_ID']      = $comment->comment_post_ID;
     $args[$counter]['post_author']  = $comment->comment_author;
     $args[$counter]['post_date']    = $comment->comment_date;
     $args[$counter]['post_content'] = wp_kses_post( strip_tags( $comment->comment_content ) );
@@ -68,6 +69,7 @@ if( !empty($args) && ( is_array($args) || is_object($args) ) ) {
          <div class="row">
             <?php foreach( $posts as $post ) :
 	              setup_postdata($post);
+                  $post = (object) $post;
   
                   if( get_template_part( 'template-parts/content/content-archive', $post_type ) === false ) {
                           get_template_part( 'template-parts/content/content-archive', 'post' );
