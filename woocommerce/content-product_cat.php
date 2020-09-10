@@ -18,8 +18,11 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+$class = ( absint( $category->category_parent ) > 0 ) ? 'cat-child' : 'cat-parent';
+
 ?>
-<li <?php wc_product_cat_class( 'woo-wrap__list__item', $category ); ?>>
+<li <?php wc_product_cat_class( 'woo-wrap__list__item ' . $class, $category ); ?>>
 	<?php
 	/**
 	 * woocommerce_before_subcategory hook.
