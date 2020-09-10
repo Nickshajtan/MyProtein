@@ -19,4 +19,4 @@ else:
 endif;
 ?>
 
-<ul class="woo-wrap__list woo-wrap__list_products col-12 d-grid grid-column-<?php echo $class; ?>">
+<ul class="woo-wrap__list woo-wrap__list_cats col-12 d-grid grid-column-<?php echo $class; ?>">

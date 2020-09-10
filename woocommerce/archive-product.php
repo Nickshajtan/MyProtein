@@ -7,7 +7,18 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly 
 defined( 'ABSPATH' ) || exit;
 
-$shop_display = trim( get_option('woocommerce_shop_page_display') ); // what is displaying on shop page
+$display_type = woocommerce_get_loop_display_mode(); // what is displaying on shop page: cats, or products, or together
+if ( 'subcategories' === $display_type ) {
+    wc_set_loop_prop( 'total', 0 );
+
+    // This removes pagination and products from display for themes not using wc_get_loop_prop in their product loops.  @todo Remove in future major version.
+    global $wp_query;
+
+    if ( $wp_query->is_main_query() ) {
+        $wp_query->post_count    = 0;
+        $wp_query->max_num_pages = 0;
+    }
+}
 
 get_header(); 
 
@@ -20,7 +31,7 @@ get_header();
  */
 do_action( 'woocommerce_before_main_content' );
 
-/*
+/**
  * Page title & description
  *
  *
@@ -49,7 +60,16 @@ endif;
     </div>
   <?php endif;
   if ( woocommerce_product_loop() ) :
-  
+        
+        /**
+         * Custom categories output
+         *
+         *
+         */
+        if ( 'subcategories' === $display_type || 'both' === $display_type ) :
+          wc_get_template_part( 'content', 'product_cat_loop' );
+        endif;
+
         /**
          * Hook: woocommerce_before_shop_loop.
          *
@@ -65,8 +85,8 @@ endif;
 
         woocommerce_product_loop_start();
 
-        if ( wc_get_loop_prop( 'total' ) ) {
-            while ( have_posts() ) {
+        if ( wc_get_loop_prop( 'total' ) ) :
+            while ( have_posts() ) :
                 the_post();
 
                 /**
@@ -75,8 +95,8 @@ endif;
                 do_action( 'woocommerce_shop_loop' );
 
                 wc_get_template_part( 'content', 'product' );
-            }
-        }
+            endwhile;
+        endif;
 
         woocommerce_product_loop_end(); ?> 
         <div class="col-12 woo-wrap__pagination d-flex justify-content-center align-items-center">

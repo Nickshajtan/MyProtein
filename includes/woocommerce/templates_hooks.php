@@ -17,6 +17,24 @@ get_template_part('includes/woocommerce/hooks/loop');
  */
 get_template_part('includes/woocommerce/hooks/sidebar');
 
+/*
+ * WOO categories loop template hooks
+ * 
+ */
+get_template_part('includes/woocommerce/hooks/category', 'loop');
+
+/*
+ * WOO categories item template hooks
+ * 
+ */
+get_template_part('includes/woocommerce/hooks/category', 'item');
+
+
+
+
+
+
+
 
 
 
@@ -24,6 +42,7 @@ get_template_part('includes/woocommerce/hooks/sidebar');
  * Single card
  *
  */
+/*
 add_action( 'woocommerce_init', function() {
   remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
   remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
@@ -135,3 +154,4 @@ add_action( 'pre_get_posts', function( $query ) {
     }
   }
 }, 1);
+
