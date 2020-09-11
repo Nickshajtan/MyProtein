@@ -165,6 +165,7 @@ get_template_part('includes/helpers/acf/acf_helpers', 'menus');
 get_template_part('includes/helpers/aq_resizer');
 get_template_part('includes/helpers/gutenberg/gutenberg'); 
 get_template_part('includes/helpers/search_helpers'); 
+get_template_part('includes/helpers/wp_cron'); 
 
 if( version_compare('5.0.0', get_bloginfo('version'), '>=') ) {
   get_template_part('includes/helpers/gutenberg/palette');

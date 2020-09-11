@@ -21,7 +21,7 @@ if( function_exists('hcc_getPostViews') ) {
 <article id="<?php echo $post_id; ?>" <?php post_class( array('post', $post_id, 'col-12' ) ); ?>>
     <div class="row">
       <div class="col-12 post__data">
-        <?php if( has_post_thumbnail() && strpos( get_the_post_thumbnail_url(), 'wp-header-logo' ) === false ) ) : ?>
+        <?php if( has_post_thumbnail() && strpos( get_the_post_thumbnail_url(), 'wp-header-logo' ) === false ) : ?>
             <div class="w-100 post__data__img"><?php the_post_thumbnail(); ?></div>
         <?php endif;
         if( !empty( $date ) ) : ?>

@@ -4,19 +4,22 @@
  * 
  *
  */ 
+//var_dump( wp_get_post_terms( get_the_ID(), 'product_tag', array('names') ) );
+//wp_die();
 
-$post_id = 'post' . get_the_ID();
-$tags    = wp_get_post_terms( get_the_ID(), array( 'shares', 'present', ) , array('names') );
+$post_id   = 'post' . get_the_ID();
+$post_type = get_post_type();
+$tags      = wp_get_post_terms( get_the_ID(), 'product_tag', array('names') );
 
 $settings = get_field('cpt_settings', get_the_ID());
-$type     = wp_kses_post( $settings['event_type'] ); 
+$type     = wp_kses_post( $settings['event_type'] );
 $link     = ( !empty( $tags ) && empty( $settings['cpt_btn'] ) ) ? esc_url( get_permalink( get_the_ID() ) ) : $settings['cpt_btn'];
 
 $date    = get_the_date();
 $autor   = get_the_author_meta('display_name');
 $cats    = get_the_category(','); 
 $title   = wp_kses_post( get_the_title() );
-$content = wp_kses_post( get_the_content() );
+$content = ( $post_type !== 'product' ) ? wp_kses_post( get_the_content() ) : '';
 $content = apply_filters( 'the_content',  wp_trim_words( $content, 200, '...') );
 
 if( !empty( $tags ) && !$settings ) {
@@ -43,13 +46,13 @@ else {
 
 $time     = $settings['date_picker'];
 
-if( !empty( $tags ) && !$settings ) {
-  $title = '';
+if( is_array($tags) ) {
   foreach( $tags as $tag ) {
-    $type  .= wp_kses_post( $tag->name ) . ' ';
-    $title .= wp_trim_words( wp_kses_post( $tag->description ), 200, '...' );
+    $type    .= (!empty($type)) ? ' ' . wp_kses_post( $tag->name ) . ' ' : wp_kses_post( $tag->name ) . ' ';
+    $content  = ( empty( $content ) ) ? wp_trim_words( wp_kses_post( $tag->description ), 200, '...' ) : $content;
   }
 }
+
 $type     = ( !empty( $type ) ) ? $type : __('Акция', 'hcc'); 
 
 if( function_exists('hcc_getPostViews') ) {
@@ -58,7 +61,7 @@ if( function_exists('hcc_getPostViews') ) {
 
 ?>
 
-<article id="<?php echo $post_id; ?>" <?php post_class( array('post', $post_id, 'col-12') ); ?>>
+<article id="<?php echo $post_id; ?>" <?php post_class( array('post-' . $post_type, $post_id, 'col-12') ); ?>>
     <div class="row">
       <div class="col-12 post__data">
         <?php if( !empty( $type ) ) : ?>
@@ -76,14 +79,24 @@ if( function_exists('hcc_getPostViews') ) {
             <?php echo $content; ?>
           </div>
         <?php endif;
-        if( !empty( $link ) || !empty( $time ) ) : ?>
-        <div class="w-100 post__data__addons d-flex justify-content-between">
+        if( !empty( $link ) || !empty( $time ) ) : 
+          $class = 'between';
+          if( !empty( $link ) && !empty( $time ) ) :
+            $class = 'between';
+          endif;
+          if( !empty( $time ) && empty( $link ) ) :
+              $class = 'start';
+          endif;
+          if( !empty( $link ) && empty( $time ) ) : 
+              $class = 'end';
+          endif; ?>
+        <div class="w-100 post__data__addons d-flex justify-content-<?php echo $class; ?>">
            <?php if( !empty( $time ) ) : ?>
            <date class="text-white post__data__addons__time">
              <?php echo '<b>' . __('Годен до:', 'hcc') . '</b> ' . $time; ?>
            </date>
            <?php endif;
-           if( !is_null( $link ) && is_array( $link ) ) : ?>
+           if( !is_null( $link ) && ( is_array( $link ) || is_string( $link ) ) ) : ?>
               <a href="<?php echo $link_url; ?>" class="button post__data__addons__link" target="<?php echo $link_tgt; ?>">
                <?php echo $link_txt; ?>
               </a>

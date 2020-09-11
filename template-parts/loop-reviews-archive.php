@@ -3,6 +3,8 @@
  * Loop for archives
  *
  */
+global $wp_query;
+global $post;
 
 $title      = ( is_archive() )    ? single_cat_title('', false) : single_post_title('', false);
 $title      = ( empty( $title ) ) ? __('Category page', 'hcc')  : wp_kses_post( $title );
