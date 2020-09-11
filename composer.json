@@ -22,7 +22,7 @@
     "repositories": [
       {
          "type": "vcs",
-         "url": "https://github.com/Nickshajtan/MyProtein.git" 
+         "url": "https://github.com/Nickshajtan/MyProtein" 
       }
     ], 
     "autoload": {
