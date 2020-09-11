@@ -11,7 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 global $wp_query;
 global $post;
 
-$per_option = ( get_option('post_per_page') > 3 && get_option('post_per_page') % 2 === 0 ) ? absint( get_option('post_per_page')/ 2 ) : 3;
+$per_page   = get_option('posts_per_page');
+$per_option = ( $per_page > 4 && $per_page % 2 === 0 ) ? absint( $per_page/ 2 ) : 3;
 
 if ( get_query_var('paged') ) {
     $paged = get_query_var('paged');
@@ -32,9 +33,9 @@ $param      = array(
   'order'            => 'DESC',
 );
 
-$param             = array_merge( $wp_query->query, $param );
-$tmp_post          = $post;
-$query = query_posts($param);
+$tmp_post   = $post;
+$param      = array_merge( $wp_query->query, $param );
+$wp_query   = new WP_Query( $param );
 
 get_header();
 
@@ -53,8 +54,7 @@ else :
 
 	get_template_part( 'template-parts/content/content', 'none' );
 
-endif;
-wp_reset_postdata(); 
+endif; 
 wp_reset_query();
 $post = $tmp_post;
 get_sidebar();
