@@ -2,7 +2,7 @@
     "name": "hcc-wordpress/hcc",
     "description": "HCC start framework for Wordpress",
     "type": "wordpress-theme",
-    "version": "v1.0.0",
+    "version": "v1.0.0: beta",
     "license": "MIT",
     "authors": [
         {
