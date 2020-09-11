@@ -4,14 +4,15 @@
  * 
  *
  */ 
-$type = $post->type;
+
+$type = get_post_meta( $post->ID, 'type', true );
 $type = ( empty( $type ) ) ? 'shares' : $type;
 
 $post_id = 'post-' . $type . '-' . $post->ID;
-$date    = ( $type === 'shares' ) ? get_the_date() : get_comment_date();
-$cats    = ( $type === 'shares' ) ? get_the_category(',') : false;
-$title   = ( $type === 'shares' ) ? wp_kses_post( get_the_title() ) : wp_kses_post( get_the_title( $post->post_ID ) );
-$content = ( $type === 'shares' ) ? wp_kses_post( get_the_content() ) : wp_kses_post( get_comment_text() );
+$date    = get_the_date();
+$cats    = get_the_category(',');
+$title   = wp_kses_post( get_the_title() );
+$content = wp_kses_post( get_the_content() );
 $content = apply_filters( 'the_content', wp_trim_words( $content, 200, '...') ); 
 
 if( function_exists('hcc_getPostViews') ) {
@@ -21,16 +22,16 @@ if( function_exists('hcc_getPostViews') ) {
 if( $type !== 'comment' ) {
   $settings = get_field('cpt_settings', get_the_ID());
   $link     = esc_url( $settings['cpt_btn'] );
-  $link     = (!empty( $link )) ? $link : '#';
+  $link     = ( !empty( $link ) ) ? $link : '#';
   $client   = ( !empty( $settings['client_name'] ) ) ? wp_kses_post( $settings['client_name'] ) : get_the_author_meta('display_name');
   $photo    = rawurlencode( esc_url( wp_get_attachment_url( $settings['client_photo'] ) ) );
   $photo    = ( empty( $photo ) ) ? '' : $photo;
 }
 else {
   if( is_object( $post ) ) {
-    $link     = esc_url( get_permalink( $post->post_ID ) );
+    $link     = esc_url( get_post_meta( $post->ID, 'shop_link', true ) );
     $link     = (!empty( $link )) ? $link : '#';
-    $client   = apply_filters( 'comment_author', $post->post_author );
+    $client   = get_the_author_meta('display_name');
     $photo    = get_avatar( $client, 50, 'wavatar', '', array('class' => 'img-inner img-responsive') );
     $photo    = ( empty( $photo ) ) ? '' : $photo;
   }
