@@ -17,6 +17,12 @@
     "require-dev": {
       "squizlabs/php_codesniffer": "^2.8.0"
     },
+    "repositories": [
+      {
+         "type": "vcs",
+         "url": "https://github.com/Nickshajtan/MyProtein.git" 
+      }
+    ], 
     "autoload": {
         "classmap": [],
         "psr-4": {
