@@ -2,6 +2,7 @@
     "name": "hcc-wordpress/hcc",
     "description": "HCC start framework for Wordpress",
     "type": "wordpress-theme",
+    "version": "v1.5.0",
     "authors": [
         {
             "name": "Nikita Nosov",
