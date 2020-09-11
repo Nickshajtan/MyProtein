@@ -1,5 +1,5 @@
 # HCC Wordpress package
-version 1.0.5 alpha
+version 1.0.0 beta
 
 ### description
 
