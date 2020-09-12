@@ -20,10 +20,6 @@ if ( 'subcategories' === $display_type ) {
     }
 }
 
-//var_dump( wp_get_sidebars_widgets()["woo-left"] );
-//var_dump( get_option('widgets') );
-//wp_die();
-
 $left_sidebar    = ( is_active_sidebar( 'WOO-Left' ) )  ? true : false;
 $right_sidebar   = ( is_active_sidebar( 'WOO-Right' ) ) ? true : false;
 
@@ -103,6 +99,7 @@ endif;
                   
                 if( $left_sidebar ) : ?>
                     <li class="aside aside_left">
+                      <?php echo __('Фильтры', 'woocommerce'); ?>
                       <?php 
                       /**
                        * Hook: woocommerce_sidebar.
@@ -129,6 +126,7 @@ endif;
 
                 if( $right_sidebar ) : ?>
                     <li class="aside aside_right">
+                      <?php echo __('Фильтры', 'woocommerce'); ?>
                       <?php 
                       /**
                        * Hook: woocommerce_sidebar.
@@ -148,7 +146,7 @@ endif;
                      *
                      * @hooked woocommerce_pagination - 10
                      */
-                    do_action( 'woocommerce_after_shop_loop' );
+                    //do_action( 'woocommerce_after_shop_loop' );
 
                     // Pagination
                     get_template_part('template-parts/pagination');
@@ -171,16 +169,6 @@ endif;
         
     <?php endif; ?>
     
-<?php
-/**
- * Hook: woocommerce_after_main_content.
- *
- * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
- */
-do_action( 'woocommerce_after_main_content' );
-
-get_footer(); ?>
-
  <style>
           .woo-shop__products__grid,
           .woo-wrap__list,
@@ -227,3 +215,12 @@ jQuery('.list').on('click', function() {
     visibility: hidden;
   }
 </style>
+    
+<?php
+/**
+ * Hook: woocommerce_after_main_content.
+ *
+ * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+ */
+do_action( 'woocommerce_after_main_content' );
+get_footer(); ?>

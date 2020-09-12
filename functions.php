@@ -116,6 +116,7 @@ require_once('includes/classes/core/HCC_Nav_Walker.class.php');
 get_template_part('includes/register/register_scripts');
 get_template_part('includes/register/register_menus');
 get_template_part('includes/register/register_widgets');
+get_template_part('includes/register/register_sidebars');
 get_template_part('includes/register/register_shortcodes');
 get_template_part('includes/register/register_post_types');
 get_template_part('includes/register/register_taxonomies');

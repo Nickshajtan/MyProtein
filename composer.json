@@ -2,7 +2,7 @@
     "name": "hcc-wordpress/hcc",
     "description": "HCC start framework for Wordpress",
     "type": "wordpress-theme",
-    "version": "v1.0.0: beta",
+    "version": "v1.0.0",
     "license": "MIT",
     "authors": [
         {
@@ -33,7 +33,10 @@
             "Modules\\": "includes/classes/app/modules",
             "Libs\\": "includes/classes/app/libs",
             "Core\\": "includes/classes/app/core",
-            "App\\": "includes/classes/app"
+            "App\\": "includes/classes/app",
+            "Widgets\\": "includes/classes/widgets",
+            "WOO_Widgets\\": "includes/classes/widgets/woocommerce",
+            "CORE_Widgets\\": "includes/classes/widgets/core"
         },
         "files": [
             "includes/classes/app/config.php"

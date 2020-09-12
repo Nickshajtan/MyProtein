@@ -59,14 +59,26 @@ add_action( 'woocommerce_init', function() {
   add_action('woocommerce_after_shop_loop_item_title', function() {
     global $product;
     $price      = $product->get_price();
-    $price_text = '<span class="price">' . $price . '</span> ' . get_woocommerce_currency_symbol();
+    $price_text = '<span class="price">' . str_replace( get_woocommerce_currency_symbol(), '', wc_price($price) ) . '</span> ' . get_woocommerce_currency_symbol();
 
     if( $product->is_type( 'simple' ) ){
-      echo $price_text;
+      echo ( !empty($price) ) ? $price_text : '';
     }
 
-    if( $product->is_type( 'variable' ) ){
-      echo __('от ', 'woocommerce') . $price_text . '<br />' . $product->get_attribute('pol') . '<br/>' . $product->get_attribute('vkus') . '<br/>' .$product->get_attribute('volume') . '<br/>';;
+    if( $product->is_type( 'variable' ) ) {
+      $price_text = array( $product->get_variation_price( 'min', false ), $product->get_variation_price( 'max', false ) );
+      
+      if( $_GET['orderby'] === 'price-desc' ) {
+        $price_text = $price_text[0] !== $price_text[1] ? sprintf( __( 'до %1$s', 'woocommerce' ), $price_text[1] ) : $price_text[1];
+        echo ( !empty($price_text) ) ? $price_text  . ' ' . get_woocommerce_currency_symbol() : '';
+        echo ( !empty( $price ) && empty( $price_text ) ) ? sprintf( __( '%1$s', 'woocommerce' ), $price ) . ' ' . get_woocommerce_currency_symbol() : '';
+      }
+      else {
+        $price_text = $price_text[0] !== $price_text[1] ? sprintf( __( 'от %1$s', 'woocommerce' ), $price_text[0] ) : $price_text[0];
+        echo ( !empty($price_text) ) ? $price_text  . ' ' . get_woocommerce_currency_symbol() : '';
+        echo ( !empty( $price ) && empty( $price_text ) ) ? sprintf( __( 'от %1$s', 'woocommerce' ), $price ) . ' ' . get_woocommerce_currency_symbol() : '';
+      }
+    
     }
   });
   
