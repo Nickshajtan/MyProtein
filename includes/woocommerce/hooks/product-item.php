@@ -113,14 +113,13 @@ add_action( 'woocommerce_init', function() {
         }
       }
     }
-    
   });
   
   remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
   
   add_action('woocommerce_after_shop_loop_item', function() {
     global $product;
-    $id     = $product->get_id();
+    $id = $product->get_id();
     
     $quantity     = $product->get_stock_quantity();
     $stock_status = $product->stock_status;
@@ -206,6 +205,5 @@ add_action( 'woocommerce_init', function() {
       }
       
     }
-
   });
 });
