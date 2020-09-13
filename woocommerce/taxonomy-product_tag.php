@@ -126,16 +126,37 @@ endif;
             </div>
           </div>
           
-   <?php else : ?>
+   <?php else :   
+          $class           = 'col-12';
+
+          if( $left_sidebar && $right_sidebar ) {
+            $class = 'col-12 col-lg-6';
+          }
+
+          if( $left_sidebar || $right_sidebar ) {
+            $class = 'col-12 col-lg-9';
+          } 
+   ?>
          
           <div class="col-12 woo-wrap__not-found h-100 d-flex justify-content-center align-items-center">
-            <?php 
-            /**
-             * Hook: woocommerce_no_products_found.
-             *
-             * @hooked wc_no_products_found - 10
-             */
-            do_action( 'woocommerce_no_products_found' ); ?>
+            <div class="row">
+             
+              <?php if( $left_sidebar ) : ?>
+                 <aside class="col-12 col-lg-3"><ul><?php dynamic_sidebar('WOO-Left'); ?></ul></aside>
+              <?php endif; ?>
+              <div class="<?php echo $class; ?>">
+                <?php 
+                /**
+                 * Hook: woocommerce_no_products_found.
+                 *
+                 * @hooked wc_no_products_found - 10
+                 */
+                do_action( 'woocommerce_no_products_found' ); ?>
+            </div>
+             <?php if( $right_sidebar ) : ?>
+                 <aside class="col-12 col-lg-3"><ul><?php dynamic_sidebar('WOO-Right'); ?></ul></aside>
+             <?php endif; ?>
+            </div>
           </div>
         
     <?php endif; ?>

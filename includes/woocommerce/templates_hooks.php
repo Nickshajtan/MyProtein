@@ -40,3 +40,10 @@ get_template_part('includes/woocommerce/hooks/category', 'item');
  * 
  */
 get_template_part('includes/woocommerce/hooks/product', 'item');
+
+/*
+ * WOO products single template hooks
+ * 
+ */
+get_template_part('includes/woocommerce/hooks/product', 'single');
+

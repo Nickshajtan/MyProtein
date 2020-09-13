@@ -17,10 +17,27 @@
 
 defined( 'ABSPATH' ) || exit;
 
-?>
-<?php do_action( 'woocommerce_widget_price_filter_start', $args ); ?>
+$request_url = explode('?', ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] )[0];
+$symbol      = get_woocommerce_currency_symbol();
+
+do_action( 'woocommerce_widget_price_filter_start', $args ); ?>
 
 <form method="get" action="<?php echo esc_url( $form_action ); ?>">
+    <div class="price_get_label d-inline-block">
+        <div class="from d-inline">
+          <?php $link = ( !empty( $current_min_price ) ) ? $request_url . '?min_price=' . $current_min_price : $request_url; ?>
+          <a href="<?php echo esc_url( $link ); ?>">
+            <?php echo esc_attr( $current_min_price ) . ' ' . $symbol; ?>
+          </a>
+        </div>
+        &mdash;
+        <div class="to d-inline">
+          <?php $link = ( !empty( $current_min_price )) ? $request_url . '?max_price=' . $current_max_price : $request_url; ?>
+          <a href="<?php echo esc_url( $link ); ?>">
+            <?php echo esc_attr( $current_max_price ) . ' ' . $symbol; ?>
+          </a>
+        </div>
+    </div>
 	<div class="price_slider_wrapper">
 		<div class="price_slider" style="display:none;"></div>
 		<div class="price_slider_amount d-flex flex-column align-items-start" data-step="<?php echo esc_attr( $step ); ?>">
