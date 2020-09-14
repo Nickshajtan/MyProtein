@@ -8,7 +8,6 @@
     min-height: 265px;
     position: relative;
     transition: .3s;
-    border: solid 1px $transparent;
     box-sizing: border-box;
     
     @include push--auto;
@@ -22,7 +21,25 @@
     
     &:hover,
     &:focus {
-      border-color: $helper-color;
+      .flex-card-list__card__img-line-wrapper {
+        border-color: $helper-color;
+      }
+    }
+    
+    &__img-line-wrapper {
+      position: absolute;
+      box-sizing: border-box;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      height: 100%;
+      width: 100%;
+      border: solid 1px $transparent;
+      transition: .3s;
+      z-index: 2;
+      display: block;
+      background: transparent;
     }
     
     & {
@@ -40,8 +57,16 @@
         max-height: 100%;
         object-fit: cover;
         z-index: 1;
+        box-sizing: border-box;
+        object-fit: cover;
+        object-position: center;
 
         @include push--auto;
+        
+        &:hover,
+        &:focus {
+          border-color: $helper-color;
+        }
       }
       
       &__title {

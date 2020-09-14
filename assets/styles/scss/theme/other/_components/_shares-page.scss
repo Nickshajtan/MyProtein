@@ -1,0 +1,62 @@
+.type-shares {
+  border-radius: 20px;
+  box-sizing: border-box;
+  border: 1px solid $helper-color;
+  padding: 35px;
+  margin-bottom: 25px;
+  
+  &:not( :first-child ) {
+    margin-top: 25px;
+  }
+  
+  .post__data {
+    &__type {
+      display: block;
+      background-color: $helper-color;
+      border-radius: 8px;
+      padding: 4px 16px;
+      
+      &,
+      * {
+        @include font-source-sans( $middler, $white, 600, 1, $main-font);
+      }
+    }
+    
+    &__title {
+      margin: 20px 0;
+      
+      &,
+      * {
+        @include font-source-sans( $middle, $helper-color, bold, 1.5, $main-font);
+      }
+    }
+    
+    &__content {
+      &,
+      * {
+        @include editor--elements;
+      }
+    }
+    
+    &__addons {
+      padding-top: 34px;
+      
+      &__time {
+        &:before {
+          content: '';
+          display: block;
+          width: 30px;
+          height: 30px;
+          background-image: url(../img/icons/wall-clock1.svg);
+          background-size: contain;
+          background-position: center;
+          margin-right: 15px;
+        }
+      }
+      
+      &__link {
+        padding: 16px 76px;
+      }
+    }
+  }
+}

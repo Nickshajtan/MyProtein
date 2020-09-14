@@ -84,7 +84,11 @@ footer {
        }
      
        @include mq('laptop', min) {
-          padding: 0 80px;
+          padding: 0 30px;
+       }
+     
+       @media screen and ( min-width: 1500px ) {
+         padding: 0 80px;
        }
      
        a {

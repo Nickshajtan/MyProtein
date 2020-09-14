@@ -91,15 +91,20 @@ endif;
               ?>
             </div>
           </div>
+        <?php endif;
+
+        if( 'subcategories' !== $display_type && ( $left_sidebar || $right_sidebar ) ) : ?>
+            <div class="filter-text p-0 col-12 d-flex justify-content-<?php echo ( $left_sidebar ) ? 'start' : 'end'; ?>">
+              <?php echo __('Фильтры', 'woocommerce'); ?>
+            </div>
         <?php endif; ?>
         
           <div class="col-12 woo-wrap__cat-page">
             <div class="row">
                 <?php woocommerce_product_loop_start();
                   
-                if( $left_sidebar ) : ?>
-                    <li class="aside aside_left">
-                      <?php echo __('Фильтры', 'woocommerce'); ?>
+                if( $left_sidebar && 'subcategories' !== $display_type ) : ?>
+                    <li class="products-aside products-aside_left">
                       <?php 
                       /**
                        * Hook: woocommerce_sidebar.
@@ -107,7 +112,7 @@ endif;
                        * @hooked woocommerce_get_sidebar - 10
                        */
                       do_action( 'woocommerce_sidebar' ); ?>
-                      <aside><ul><?php dynamic_sidebar('WOO-Left'); ?></ul></aside>
+                      <aside class="products-aside__col products-aside__col_left"><ul><?php dynamic_sidebar('WOO-Left'); ?></ul></aside>
                     </li>
                 <?php endif;
                   
@@ -124,9 +129,8 @@ endif;
                     endwhile;
                 endif;
 
-                if( $right_sidebar ) : ?>
-                    <li class="aside aside_right">
-                      <?php echo __('Фильтры', 'woocommerce'); ?>
+                if( $right_sidebar && 'subcategories' !== $display_type ) : ?>
+                    <li class="products-aside products-aside_right">
                       <?php 
                       /**
                        * Hook: woocommerce_sidebar.
@@ -134,7 +138,7 @@ endif;
                        * @hooked woocommerce_get_sidebar - 10
                        */
                       do_action( 'woocommerce_sidebar' ); ?>
-                      <aside><ul><?php dynamic_sidebar('WOO-Right'); ?></ul></aside>
+                      <aside class="products-aside__col products-aside__col_right"><ul><?php dynamic_sidebar('WOO-Right'); ?></ul></aside>
                     </li>
                 <?php endif;
                
@@ -189,54 +193,18 @@ endif;
           </div>
         
     <?php endif; ?>
-    
- <style>
-          .woo-shop__products__grid,
-          .woo-wrap__list,
-          .woo-wrap__list_products {
-            grid-gap: 15px;
-            grid-template-rows: max-content;
-            grid-template-areas: 'aside product product'
-                                 'aside product product';
-          }
-          .woo-shop__products__grid.row-blocks,
-          .woo-wrap__list.row-blocks,
-          .woo-wrap__list_products.row-blocks {
-            display: block;
-          }
-          .aside {
-            display: block;
-            height: auto;
-            min-width: 30%;
-            grid-area: aside;
-          }
-          
-          .woo-shop__products__grid__item {
-            grid-area: 'product';
-          }
-          figure {
-            margin: 0;
-          }
-  </style>
 <script>
 jQuery('.grid').on('click', function() {
-  jQuery('.woo-shop__products__grid').removeClass('row-blocks').addClass('d-grid');
-  jQuery('.woo-wrap__list').removeClass('row-blocks').addClass('d-grid');
-  jQuery('.woo-wrap__list_products').removeClass('row-blocks').addClass('d-grid');
+  jQuery('.woo-shop__products__grid').removeClass('is-row').addClass('d-grid');
+  jQuery('.woo-wrap__list').removeClass('is-row').addClass('d-grid');
+  jQuery('.woo-wrap__list_products').removeClass('is-row').addClass('d-grid');
 });
 jQuery('.list').on('click', function() {
-  jQuery('.woo-shop__products__grid').addClass('row-blocks').removeClass('d-grid');
-  jQuery('.woo-wrap__list').addClass('row-blocks').removeClass('d-grid');
-  jQuery('.woo-wrap__list_products').addClass('row-blocks').removeClass('d-grid');
+  jQuery('.woo-shop__products__grid').addClass('is-row').removeClass('d-grid');
+  jQuery('.woo-wrap__list').addClass('is-row').removeClass('d-grid');
+  jQuery('.woo-wrap__list_products').addClass('is-row').removeClass('d-grid');
 });
 </script>
-<style>
-  .add_to_cart_button.hidden {
-    position: absolute;
-    visibility: hidden;
-  }
-</style>
-    
 <?php
 /**
  * Hook: woocommerce_after_main_content.

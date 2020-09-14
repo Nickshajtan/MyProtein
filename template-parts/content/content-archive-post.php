@@ -11,7 +11,7 @@ $autor   = get_the_author_meta('display_name');
 $cats    = get_the_category(',');
 $title   = wp_kses_post( get_the_title() );
 $content = wp_kses_post( get_the_content() );
-$content = wp_trim_words( $content, 50, '...'); 
+$content = apply_filters( 'the_content', wp_trim_words( $content, 50, '...') ); 
 
 if( function_exists('hcc_getPostViews') ) {
   $views = hcc_getPostViews( get_the_ID() ); 

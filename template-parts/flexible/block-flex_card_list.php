@@ -34,6 +34,7 @@ if( !empty( $block_content ) && is_array( $block_content ) ) : ?>
   
       <a href="<?php echo $card_link; ?>" <?php echo $card_target; ?> class="d-block flex-card-list__card w-100 p-0">
         <?php if( !empty( $card_bg ) ) : ?>
+          <div class="flex-card-list__card__img-line-wrapper"></div>
           <img src="<?php echo $card_bg; ?>" alt="<?php echo $card_image_alt; ?>" title="<?php echo $card_image_title; ?>" class="flex-card-list__card__img">
         <?php endif;
         if( !empty( $card_title ) ) : ?>

@@ -14,7 +14,7 @@ add_action( 'woocommerce_init', function() {
   add_action( 'woocommerce_before_shop_loop_item', function() {
     global $product;
     $id = $product->get_id();
-    echo '<a href="' . esc_url( get_permalink( $id ) ) . '" class="woo-shop__products__item ml-auto mr-auto d-flex flex-column align-items-start"><figure>';
+    echo '<div class="woo-shop__products__item__wrapper"><a href="' . esc_url( get_permalink( $id ) ) . '" class="woo-shop__products__item ml-auto mr-auto d-flex flex-column align-items-start"><figure>';
   }, 10);
   
   remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
@@ -22,6 +22,10 @@ add_action( 'woocommerce_init', function() {
   add_action( 'woocommerce_after_shop_loop_item', function() {
     echo '</figure></a>';
   }, 10);
+  // Button here //
+  add_action( 'woocommerce_after_shop_loop_item', function() {
+    echo '</div>';
+  }, 30);
   
   remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10 );
   remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
@@ -47,13 +51,14 @@ add_action( 'woocommerce_init', function() {
   
   remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
   
-  add_action('woocommerce_shop_loop_item_title', function() {
+  // Title
+  add_action('woocommerce_after_shop_loop_item', function() {
     global $product;
     $id    = $product->get_id();
     $title = wp_kses_post( get_the_title( $id ) );
 
     echo '<figurecaption class="woo-shop__products__item__title d-block w-100">' . $title . '</figurecaption>';
-  });
+  }, 40);
   
   // Price
   add_filter( 'woocommerce_variable_price_html', 'hcc_variation_price', 20, 2 );
@@ -75,6 +80,8 @@ add_action( 'woocommerce_init', function() {
               $price = sprintf( 'от %1$s', wc_price( $min_regular_price ) );
           }
       }
+    
+      $price = '<span class="product-price">' . $price . '</span>';
 
       return $price;
 
@@ -83,7 +90,7 @@ add_action( 'woocommerce_init', function() {
   remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
   remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
  
-  add_action('woocommerce_after_shop_loop_item_title', function() {
+  add_action('woocommerce_after_shop_loop_item', function() {
     if( is_product() ) {
         return;
     }
@@ -95,14 +102,15 @@ add_action( 'woocommerce_init', function() {
     
     $sale_price_text = function() use( $product ) {
       if( $product->is_on_sale() ) {
-        return __('Акция!', 'woocommerce') . ' ';
+        return '<span class="sale-word">' . __('Акция!', 'woocommerce') . '</span> ';
       }
       return '';
     };
     
     if( $product->is_type( 'simple' ) ){
       echo $sale_price_text();
-      echo ( !empty($price) ) ? $price_text : $no_price_text;
+      $cost = ( !empty($price) ) ? $price_text : $no_price_text;
+      echo (!empty($cost)) ? '<span class="product-price">' . $cost . '</span>' : '';
     }
 
    if( $product->is_type( 'variable' ) ) {
@@ -111,20 +119,24 @@ add_action( 'woocommerce_init', function() {
       if( $_GET['orderby'] === 'price-desc' ) {
         $price_text = $price_text[0] !== $price_text[1] ? sprintf( __( 'до %1$s', 'woocommerce' ), $price_text[1] ) : $price_text[1];
         echo $sale_price_text();
-        echo ( !empty($price_text) ) ? $price_text  . ' ' . get_woocommerce_currency_symbol() : '';
-        echo ( !empty( $price ) && empty( $price_text ) ) ? sprintf( __( '%1$s', 'woocommerce' ), wc_price( $price ) ) : '';
+        $cost = ( !empty($price_text) ) ? $price_text  . ' ' . get_woocommerce_currency_symbol() : '';
+        echo (!empty($cost)) ? '<span class="product-price">' . $cost . '</span>' : '';
+        $cost = ( !empty( $price ) && empty( $price_text ) ) ? sprintf( __( '%1$s', 'woocommerce' ), wc_price( $price ) ) : '';
+        echo (!empty($cost)) ? '<span class="product-price">' . $cost . '</span>' : '';
       }
       else {
         $price_text = $price_text[0] !== $price_text[1] ? sprintf( __( 'от %1$s', 'woocommerce' ), $price_text[0] ) : $price_text[0];
         echo $sale_price_text();
-        echo ( !empty( $price ) && empty( $price_text ) ) ? sprintf( __( 'от %1$s', 'woocommerce' ), wc_price( $price ) )  : '';
-        echo ( !empty($price_text) ) ? $price_text  . ' ' . get_woocommerce_currency_symbol() : '';       
+        $cost = ( !empty( $price ) && empty( $price_text ) ) ? sprintf( __( 'от %1$s', 'woocommerce' ), wc_price( $price ) )  : '';
+        echo (!empty($cost)) ? '<span class="product-price">' . $cost . '</span>' : '';
+        $cost = ( !empty($price_text) ) ? $price_text  . ' ' . get_woocommerce_currency_symbol() : '';    
+        echo (!empty($cost)) ? '<span class="product-price">' . $cost . '</span>' : '';
         if( empty( $price ) && empty( $price_text ) ) {
           echo $no_price_text;
         }
       }
     }
-  });
+  }, 50);
   
   // Button
   remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
@@ -217,5 +229,5 @@ add_action( 'woocommerce_init', function() {
       }
       
     }
-  });
+  }, 20);
 });

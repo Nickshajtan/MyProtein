@@ -4,6 +4,7 @@
 @import '_components/footer';//footer styles
 @import '_components/form-abstract';//template form styles
 @import '_components/form-custom';//custom form styles
+@import '_components/pagination';//site pagination
 
 @import '_components/block-flex_text_block';
 @import '_components/block-flex_banner_text_block';
@@ -14,4 +15,15 @@
 @import '_components/block-flex_chess_image_block';
 @import '_components/block-flex_big_slider_block';
 @import '_components/block-flex_slider_block';
+
+@import '_components/arhive-page';
+@import '_components/shares-page';
+@import '_components/reviews-page';
+
+@import '_woocommerce/global';
+@import '_woocommerce/shortcodes';
+@import '_woocommerce/grid';
+@import '_woocommerce/filters';
+@import '_woocommerce/product-term-page';
+
 

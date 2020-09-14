@@ -1,0 +1,14 @@
+.flex-shortcodes-block {
+  padding: 90px 0;
+  
+  &__title {
+    text-transform: uppercase;
+    margin-bottom: 43px;
+
+    @include editor--headers(true);
+  }
+  
+  &__content {
+    @include editor--elements;
+  }
+}

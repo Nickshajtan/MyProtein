@@ -1,0 +1,35 @@
+.woocommerce {
+  .hidden {
+    visibility: hidden;
+    
+    &.add_to_cart {
+      position: absolute;
+    }
+  }  
+  
+  figure {
+    margin: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  
+  figurecaption {
+    margin-top: 10px;
+    display: flex!important;
+    align-items: center;
+    justify-content: center;
+    
+    @include font-source-sans( $card-size, $white, 500, 1.2, $main-font);
+  }
+  
+  .product-price,
+  .price {
+    @include font-source-sans( $middler - 3px, $helper-color, 500, 2, $main-font);
+  }
+  
+  .sale-word {
+    font-size: 120%;
+    font-weight: bold;
+    color: $white;
+  }
+}

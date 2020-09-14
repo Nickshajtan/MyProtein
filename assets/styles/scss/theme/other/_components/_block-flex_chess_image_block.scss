@@ -219,6 +219,10 @@
       @include mq('extra-tablet', min) {
         top: -130px;
         min-height: 765px;
+        max-width: 730px;
+      }
+      
+      @media screen and ( min-width: 1500px ) { 
         max-width: 780px;
       }
       

@@ -141,7 +141,7 @@ function hcc_remove_menus(){
         }
         if( is_user_logged_in() && !current_user_can('edit_pages') ){
             /** Comments **/
-            remove_menu_page( 'edit-comments.php' );
+            //remove_menu_page( 'edit-comments.php' );
             /** Users **/
             remove_menu_page( 'users.php' );
             /** Contact form 7 **/

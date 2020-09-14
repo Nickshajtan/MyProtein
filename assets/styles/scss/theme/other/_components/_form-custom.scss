@@ -37,6 +37,7 @@ section.cf, .modal-form.cf{
           .el_size,
           span {
             font-size: $middler;
+            font-size: inherit;
             font-weight: bold;
             line-height: 1.4;
 
@@ -50,6 +51,21 @@ section.cf, .modal-form.cf{
               font-size: $big;
               font-weight: bold;
               line-height: 58px;
+            }
+          }
+          
+          .title {
+            &,
+            * {
+              @include mq('phone', min) {
+                font-size: $middle;
+              }
+              @include mq('tablet', min) {
+                font-size: $big - 8px;
+              }
+              @include mq('laptop', min) {
+                font-size: $big;
+              }
             }
           }
         }

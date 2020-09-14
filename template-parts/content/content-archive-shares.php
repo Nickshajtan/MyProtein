@@ -20,7 +20,7 @@ $autor   = get_the_author_meta('display_name');
 $cats    = get_the_category(','); 
 $title   = wp_kses_post( get_the_title() );
 $content = ( $post_type !== 'product' ) ? wp_kses_post( get_the_content() ) : '';
-$content = apply_filters( 'the_content',  wp_trim_words( $content, 200, '...') );
+$content = apply_filters( 'the_content',  $content );
 
 if( !empty( $tags ) && !$settings ) {
   $text = $content;
@@ -65,7 +65,7 @@ if( function_exists('hcc_getPostViews') ) {
     <div class="row">
       <div class="col-12 post__data">
         <?php if( !empty( $type ) ) : ?>
-        <div class="w-100 d-flex justify-content-start post__data__type text-white">
+        <div class="d-inline post__data__type text-white">
            <?php echo $type; ?>
         </div>
         <?php endif;
@@ -90,9 +90,9 @@ if( function_exists('hcc_getPostViews') ) {
           if( !empty( $link ) && empty( $time ) ) : 
               $class = 'end';
           endif; ?>
-        <div class="w-100 post__data__addons d-flex justify-content-<?php echo $class; ?>">
+        <div class="w-100 post__data__addons d-flex align-items-center justify-content-<?php echo $class; ?>">
            <?php if( !empty( $time ) ) : ?>
-           <date class="text-white post__data__addons__time">
+           <date class="text-white post__data__addons__time d-flex align-items-center">
              <?php echo '<b>' . __('Годен до:', 'hcc') . '</b> ' . $time; ?>
            </date>
            <?php endif;
