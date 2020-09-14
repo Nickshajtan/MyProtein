@@ -29,22 +29,29 @@ do_action( 'woocommerce_before_single_product_summary' ); ?>
   
   <div class="col-12 col-md-6 col-xl-7 woo-product__data__additional">
     <div class="row">
+     <div class="col-12">
+       <?php wc_get_template( 'single-product/title.php' ); ?>
+     </div>
+     <div class="col-12">
+       <?php wc_get_template( 'single-product/price.php' ); ?>
+     </div>
       <?php
 		/**
 		 * Hook: woocommerce_single_product_summary.
 		 *
-		 * @hooked woocommerce_template_single_title - 5
-		 * @hooked woocommerce_template_single_rating - 10
-		 * @hooked woocommerce_template_single_price - 10
-		 * @hooked woocommerce_template_single_excerpt - 20
+		 * 
 		 * @hooked woocommerce_template_single_add_to_cart - 30
-		 * @hooked woocommerce_template_single_meta - 40
-		 * @hooked woocommerce_template_single_sharing - 50
 		 * @hooked WC_Structured_Data::generate_product_data() - 60
 		 */
-		do_action( 'woocommerce_single_product_summary' );
-		?>
+		do_action( 'woocommerce_single_product_summary' ); ?>
+        <div class="col-12">
+          <?php wc_get_template( 'single-product/rating.php' ); ?>
+        </div>
     </div>
+  </div>
+  
+  <div class="col-12 woo-product__data__meta">
+    <?php wc_get_template( 'single-product/meta.php' ); ?>
   </div>
   
   <div class="col-12 woo-product__data__main">
@@ -91,8 +98,3 @@ do_action( 'woocommerce_before_single_product_summary' ); ?>
     </div>
   <?php endif; ?>
 </div>
-
-
-
-
-

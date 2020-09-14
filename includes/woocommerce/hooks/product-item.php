@@ -10,6 +10,7 @@
 add_action( 'woocommerce_init', function() {
   remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
   
+  // Link wrapper
   add_action( 'woocommerce_before_shop_loop_item', function() {
     global $product;
     $id = $product->get_id();
@@ -25,6 +26,7 @@ add_action( 'woocommerce_init', function() {
   remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10 );
   remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
   
+  //Thumbnail
   add_action( 'woocommerce_before_shop_loop_item_title', function() {
     global $product;
     $id    = $product->get_id();
@@ -53,8 +55,13 @@ add_action( 'woocommerce_init', function() {
     echo '<figurecaption class="woo-shop__products__item__title d-block w-100">' . $title . '</figurecaption>';
   });
   
+  // Price
   add_filter( 'woocommerce_variable_price_html', 'hcc_variation_price', 20, 2 );
   function hcc_variation_price( $price, $product ) {
+      
+      if( is_product() ) {
+        return;
+      }
 
       $min_regular_price = $product->get_variation_regular_price( 'min', true );
       $min_sale_price    = $product->get_variation_sale_price( 'min', true );
@@ -77,6 +84,10 @@ add_action( 'woocommerce_init', function() {
   remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
  
   add_action('woocommerce_after_shop_loop_item_title', function() {
+    if( is_product() ) {
+        return;
+    }
+    
     global $product;
     $price         = $product->get_price();
     $price_text    = '<span class="price">' . str_replace( get_woocommerce_currency_symbol(), '', wc_price($price) ) . '</span> ' . get_woocommerce_currency_symbol();
@@ -115,6 +126,7 @@ add_action( 'woocommerce_init', function() {
     }
   });
   
+  // Button
   remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
   
   add_action('woocommerce_after_shop_loop_item', function() {
