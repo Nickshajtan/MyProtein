@@ -136,6 +136,8 @@ function hcc_remove_menus(){
             remove_menu_page( 'cptui_main_menu' );
             /** ACF groups menu page **/
             remove_menu_page( 'edit.php?post_type=acf-field-group' );
+            /** All in One export **/
+            remove_menu_page( 'ai1wm_export' );
         }
         if( is_user_logged_in() && !current_user_can('edit_pages') ){
             /** Comments **/
@@ -160,6 +162,8 @@ function hcc_remove_menus(){
           remove_submenu_page('plugins.php','plugin-editor.php'); 
           /** Media files options **/
           remove_submenu_page('options-general.php','options-media.php');
+          /** Sync DB **/
+          remove_submenu_page('tools.php', 'wp-sync-db');
       }
     }
 }

@@ -40,31 +40,31 @@ function hcc_isset_post_type( $type_name, $post_types_arr ) {
 
 add_action( 'init', 'hcc_cpt_manual_register' );
 function hcc_cpt_manual_register() {
-  function hcc_labels_helper( $type_name ) {
+  function hcc_labels_helper( $type_name, $main_name = null, $main_singular = null, $singular_name = null) {
       if( !is_string( $type_name ) || empty( $type_name ) ) {
         return false;
         exit;
       }
       
-      $singular_name = substr($type_name, 0, -1);
-      $main_name     = ucfirst($type_name);
-      $main_singular = ucfirst($singular_name);
+      $singular_name = ( !is_null($singular_name) ) ? (string) $singular_name : substr($type_name, 0, -1);
+      $main_name     = ( !is_null($main_name) )     ? (string) $main_name : ucfirst($type_name);
+      $main_singular = ( !is_null($main_singular) ) ? (string) $main_singular : ucfirst($singular_name);
     
       $labels = array(
                 "name" => __($main_name, "hcc"),
                 "singular_name" => __($main_singular, "hcc"),
                 "menu_name" => __($main_name, "hcc"),
-                "all_items" => __("All " . $type_name, "hcc"),
-                "add_new" => __("Add " . $singular_name, "hcc"),
-                "add_new_item" => __("Add " . $singular_name, "hcc"),
-                "edit" => __("Edit", "hcc"),
-                "edit_item" => __("Edit", "hcc"),
-                "new_item" => __("New " . $singular_name, "hcc"),
-                "view" => __("View", "hcc"),
-                "view_item" => __("View " . $singular_name, "hcc"),
-                "search_items" => __("Search " . $singular_name, "hcc"),
-                "not_found" => __("Not found", "hcc"),
-                "not_found_in_trash" => __("Not found", "hcc"),
+                "all_items" => __("Все " . $main_name, "hcc"),
+                "add_new" => __("Добавить " . $singular_name, "hcc"),
+                "add_new_item" => __("Добавить " . $singular_name, "hcc"),
+                "edit" => __("Редактировать", "hcc"),
+                "edit_item" => __("Редактировать", "hcc"),
+                "new_item" => __("Новый " . $singular_name, "hcc"),
+                "view" => __("Просмотр", "hcc"),
+                "view_item" => __("Просмотр " . $singular_name, "hcc"),
+                "search_items" => __("Искать " . $singular_name, "hcc"),
+                "not_found" => __("Не найдено", "hcc"),
+                "not_found_in_trash" => __("Не найдено", "hcc"),
        );
       
       return $labels;
@@ -75,8 +75,7 @@ function hcc_cpt_manual_register() {
   $type_name = 'shares';
   
   if( !post_type_exists( $type_name ) || !hcc_isset_post_type( $type_name, $post_types ) ) {
-        $labels = hcc_labels_helper( $type_name );
-
+        $labels = hcc_labels_helper( $type_name, 'Акции', 'Акция', 'акции');
         $args = array(
                 "labels" => $labels,
                 "description" => "",
@@ -106,7 +105,7 @@ function hcc_cpt_manual_register() {
   $type_name = 'reviews';  
   
   if( !post_type_exists( $type_name ) || !hcc_isset_post_type( $type_name, $post_types ) ) {
-        $labels = hcc_labels_helper( $type_name );
+        $labels = hcc_labels_helper( $type_name, 'Отзывы', 'Отзыв', 'отзыв' );
 
         $args = array(
                 "labels" => $labels,

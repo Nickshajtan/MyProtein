@@ -130,3 +130,46 @@ function hcc_user_tables_notices( $message ){
     }
     
 }
+
+/*
+* Delete user roles
+*
+*/
+add_action( 'load-themes.php', 'hcc_change_user_role' );
+function hcc_change_user_role(){
+  global $pagenow;
+  if ( 'themes.php' == $pagenow && isset( $_GET['activated'] ) ){
+    remove_role( 'subscriber' );
+  }
+  else {
+    add_role( 'subscriber', __('Subscriber'), array('read') );
+  }
+}
+
+/*
+* Add capability for user roles
+*
+*/
+add_action( 'load-themes.php', 'hcc_change_user_caps' );
+function hcc_change_user_caps(){
+  global $pagenow;
+  $editor       = get_role( 'editor' );
+  $shop_manager = get_role( 'shop_manager' );
+  
+  $option = function( $role ) {
+    if ( 'themes.php' == $pagenow && isset( $_GET['activated'] ) ){
+      $role->add_cap( 'wpseo_manage_options' );
+      $role->add_cap( 'manage_network' );
+      $role->add_cap( 'manage_sites' );
+    }
+    else {
+      $role->remove_cap( 'wpseo_manage_options' );
+      $role->remove_cap( 'manage_network' );
+      $role->remove_cap( 'manage_sites' );
+    }
+  };
+  
+  $option( $editor );
+  $option( $shop_manager );
+  
+}
