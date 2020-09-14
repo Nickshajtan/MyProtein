@@ -54,7 +54,7 @@ function hcc_woo_cats_register( $atts ) {
 }
 
 /*
- * Clone WOO category shortcode & change it
+ * Clone WOO products shortcode & change it
  * @return WOO shortcode | false
  *
  */
@@ -82,6 +82,43 @@ function hcc_woo_products_register( $atts ) {
   
   if( !empty( $ids ) ) {
     return do_shortcode('[products per_page="' . $params['per_page'] . '" columns="' . $params['columns'] . '" order="' . $params['order'] . '" orderby="' . $params['orderby'] . '" ids="' . $ids . '" ' . $user_param_str . ']');
+  }
+  else {
+    return false;
+  }
+  
+}
+
+/*
+ * Clone WOO related products shortcode & change it
+ * @return WOO shortcode | false
+ *
+ */
+add_shortcode('hcc_woo_related_products', 'hcc_woo_related_products_register');
+function hcc_woo_related_products_register( $atts ) {
+  global $wpdb;
+  
+  $params = shortcode_atts(array(
+      "per_page" => 3,
+      "columns"  => 3,
+      "column"   => 3,
+      "order"    => "ASC",
+      "orderby"  => "rand",
+   ), $atts );
+  
+  $user_param = array_diff( $atts, $params );
+  if( !empty( $user_param ) ) {
+    $user_param_str = '';
+    foreach( $user_param as $key => $value ) {
+      $user_param_str .= $key . '="' . $value . '" ';
+    }
+  }
+  
+  $sql = "SELECT * FROM {$wpdb->wc_product_meta_lookup} WHERE `min_price` is not null AND `stock_status` != 'outofstock' AND `min_price` > 0";
+  $ids = implode( ',', $wpdb->get_col($sql, 0) );
+  
+  if( !empty( $ids ) ) {
+    return do_shortcode('[related_products per_page="' . $params['per_page'] . '" columns="' . $params['columns'] . '" order="' . $params['order'] . '" orderby="' . $params['orderby'] . '" ids="' . $ids . '" ' . $user_param_str . ']');
   }
   else {
     return false;

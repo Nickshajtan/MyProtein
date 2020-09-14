@@ -7,7 +7,7 @@ function hcc_theme_add_options_page() {
 	add_theme_page(
 		__('Theme Options', 'hcc'),
 		__('Theme Options', 'hcc'),
-		'manage_options',
+		'edit_pages',
 		'hcc-theme-options',
 		'hcc_theme_options_page'
 	);

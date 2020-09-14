@@ -11,7 +11,7 @@ $columns = esc_attr( wc_get_loop_prop( 'columns' ) );
 $columns = ( !empty( $columns ) ) ? $columns : hcc_woocommerce_loop_columns();
 $columns = absint( $columns );
 
-if( !is_woocommerce() || is_shop() ) : 
+if( !is_woocommerce() || is_shop() || is_product() ) : 
   $class = $columns;
 else: 
   $class = $columns - 1;
