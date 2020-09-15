@@ -10,6 +10,33 @@
                          'aside product product';
     &.is-row {
       display: block;
+      
+      .woo-wrap__list__item {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        margin: 24px 0;
+        border-radius: 8px;
+        box-sizing: border-box;
+        border: 1px solid $helper-color;
+        
+        .product-price {
+          width: 50%;
+          padding: 0 30px;
+          height: auto;
+        }
+      }
+      
+      .woo-shop__products {
+        &__item__wrapper,
+        &__item__title {
+          width: 50%!important;
+          justify-content: flex-start;
+          align-items: flex-start;
+          height: auto;
+        }
+      }
     }
   }
   
@@ -26,17 +53,84 @@
   .products-aside {
     display: block;
     height: auto;
+    height: min-content;
     min-width: 30%;
-    grid-area: 'aside';
+    grid-area: aside;
     border-radius: 8px;
     box-sizing: border-box;
     border: 1px solid $helper-color;
     padding: 24px;
     text-align: left;
+    margin-bottom: 24px;
+    
+    &__col {
+      button:not(.button) {
+        &, 
+        &:hover,
+        &:focus {
+          width: 100%;
+          background: transparent;
+          border: none;
+          box-shadow: none;
+          outline: none;
+          text-align: left;
+          cursor: pointer;
+          padding-left: 0;
+          padding-right: 0;
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+        
+        &:after {
+          content: url(../img/icons/proto-arrow-bird.svg);
+          transition: .3s;
+        }
+        
+        &.collapsed {
+          &:after {
+            transform: rotate(180deg);
+          }
+        }
+      }
+      
+      .button {
+        margin: 62px auto;
+      }
+      
+      .widgettitle {
+        margin-bottom: 20px;
+        
+        &,
+        * {
+          @include font-source-sans( $middler, $white, $weight-middler, 1, $main-font);
+        }
+      }
+      
+      .widget {
+        padding: 0;
+        margin: 0;
+        margin-bottom: 30px;
+        padding-bottom: 14px;
+        
+        &.widget_layered_nav {
+          border-bottom: 1px solid $white;
+        }
+        
+        li {
+          margin-left: 12px;
+          
+          a {
+            @include font-source-sans( $regular - 4px, $white, $weight-light, 2, $main-font); 
+          }
+        }
+      }
+    }
   }
   
   .woo-shop__products__grid__item {
-    grid-area: 'product';
+    grid-area: product;
   }
 }
           

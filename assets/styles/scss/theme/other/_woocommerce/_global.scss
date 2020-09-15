@@ -1,3 +1,4 @@
+/**-- WOO global --**/
 .woocommerce {
   .hidden {
     visibility: hidden;
@@ -32,4 +33,35 @@
     font-weight: bold;
     color: $white;
   }
+  
+  .count {
+    color: $white;
+  }
+  
+  .woocommerce-info, 
+  .woocommerce-noreviews, 
+  p.no-comments {
+    background-color: transparent;
+  }
+  
+  .in-stock {
+    color: $helper-color;
+  }
+}
+
+/**-- Widgets --**/
+.widget {
+  margin: 0;
+}
+
+input[type="search"] {
+  background: transparent;
+  border: 1px solid $transparent;
+  outline: none;
+  box-shadow: none;
+  color: $white;
+  opacity: 1;  
+  transition: .3s;
+  
+  @include font-source-sans( $middler, $white, normal, 1, $main-font);
 }

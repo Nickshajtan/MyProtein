@@ -10,7 +10,7 @@ $block_subtitle = apply_filters( 'the_content', wp_kses_post( get_sub_field('blo
 $block_link     = get_sub_field('button', $post->ID);
 $block_image    = get_sub_field('image', $post->ID);
 $block_image    = ( is_array( $block_image ) ) ? esc_url( $block_image['url'] ) : esc_url( $block_image );
-$bg             = ( !wp_is_mobile() ) ? aq_resize( $block_image, 1920, 1100, true, true, true) : aq_resize( $block_image, 750, 800, true, true, true);
+$bg             = ( !wp_is_mobile() ) ? aq_resize( $block_image, 1920, 1500, true, true, true) : aq_resize( $block_image, 750, 800, true, true, true);
 $image          = ( !empty( $bg ) ) ? 'style="background-image: url(' . $bg . ');"' : '';
 $arrow          = ( get_sub_field('display_arrow') === 'show' ) ? true : false;
 $icon_path      = '/assets/public/img/icons/proto-arrow.svg';
@@ -52,6 +52,9 @@ if( ( !empty( $block_title ) && is_array( $block_title ) ) || !empty( $block_ima
     </div>
     
     <?php if( $arrow ) : ?>
+      <a href="#" class="arrow-to-next flex-banner-text-block__to-next">
+          <img src="<?php echo $icon_src; ?>" alt="">
+      </a>
     <?php endif; ?>
   </div>
 </section>

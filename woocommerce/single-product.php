@@ -43,14 +43,14 @@ if ( post_password_required() ) {
    </div>
 </section>
 
-<?php do_action( 'woocommerce_after_single_product' ); ?>
-
-  <?php if (get_field('flexible_content', $id)) :
+<?php if (get_field('flexible_content', $id)) :
       while (has_sub_field('flexible_content', $id)) :
                      $row_layout_slug = get_row_layout();
                      get_template_part('template-parts/flexible', $row_layout_slug);
       endwhile;
-  endif; ?>
+  endif; 
+
+do_action( 'woocommerce_after_single_product' ); ?>
 
 <?php endwhile;
 else :

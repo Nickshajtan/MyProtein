@@ -56,7 +56,8 @@ if( $has_logo || $has_nav ) : ?>
                               $nav_args = array(
                                   'theme_location'	=> 'footer',
                                   'menu_id'			=> 'footer-menu',
-                                  'container'		    => '',
+                                  'container'		=> '',
+                                  'depth'           => 1,
                               );
 
                               if( class_exists('\Core\HCC_Nav_Walker') && isset( $nav_args ) ) :

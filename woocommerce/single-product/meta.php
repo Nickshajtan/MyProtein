@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $product;
 ?>
-<small class="product_meta col-12">
+<small class="product_meta col-12 p-0">
 
 	<?php do_action( 'woocommerce_product_meta_start' ); ?>
 

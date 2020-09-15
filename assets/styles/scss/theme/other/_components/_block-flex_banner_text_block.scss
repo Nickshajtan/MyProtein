@@ -5,6 +5,7 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: top center;
   padding: 0 15px;
   
   @include mq('phone', min) {
@@ -40,7 +41,7 @@
   }
   
   &.full-height-block {
-    background-attachment: fixed;
+    //background-attachment: fixed;
     background-color: rgba(0, 0, 0, .5);
     background-blend-mode: overlay;
     min-height: 100vh;
@@ -86,6 +87,16 @@
           font-size: $middle - 3px;
         }
       }
+    }
+  }
+  
+  &__to-next {
+    position: absolute;
+    bottom: 50px;
+    
+    &:focus,
+    &:hover {
+      filter: drop-shadow(16px 10px 1px $helper-color);
     }
   }
 }

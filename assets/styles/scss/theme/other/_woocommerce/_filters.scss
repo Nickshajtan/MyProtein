@@ -7,3 +7,46 @@
   
   @include font-source-sans( $middler, $white, bold, 1, $main-font);  
 }
+
+.price_get_label {
+  @include font-source-sans( $regular, $white, normal, 1, $main-font);
+}
+
+.price_label {
+  color: $white;
+  width: 100%;
+  text-align: center;
+  opacity: .7;
+}
+
+.price_slider_wrapper {
+  width: 97%;  
+}
+
+.price_slider {
+  height: 7px!important;
+  background: #EDEDED!important;
+  border-radius: 3px;
+  margin: 27px 0 40px 0;
+  
+  &.ui-slider {
+    .ui-slider-range {
+      height: 7px;
+      background: $helper-color;
+    }
+    
+    .ui-slider-handle {
+      height: 24px;
+      width: 24px;
+      border-radius: 25px;
+      background: $helper-color;
+      margin-top: -8px;
+    }
+  }  
+}
+
+.widget_product_search {
+  button {
+    display: none;
+  }
+}

@@ -25,7 +25,7 @@ if( $has_socials || $has_woo || $sidebars ) : ?>
                    <div class="container">
                      <div class="row d-flex align-items-center justify-content-<?php echo $horisontal; ?>">
                        <?php if( is_array( $socials ) && !is_null( $socials ) ) : ?>
-                         <div class="col-12 col-xl-3 socials d-flex order-3 order-xl-1">
+                         <div class="col-12 col-xl-3 socials d-flex order-3 order-xl-1 pl-0">
                             <?php foreach( $socials as $social ) : 
                                 $image = wp_get_attachment_image( $social['icon'], 'full', false, array('class' => 'svg-icon'));
                                 $href  = ( !empty( $social['link'] ) ) ? esc_url( wp_kses_post( trim( $social['link'] ) ) ) : '#';
@@ -39,21 +39,21 @@ if( $has_socials || $has_woo || $sidebars ) : ?>
                          </div>
                        <?php endif;
                        if( $has_woo && !$sidebars ) : ?>
-                         <div class="col-12 col-xl-5 d-flex order-2 order-xl-2 offset-xl-1 justify-content-end search-block">
+                         <div class="col-12 col-xl-5 d-flex order-2 order-xl-2 offset-xl-1 justify-content-end align-items-center search-block">
                             <?php the_widget('WC_Widget_Product_Search'); ?>
                          </div>
-                         <div class="col-12 col-xl-3 d-flex order-1 order-xl-3 justify-content-end cart-block">
+                         <div class="col-12 col-xl-3 d-flex order-1 order-xl-3 justify-content-end align-items-center  cart-block">
                             <?php the_widget('WC_Widget_Cart'); ?>
                          </div>
                        <?php endif;
                        if( !$has_woo && $sidebars ) : 
                           if( is_active_sidebar( 'Header-1' ) ) : ?>
-                         <div class="col-12 col-xl-5 d-flex order-2 order-xl-2 offset-xl-1 justify-content-end sidebar-block">
+                         <div class="col-12 col-xl-5 d-flex order-2 order-xl-2 offset-xl-1 align-items-center justify-content-end sidebar-block">
                             <?php dynamic_sidebar( 'Header-1' ); ?>
                          </div>
                          <?php endif;
                          if( is_active_sidebar( 'Header-2' ) ) : ?>
-                         <div class="col-12 col-xl-3 d-flex order-1 order-xl-3 justify-content-end sidebar-block">
+                         <div class="col-12 col-xl-3 d-flex order-1 order-xl-3 align-items-center justify-content-end sidebar-block">
                             <?php dynamic_sidebar( 'Header-2' ); ?>
                          </div>
                          <?php endif;

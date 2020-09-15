@@ -48,7 +48,7 @@ function hcc_add_footer_scripts() {
     ) );
     wp_enqueue_script( 'theme-js' );
   
-    if( function_exists('is_product') && is_product() ) {
+    if( function_exists('is_woocommerce') && is_woocommerce() ) {
       /*** If CDN available ***/
       $popper_url = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js';
       $response = wp_remote_get(wp_normalize_path($popper_url));

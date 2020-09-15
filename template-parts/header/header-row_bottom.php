@@ -18,6 +18,7 @@ if( $isset_logo || $has_nav ) : ?>
                                         'theme_location'	=> 'header',
                                         'menu_id'			=> 'header-menu',
                                         'container'		    => '',
+                                        'depth'             => 3,
                                     );
                                     if( class_exists('\Core\HCC_Nav_Walker') && isset( $nav_args ) ) :
                                       $nav_args['walker'] = new \Core\HCC_Nav_Walker();

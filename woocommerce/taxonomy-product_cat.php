@@ -193,6 +193,14 @@ endif;
           </div>
         
     <?php endif; ?>
+<?php
+/**
+ * Hook: woocommerce_after_main_content.
+ *
+ * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+ */
+do_action( 'woocommerce_after_main_content' );
+get_footer(); ?>
 <script>
 jQuery('.grid').on('click', function() {
   jQuery('.woo-shop__products__grid').removeClass('is-row').addClass('d-grid');
@@ -203,13 +211,26 @@ jQuery('.list').on('click', function() {
   jQuery('.woo-shop__products__grid').addClass('is-row').removeClass('d-grid');
   jQuery('.woo-wrap__list').addClass('is-row').removeClass('d-grid');
   jQuery('.woo-wrap__list_products').addClass('is-row').removeClass('d-grid');
+  jQuery('.collapse').removeClass('show');
+});
+
+jQuery(document).ready(function($){
+  WrapWidgets( $('.widget').filter('.widget_layered_nav') );
+  WrapWidgets( $('.widget').filter('.widget_price_filter') );
+  function WrapWidgets(param) {
+    param.each(function(){
+      let title = $(this).find('.widgettitle');
+      let name  = $(this).attr('id'); 
+      let el    = ( title.siblings('form').length === 0 ) ? $(this).find('ul') : $(this).find('form');
+      
+      title.wrap('<button data-toggle="collapse" data-target="#collapse-' + name + '" aria-expanded="true" aria-controls="collapse-' + name + '"/>');
+      
+      el.attr('id', 'collapse-' + name);
+      el.attr('data-parent', '#' + name);
+      el.attr('aria-labelledby', 'heading-' + name);
+      el.addClass('collapse show');
+      
+    });
+  }
 });
 </script>
-<?php
-/**
- * Hook: woocommerce_after_main_content.
- *
- * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
- */
-do_action( 'woocommerce_after_main_content' );
-get_footer(); ?>
